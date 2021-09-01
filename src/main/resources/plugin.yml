@@ -1,0 +1,7 @@
+name: NikomaruEC
+version: '${project.version}'
+main: dev.nikomaru.nikomaruec.NikomaruEC
+api-version: 1.17
+commands:
+  ne:
+    description: Display EC GUI
