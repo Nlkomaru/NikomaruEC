@@ -9,11 +9,10 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-public class BuyGUI {
+public class SellChestGUI {
+    public Inventory Sell(Player p)    {
 
-    public Inventory Buy(Player p)    {
-
-        Inventory gui = Bukkit.createInventory (p, 54, ChatColor.AQUA + "Buy GUI");
+        Inventory gui = Bukkit.createInventory (p, 54, ChatColor.RED + "Sell GUI");
 
         //Menu Options(Items)
 
