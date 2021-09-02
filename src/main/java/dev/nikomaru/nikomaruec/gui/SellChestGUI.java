@@ -1,4 +1,4 @@
-package dev.nikomaru.nikomaruec.GUI;
+package dev.nikomaru.nikomaruec.gui;
 
 import java.util.ArrayList;
 import org.bukkit.Bukkit;
@@ -9,11 +9,11 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-public class BuyChestGUI {
+public class SellChestGUI {
+    //販売用のGUIを作成する処理をする予定
+    public Inventory Sell (Player p) {
 
-    public Inventory Buy(Player p)    {
-
-        Inventory gui = Bukkit.createInventory (p, 54, ChatColor.AQUA + "Buy GUI");
+        Inventory gui = Bukkit.createInventory (p, 9, ChatColor.RED + "Sell GUI");
 
         //Menu Options(Items)
 
@@ -46,6 +46,5 @@ public class BuyChestGUI {
 
         return gui;
     }
-
 
 }
