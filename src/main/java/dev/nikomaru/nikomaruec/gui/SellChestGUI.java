@@ -17,32 +17,38 @@ public class SellChestGUI {
 
         //Menu Options(Items)
 
-        ItemStack suicide = new ItemStack (Material.TNT); //Kills the player
+        ItemStack glass= new ItemStack (Material.GRAY_STAINED_GLASS_PANE); //Kills the player
 
-        ItemStack feed = new ItemStack (Material.BREAD); //Fills the hunger bar
+        ItemStack accept = new ItemStack (Material.LIME_WOOL); //Fills the hunger bar
 
-        ItemStack sword = new ItemStack (Material.DIAMOND_SWORD); //Gives the player a weapon
+        ItemStack close = new ItemStack (Material.BARRIER); //Gives the player a weapon
 
         //Edit the items
 
-        ItemMeta suicide_meta = suicide.getItemMeta ();
-        ArrayList<String> suicide_lore = new ArrayList<> ();
-        suicide_lore.add (ChatColor.GOLD + "Kill yourself. ;)");
-        suicide_meta.setLore (suicide_lore);
+        ItemMeta buy_meta = glass.getItemMeta ();
+        ArrayList<String> glass_lore = new ArrayList<> ();
+        glass_lore.add (ChatColor.BLUE + "何もないところに商品をセットしてください");
+        glass.setLore (glass_lore);
 
-        ItemMeta feed_meta = feed.getItemMeta ();
-        ArrayList<String> feed_lore = new ArrayList<> ();
-        feed_lore.add (ChatColor.GOLD + "Hunger no more.");
-        feed_meta.setLore (feed_lore);
+        ItemMeta accept_meta = accept.getItemMeta ();
+        ArrayList<String> accept_lore = new ArrayList<> ();
+        accept_lore.add (ChatColor.RED + "決定");
+        accept_meta.setLore (accept_lore);
 
-        ItemMeta sword_meta = sword.getItemMeta ();
-        ArrayList<String> sword_lore = new ArrayList<> ();
-        sword_lore.add (ChatColor.GOLD + "Get a sword.");
-        sword_meta.setLore (sword_lore);
+        ItemMeta close_meta = close.getItemMeta ();
+        ArrayList<String> close_lore = new ArrayList<> ();
+        close_lore.add (ChatColor.GOLD + "閉じる");
+        close_meta.setLore (close_lore);
 
-        ItemStack[] menu_items = { suicide, feed, sword };
+        gui.setItem (0, glass);
+        gui.setItem (1, glass);
+        gui.setItem (2, glass);
+        gui.setItem (3, glass);
+        gui.setItem (5, glass);
+        gui.setItem (6, glass);
+        gui.setItem (7, accept);
+        gui.setItem (8, close);
 
-        gui.setContents (menu_items);
 
         return gui;
     }
