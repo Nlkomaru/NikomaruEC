@@ -15,7 +15,7 @@ public class SellClickEvent implements Listener {
 
         Player p = (Player) e.getWhoClicked ();
         if (e.getView ().getTitle ().equalsIgnoreCase (ChatColor.RED + "Sell GUI")
-                && e.getClickedInventory ().getType () == InventoryType.CHEST) {
+                && Objects.requireNonNull (e.getClickedInventory ()).getType () == InventoryType.CHEST) {
 
             int s = e.getSlot ();
 
@@ -30,7 +30,7 @@ public class SellClickEvent implements Listener {
                     if (item != null) {
                         p.closeInventory ();
                         System.out.println (item);
-                        ItemStack sell_item = item;
+                        ItemStack stock = item;
                     }
                     e.setCancelled (true);
                 }

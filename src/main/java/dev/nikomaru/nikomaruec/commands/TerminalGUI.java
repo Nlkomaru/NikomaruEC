@@ -1,6 +1,6 @@
 package dev.nikomaru.nikomaruec.commands;
 
-import dev.nikomaru.nikomaruec.gui.TerminalChestGUI;
+import dev.nikomaru.nikomaruec.gui.ec.TerminalChestGUI;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;

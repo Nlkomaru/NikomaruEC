@@ -1,4 +1,4 @@
-package dev.nikomaru.nikomaruec.gui;
+package dev.nikomaru.nikomaruec.gui.ec;
 
 import java.util.ArrayList;
 import org.bukkit.Bukkit;
@@ -27,7 +27,7 @@ public class TerminalChestGUI {
         ItemMeta buy_meta = buy.getItemMeta ();
         ArrayList<String> buy_lore = new ArrayList<> ();
         buy_lore.add (ChatColor.BLUE + "物品購入用");
-        buy.setLore (buy_lore);
+        buy_meta.setLore (buy_lore);
 
         ItemMeta sell_meta = sell.getItemMeta ();
         ArrayList<String> sell_lore = new ArrayList<> ();

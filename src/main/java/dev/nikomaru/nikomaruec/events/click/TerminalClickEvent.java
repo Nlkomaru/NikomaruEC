@@ -1,7 +1,8 @@
 package dev.nikomaru.nikomaruec.events.click;
 
-import dev.nikomaru.nikomaruec.gui.BuyChestGUI;
-import dev.nikomaru.nikomaruec.gui.SellChestGUI;
+import dev.nikomaru.nikomaruec.gui.ec.BuyChestGUI;
+import dev.nikomaru.nikomaruec.gui.ec.SellChestGUI;
+import java.util.Objects;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -15,11 +16,11 @@ public class TerminalClickEvent implements Listener {
 
         Player p = (Player) e.getWhoClicked ();
         if (e.getView ().getTitle ().equalsIgnoreCase (ChatColor.AQUA + "Custom GUI")
-                && e.getClickedInventory ().getType () == InventoryType.CHEST) {
+                && Objects.requireNonNull (e.getClickedInventory ()).getType () == InventoryType.CHEST) {
 
             if (e.getSlot () == 0) {
                 BuyChestGUI buy = new BuyChestGUI ();
-                p.openInventory (buy.Buy (p));
+                p.openInventory (buy.Buy (p,0));
             } else if (e.getSlot () == 1) {
                 SellChestGUI sell = new SellChestGUI ();
                 p.openInventory (sell.Sell (p));

@@ -1,4 +1,4 @@
-package dev.nikomaru.nikomaruec.gui;
+package dev.nikomaru.nikomaruec.gui.ec;
 
 import java.util.ArrayList;
 import org.bukkit.Bukkit;
@@ -25,10 +25,10 @@ public class SellChestGUI {
 
         //Edit the items
 
-        ItemMeta buy_meta = glass.getItemMeta ();
+        ItemMeta glass_meta = glass.getItemMeta ();
         ArrayList<String> glass_lore = new ArrayList<> ();
         glass_lore.add (ChatColor.BLUE + "何もないところに商品をセットしてください");
-        glass.setLore (glass_lore);
+        glass_meta.setLore (glass_lore);
 
         ItemMeta accept_meta = accept.getItemMeta ();
         ArrayList<String> accept_lore = new ArrayList<> ();

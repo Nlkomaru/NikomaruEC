@@ -1,5 +1,6 @@
 package dev.nikomaru.nikomaruec.events.click;
 
+import java.util.Objects;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -13,8 +14,7 @@ public class BuyClickEvent implements Listener {
 
         Player p = (Player) e.getWhoClicked ();
         if (e.getView ().getTitle ().equalsIgnoreCase (ChatColor.RED + "Buy GUI")
-                && e.getClickedInventory ().getType () == InventoryType.CHEST) {
-
+                && Objects.requireNonNull (e.getClickedInventory ()).getType () == InventoryType.CHEST) {
             int i = e.getSlot ();
 
             e.setCancelled (true);
