@@ -14,11 +14,15 @@ public class buyClickEvent implements Listener {
 	public void clickEvent(InventoryClickEvent e) {
 		
 		Player p = (Player) e.getWhoClicked();
-		if (e.getView().getTitle().equalsIgnoreCase(ChatColor.RED + "Buy GUI")
-			&& (e.getClickedInventory()).getType() == InventoryType.CHEST) {
-			int i = e.getSlot();
-			
-			e.setCancelled(true);
+		if (e.getView().getTitle().equalsIgnoreCase(ChatColor.RED + "Buy GUI")) {
+			if (e.getClickedInventory() != null) {
+				InventoryType inv = e.getClickedInventory().getType();
+				if (inv == InventoryType.CHEST) {
+					int i = e.getSlot();
+					
+					e.setCancelled(true);
+				}
+			}
 		}
 	}
 }
