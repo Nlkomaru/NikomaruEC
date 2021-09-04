@@ -9,7 +9,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-public class SellChestGUI {
+public class sellChestGUI {
     //販売用のGUIを作成する処理をする予定
     public Inventory Sell (Player p) {
 
@@ -17,7 +17,7 @@ public class SellChestGUI {
 
         //Menu Options(Items)
 
-        ItemStack glass= new ItemStack (Material.GRAY_STAINED_GLASS_PANE); //Kills the player
+        ItemStack glass = new ItemStack (Material.GRAY_STAINED_GLASS_PANE); //Kills the player
 
         ItemStack accept = new ItemStack (Material.LIME_WOOL); //Fills the hunger bar
 
@@ -48,7 +48,6 @@ public class SellChestGUI {
         gui.setItem (6, glass);
         gui.setItem (7, accept);
         gui.setItem (8, close);
-
 
         return gui;
     }

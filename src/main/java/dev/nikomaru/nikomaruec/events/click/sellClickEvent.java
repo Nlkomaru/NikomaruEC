@@ -1,5 +1,7 @@
 package dev.nikomaru.nikomaruec.events.click;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -9,7 +11,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.ItemStack;
 
-public class SellClickEvent implements Listener {
+public class sellClickEvent implements Listener {
     //販売用のアイテムがクリックされたら販売用GUIに飛ぶ処理をする予定
     @EventHandler public void clickEvent (InventoryClickEvent e) {
 
@@ -29,8 +31,10 @@ public class SellClickEvent implements Listener {
                     ItemStack item = Objects.requireNonNull (e.getClickedInventory ()).getItem (4);
                     if (item != null) {
                         p.closeInventory ();
-                        System.out.println (item);
-                        ItemStack stock = item;
+                        List<Object> data = new ArrayList<> ();
+                        data.add (item);
+                        //NikomaruECのYoutubeでもみろ
+
                     }
                     e.setCancelled (true);
                 }

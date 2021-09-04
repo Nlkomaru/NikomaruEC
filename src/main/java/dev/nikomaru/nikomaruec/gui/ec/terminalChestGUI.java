@@ -9,7 +9,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-public class TerminalChestGUI {
+public class terminalChestGUI {
     //アクセス用のGUIを作成する処理をする予定
     public Inventory Terminal (Player p) {
         Inventory gui = Bukkit.createInventory (p, 9, ChatColor.AQUA + "Custom GUI");

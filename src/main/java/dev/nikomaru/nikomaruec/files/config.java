@@ -1,5 +1,5 @@
 package dev.nikomaru.nikomaruec.files;
 
-public class Config {
+public class config {
     //コンフィグから値を取得する処理をする予定
 }

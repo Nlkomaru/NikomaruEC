@@ -8,7 +8,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType;
 
-public class BuyClickEvent implements Listener {
+public class buyClickEvent implements Listener {
     //購入用のアイテムがクリックされたら購入用GUIに飛ぶ処理をする予定
     @EventHandler public void clickEvent (InventoryClickEvent e) {
 

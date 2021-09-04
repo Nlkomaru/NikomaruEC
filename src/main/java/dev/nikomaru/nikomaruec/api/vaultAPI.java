@@ -5,7 +5,7 @@ import static org.bukkit.Bukkit.getServer;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.plugin.RegisteredServiceProvider;
 
-public class VaultAPI {
+public class vaultAPI {
 
     private static Economy econ = null;
 
