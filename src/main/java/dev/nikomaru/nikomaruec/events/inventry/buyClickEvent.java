@@ -1,4 +1,4 @@
-package dev.nikomaru.nikomaruec.events.click;
+package dev.nikomaru.nikomaruec.events.inventry;
 
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -14,7 +14,7 @@ public class buyClickEvent implements Listener {
 	public void clickEvent(InventoryClickEvent e) {
 		
 		Player p = (Player) e.getWhoClicked();
-		if (e.getView().getTitle().equalsIgnoreCase(ChatColor.RED + "Buy GUI")) {
+		if (e.getView().getTitle().equalsIgnoreCase(ChatColor.GREEN + "物品購入所")) {
 			if (e.getClickedInventory() != null) {
 				InventoryType inv = e.getClickedInventory().getType();
 				if (inv == InventoryType.CHEST) {

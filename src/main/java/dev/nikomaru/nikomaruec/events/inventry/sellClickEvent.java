@@ -1,4 +1,4 @@
-package dev.nikomaru.nikomaruec.events.click;
+package dev.nikomaru.nikomaruec.events.inventry;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +18,7 @@ public class sellClickEvent implements Listener {
 	public void clickEvent(InventoryClickEvent e) {
 		
 		Player p = (Player) e.getWhoClicked();
-		if (e.getView().getTitle().equalsIgnoreCase(ChatColor.RED + "Sell GUI")) {
+		if (e.getView().getTitle().equalsIgnoreCase(ChatColor.LIGHT_PURPLE + "物品販売所")) {
 			if (e.getClickedInventory() != null) {
 				InventoryType inv = e.getClickedInventory().getType();
 				if (inv == InventoryType.CHEST) {
@@ -32,16 +32,17 @@ public class sellClickEvent implements Listener {
 						} else if (s == 7) {
 							
 							ItemStack item = Objects.requireNonNull(e.getClickedInventory())
-								.getItem(4);
+								.getItem(3);
+							e.getClickedInventory().clear(3);
 							if (item != null) {
 								p.closeInventory();
 								List<Object> data = new ArrayList<>();
 								data.add(item);
-								//NikomaruECのYoutubeでもみろ
+								//NikomaruECのYoutubeでもみろ https://youtu.be/wcmgKYkhMB0
 								
 							}
-							e.setCancelled(true);
 						}
+						e.setCancelled(true);
 					}
 					
 				}
