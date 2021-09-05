@@ -1,4 +1,4 @@
-package dev.nikomaru.nikomaruec.events.inventry;
+package dev.nikomaru.nikomaruec.events;
 
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -13,8 +13,6 @@ public class sellCloseEvent implements Listener {
 	public void InventoryCloseEvent(InventoryCloseEvent e) {
 		Player p = (Player) e.getPlayer();
 		if (e.getView().getTitle().equalsIgnoreCase(ChatColor.LIGHT_PURPLE + "物品販売所")) {
-			
-			p.sendMessage("2");
 			
 			if (e.getInventory() != null) {
 				InventoryType inv = e.getInventory().getType();

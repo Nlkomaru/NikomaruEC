@@ -2,10 +2,10 @@ package dev.nikomaru.nikomaruec;
 
 import dev.nikomaru.nikomaruec.api.vaultAPI;
 import dev.nikomaru.nikomaruec.commands.terminalGUI;
-import dev.nikomaru.nikomaruec.events.inventry.buyClickEvent;
-import dev.nikomaru.nikomaruec.events.inventry.sellClickEvent;
-import dev.nikomaru.nikomaruec.events.inventry.sellCloseEvent;
-import dev.nikomaru.nikomaruec.events.inventry.terminalClickEvent;
+import dev.nikomaru.nikomaruec.events.buyClickEvent;
+import dev.nikomaru.nikomaruec.events.sellClickEvent;
+import dev.nikomaru.nikomaruec.events.sellCloseEvent;
+import dev.nikomaru.nikomaruec.events.terminalClickEvent;
 import java.util.Objects;
 import org.bukkit.plugin.java.JavaPlugin;
 

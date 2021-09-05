@@ -1,4 +1,4 @@
-package dev.nikomaru.nikomaruec.events.inventry;
+package dev.nikomaru.nikomaruec.events;
 
 import dev.nikomaru.nikomaruec.gui.ec.buyChestGUI;
 import dev.nikomaru.nikomaruec.gui.ec.sellChestGUI;
