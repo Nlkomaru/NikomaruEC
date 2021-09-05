@@ -7,9 +7,12 @@ import dev.nikomaru.nikomaruec.events.sellClickEvent;
 import dev.nikomaru.nikomaruec.events.sellCloseEvent;
 import dev.nikomaru.nikomaruec.events.terminalClickEvent;
 import java.util.Objects;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class NikomaruEC extends JavaPlugin {
+	
+	private static Plugin plugin;
 	
 	@Override
 	public void onEnable() {
@@ -19,7 +22,7 @@ public final class NikomaruEC extends JavaPlugin {
 			getServer().getPluginManager().disablePlugin(this);
 			return;
 		}
-		
+		plugin = this;
 		Objects.requireNonNull(getCommand("ne")).setExecutor(new terminalGUI());
 		getServer().getPluginManager().registerEvents(new terminalClickEvent(), this);
 		getServer().getPluginManager().registerEvents(new buyClickEvent(), this);
@@ -31,4 +34,9 @@ public final class NikomaruEC extends JavaPlugin {
 	public void onDisable() {
 		// Plugin shutdown logic
 	}
+	
+	public static Plugin getPlugin() {
+		return plugin;
+	}
 }
+

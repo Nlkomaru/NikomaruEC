@@ -1,11 +1,10 @@
 package dev.nikomaru.nikomaruec.events;
 
 import dev.nikomaru.nikomaruec.NikomaruEC;
-import dev.nikomaru.nikomaruec.utils.addStockData;
-import dev.nikomaru.nikomaruec.utils.deskription.ConvPromptDescription;
 import dev.nikomaru.nikomaruec.utils.price.ConvPromptPrice;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Objects;
 import org.bukkit.ChatColor;
 import org.bukkit.conversations.Conversation;
@@ -16,10 +15,19 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.scheduler.BukkitRunnable;
 
 public class sellClickEvent implements Listener {
 	
 	NikomaruEC plugin;
+	public static List<Object> data = new ArrayList<>();
+	public ItemStack item;
+	
+	public static List<Object> getdata() {
+		return data;
+	}
+	
+	
 	
 	//販売用のアイテムがクリックされたら販売用GUIに飛ぶ処理をする予定
 	@EventHandler
@@ -39,46 +47,33 @@ public class sellClickEvent implements Listener {
 							
 						} else if (s == 7) {
 							
-							ItemStack item = Objects.requireNonNull(e.getClickedInventory())
+							item = Objects.requireNonNull(e.getClickedInventory())
 								.getItem(3);
 							e.getClickedInventory().clear(3);
 							if (item != null) {
 								pl.closeInventory();
-								List<Object> data = new ArrayList<>();
+								data.clear();
+								data.add(item);
 								
-								addStockData setItem = new addStockData();
-								setItem.addData(item);
-								setItem.addCounter(0);
-								data.add(addStockData.getData());
 								
-								if (addStockData.getCounter() == 0) {
-									
-									System.out.println(data);
-									System.out.println(data.size());
-									
-									ConversationFactory cf = new ConversationFactory(plugin);
-									Conversation conv1 = cf.withFirstPrompt(new ConvPromptPrice())
-										.withLocalEcho(true).buildConversation((pl));
-									conv1.begin();
-									
-									data.add(addStockData.getData());
-									if (addStockData.getCounter() == 1) {
+								ConversationFactory cf = new ConversationFactory(plugin);
+								Conversation conv1 = cf.withFirstPrompt(new ConvPromptPrice())
+									.withLocalEcho(true).buildConversation((pl));
+								conv1.begin();
+								
+								
+									new BukkitRunnable() {
 										
-										System.out.println(data);
-										System.out.println(data.size());
-										
-										Conversation conv2 = cf.withFirstPrompt(
-												new ConvPromptDescription()).withLocalEcho(true)
-											.buildConversation((pl));
-										conv2.begin();
-										data.add(addStockData.getData());
-										if (addStockData.getCounter() == 2) {
-											
-											System.out.println(data);
-											System.out.println(data.size());
+										@Override
+										public void run() {
+											conv1.abandon();
+											if(data.size() <= 1) {
+												pl.sendMessage("入力がないため処理を中断しました");
+											}
 										}
-									}
-								}
+									}.runTaskLater(NikomaruEC.getPlugin(), 20 * 5);
+								
+								
 							}
 						}
 						e.setCancelled(true);
@@ -87,4 +82,5 @@ public class sellClickEvent implements Listener {
 			}
 		}
 	}
+	
 }
