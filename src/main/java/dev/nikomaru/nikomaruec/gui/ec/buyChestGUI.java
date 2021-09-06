@@ -3,7 +3,9 @@ package dev.nikomaru.nikomaruec.gui.ec;
 import dev.nikomaru.nikomaruec.utils.makeList;
 import java.text.SimpleDateFormat;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 import org.bukkit.Bukkit;
@@ -43,25 +45,33 @@ public class buyChestGUI {
 		
 			if (i < size) {
 				
+				
 				List<Object> stock = makeList.getStocks().get(i);
 				
+				ZonedDateTime time = ZonedDateTime.now();
+				
+				if(time.isBefore((ZonedDateTime) stock.get(4))) {
 					
 					Player Seller = (Player) Bukkit.getOfflinePlayer((UUID) stock.get(1));
-//					SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH");
-//					String limitTime = format.format(stock.get(4));
+					
+					DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
+					String limitTime = format.format((ZonedDateTime) stock.get(4));
 					
 					// {itemStack} {player uuid} {price} {description} {time}
-				
 					
 					ItemStack merchandise = (ItemStack) stock.get(0);
 					ItemMeta merchandise_meta = merchandise.getItemMeta();
 					ArrayList<String> merchandise_lore = new ArrayList<>();
 					
-					
-					merchandise_lore.add(ChatColor.YELLOW + "出品者: " +(ChatColor.WHITE + Seller.getName()));
-					merchandise_lore.add(ChatColor.YELLOW + "金額  : " + (ChatColor.WHITE + String.valueOf(stock.get(2))));
-//					merchandise_lore.add(ChatColor.YELLOW + "期限  : " + (ChatColor.WHITE + limitTime));
-					merchandise_lore.add(ChatColor.YELLOW + "説明  : " + (ChatColor.WHITE + (String)stock.get(3)));
+					merchandise_lore.add(
+						ChatColor.YELLOW + "出品者 : " + (ChatColor.WHITE + Seller.getName()));
+					merchandise_lore.add(
+						ChatColor.YELLOW + "金額   : " + (ChatColor.WHITE + String.valueOf(
+							stock.get(2))));
+					merchandise_lore.add(
+						ChatColor.YELLOW + "期限   : " + (ChatColor.WHITE + limitTime));
+					merchandise_lore.add(
+						ChatColor.YELLOW + "説明   : " + (ChatColor.WHITE + (String) stock.get(3)));
 					
 					merchandise_meta.setLore(merchandise_lore);
 					merchandise.setItemMeta(merchandise_meta);
@@ -69,7 +79,9 @@ public class buyChestGUI {
 					gui.setItem(i, merchandise);
 					
 					i++;
-				
+				}else{
+					makeList.getStocks().get(i);
+				}
 			} else {
 				gui.setItem(i, glass);
 				i++;
