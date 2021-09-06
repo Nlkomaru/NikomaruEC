@@ -23,35 +23,36 @@ public class ConvPromptPrice extends StringPrompt {
 	public Prompt acceptInput(ConversationContext con, String price) {
 		if (p1.matcher(price).matches()) {
 			
-			int pr = Integer.parseInt(price);
-			
-			
-			
+			long pr = Long.parseLong(price);
 			
 			Player p = (Player) con.getForWhom();
-			sellClickEvent.getdata().add(pr);
-			ConversationFactory cf = new ConversationFactory(plugin);
-			Conversation conv2 = cf.withFirstPrompt(new ConvPromptDescription()).withLocalEcho(true)
-				.buildConversation((p));
-			conv2.begin();
 			
-			new BukkitRunnable() {
+			if (p.getUniqueId() == sellClickEvent.getdata().get(1)) {
+				sellClickEvent.getdata().add(pr);
+				ConversationFactory cf = new ConversationFactory(plugin);
+				Conversation conv2 = cf.withFirstPrompt(new ConvPromptDescription())
+					.withLocalEcho(true)
+					.buildConversation((p));
+				conv2.begin();
 				
-				@Override
-				public void run() {
-					conv2.abandon();
-					if(sellClickEvent.getdata().size() <= 2) {
-						p.sendMessage("入力がないため処理を中断しました 説明をなしで出品する場合はコマンドから出品してください");
+				new BukkitRunnable() {
+					
+					@Override
+					public void run() {
+						conv2.abandon();
+						if (sellClickEvent.getdata().size() <= 2) {
+							p.sendMessage("入力がないため処理を中断しました 説明をなしで出品する場合はコマンドから出品してください");
+						}
 					}
-				}
-			}.runTaskLater(NikomaruEC.getPlugin(), 20 * 5);
-			
-			con.getForWhom().sendRawMessage("金額は" + price + "で処理しました");
+				}.runTaskLater(NikomaruEC.getPlugin(), 20 * 15);
+				
+				con.getForWhom().sendRawMessage("金額は" + price + "で処理しました");
+			} else {
+				con.getForWhom().sendRawMessage("処理が実行できませんでした 時間をおいてから再実行してください");
+			}
 		} else {
 			con.getForWhom().sendRawMessage("正しく入力されませんでした");
 		}
-		
-		
 		
 		return null;
 	}

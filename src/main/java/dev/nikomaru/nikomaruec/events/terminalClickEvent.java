@@ -23,15 +23,17 @@ public class terminalClickEvent implements Listener {
 					
 					if (e.getSlot() == 0) {
 						buyChestGUI buy = new buyChestGUI();
-						p.openInventory(buy.Buy(p));
+						p.openInventory(buy.Buy(p, 1));
 						e.setCancelled(true);
 					} else if (e.getSlot() == 1) {
 						sellChestGUI sell = new sellChestGUI();
 						p.openInventory(sell.Sell(p));
 						e.setCancelled(true);
+						e.getClickedInventory().close();
 					} else if (e.getSlot() == 8) {
 						p.closeInventory();
 						e.setCancelled(true);
+						e.getClickedInventory().close();
 					} else {
 						e.setCancelled(true);
 					}

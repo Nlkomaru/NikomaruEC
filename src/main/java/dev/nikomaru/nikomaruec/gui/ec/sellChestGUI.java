@@ -18,11 +18,11 @@ public class sellChestGUI {
 		
 		//Menu Options(Items)
 		
-		ItemStack glass = new ItemStack(Material.GRAY_STAINED_GLASS_PANE); //Kills the player
+		ItemStack glass = new ItemStack(Material.GRAY_STAINED_GLASS_PANE);
 		
-		ItemStack accept = new ItemStack(Material.LIME_WOOL); //Fills the hunger bar
+		ItemStack accept = new ItemStack(Material.LIME_WOOL);
 		
-		ItemStack close = new ItemStack(Material.BARRIER); //Gives the player a weapon
+		ItemStack close = new ItemStack(Material.BARRIER);
 		
 		//Edit the items
 		

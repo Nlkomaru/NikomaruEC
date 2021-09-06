@@ -6,6 +6,8 @@ import dev.nikomaru.nikomaruec.events.buyClickEvent;
 import dev.nikomaru.nikomaruec.events.sellClickEvent;
 import dev.nikomaru.nikomaruec.events.sellCloseEvent;
 import dev.nikomaru.nikomaruec.events.terminalClickEvent;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -13,6 +15,10 @@ import org.bukkit.plugin.java.JavaPlugin;
 public final class NikomaruEC extends JavaPlugin {
 	
 	private static Plugin plugin;
+	
+	public static Plugin getPlugin() {
+		return plugin;
+	}
 	
 	@Override
 	public void onEnable() {
@@ -28,15 +34,13 @@ public final class NikomaruEC extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new buyClickEvent(), this);
 		getServer().getPluginManager().registerEvents(new sellClickEvent(), this);
 		getServer().getPluginManager().registerEvents(new sellCloseEvent(), this);
+		
+		
 	}
 	
 	@Override
 	public void onDisable() {
 		// Plugin shutdown logic
-	}
-	
-	public static Plugin getPlugin() {
-		return plugin;
 	}
 }
 
