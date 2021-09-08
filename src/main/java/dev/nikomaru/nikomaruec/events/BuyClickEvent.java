@@ -1,6 +1,7 @@
 package dev.nikomaru.nikomaruec.events;
 
 import static dev.nikomaru.nikomaruec.utils.MakeList.getNowStockPage;
+
 import dev.nikomaru.nikomaruec.gui.ec.BuyChestGUI;
 import dev.nikomaru.nikomaruec.gui.ec.TerminalChestGUI;
 import dev.nikomaru.nikomaruec.gui.ec.nowStockChestGUI;
@@ -47,7 +48,7 @@ public class BuyClickEvent implements Listener {
 										} else if (i == 49) {
 												//自分の販売中の在庫
 												nowStockChestGUI nowStock = new nowStockChestGUI();
-												p.openInventory(nowStock.nowPlayerStock(p,1));
+												p.openInventory(nowStock.nowPlayerStock(p, 1));
 												getNowStockPage().put(p.getUniqueId(), 1);
 												e.setCancelled(true);
 										} else if (i == 50) {

@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.UUID;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -20,14 +19,13 @@ public class BuyChestGUI {
 		//購入用のGUIを作成する処理をする予定
 
 		SetItemData setItemData = new SetItemData();
+
 		public Inventory Buy(Player p, int pages) {
 
 				Inventory gui = Bukkit.createInventory(p, 54, ChatColor.GREEN + "物品購入所");
 				int i = 0;
 				int num = 45;
 				int stockSize = MakeList.getStocks().size();
-
-
 
 				while (i < num) {
 
@@ -73,8 +71,6 @@ public class BuyChestGUI {
 								i++;
 						}
 				}
-
-
 
 				gui.setItem(45, setItemData.getPrevItem());
 				gui.setItem(46, setItemData.getReloadItem());
