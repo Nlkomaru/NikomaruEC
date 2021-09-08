@@ -1,6 +1,10 @@
 package dev.nikomaru.nikomaruec.utils;
 
 import java.util.ArrayList;
+import net.kyori.adventure.bossbar.BossBar.Color;
+import net.kyori.adventure.text.Component;
+
+import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
@@ -150,13 +154,14 @@ public class SetItemData {
 				//決定用ボタンの羊毛
 				ItemStack accept = new ItemStack(Material.LIME_WOOL);
 				ItemMeta accept_meta = accept.getItemMeta();
-				accept_meta.setDisplayName(ChatColor.GREEN + "決定");
-				ArrayList<String> accept_lore = new ArrayList<>();
-				accept_lore.add(ChatColor.GOLD + "決定する場合こちら");
-				accept_meta.setLore(accept_lore);
+				accept_meta.displayName(Component.text("決定").color(TextColor.color(0,255,0)));
+				ArrayList<Component> accept_lore = new ArrayList<>();
+				accept_lore.add(Component.text("決定する場合こちら").color(TextColor.color(204,133,0)));
+				accept_meta.lore(accept_lore);
 				accept.setItemMeta(accept_meta);
 				return accept;
 		}
+
 
 
 }
