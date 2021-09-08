@@ -1,6 +1,8 @@
 package dev.nikomaru.nikomaruec.events;
 
+import static dev.nikomaru.nikomaruec.utils.MakeList.getNowBuyPage;
 import static dev.nikomaru.nikomaruec.utils.MakeList.getNowStockPage;
+
 import dev.nikomaru.nikomaruec.gui.ec.BuyChestGUI;
 import dev.nikomaru.nikomaruec.gui.ec.TerminalChestGUI;
 import dev.nikomaru.nikomaruec.gui.ec.nowStockChestGUI;
@@ -9,18 +11,16 @@ import java.util.UUID;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType;
 
-public class BuyClickEvent implements Listener {
+public class NowStockClickEvent {
 
-		//購入用のアイテムがクリックされたら購入用GUIに飛ぶ処理をする予定
 		@EventHandler
 		public void clickEvent(InventoryClickEvent e) {
 
 				Player p = (Player) e.getWhoClicked();
-				if (e.getView().getTitle().equalsIgnoreCase(ChatColor.GREEN + "物品購入所")) {
+				if (e.getView().getTitle().equalsIgnoreCase(ChatColor.DARK_PURPLE + "出品中の在庫")) {
 						if (e.getClickedInventory() != null) {
 								InventoryType inv = e.getClickedInventory().getType();
 								if (inv == InventoryType.CHEST) {
@@ -43,13 +43,14 @@ public class BuyClickEvent implements Listener {
 												p.openInventory(buy.Buy(p, pages + change));
 												e.setCancelled(true);
 										} else if (i == 48) {
-												//売れなかった在庫
-										} else if (i == 49) {
-												//自分の販売中の在庫
-												nowStockChestGUI nowStock = new nowStockChestGUI();
-												p.openInventory(nowStock.nowPlayerStock(p,1));
-												getNowStockPage().put(p.getUniqueId(), 1);
+												//物品購入所
+												BuyChestGUI buy = new BuyChestGUI();
+												p.openInventory(buy.Buy(p, 1));
+												getNowBuyPage().put(p.getUniqueId(), 1);
 												e.setCancelled(true);
+										} else if (i == 49) {
+												//売れなかった在庫
+
 										} else if (i == 50) {
 												//購入履歴
 										} else if (i == 51) {
@@ -64,10 +65,10 @@ public class BuyClickEvent implements Listener {
 										}
 
 										e.setCancelled(true);
+
 								}
+
 						}
 				}
 		}
-
-
 }

@@ -1,5 +1,6 @@
 package dev.nikomaru.nikomaruec.gui.ec;
 
+
 import dev.nikomaru.nikomaruec.utils.MakeList;
 import dev.nikomaru.nikomaruec.utils.SetItemData;
 import java.time.ZonedDateTime;
@@ -15,31 +16,29 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-public class BuyChestGUI {
+public class nowStockChestGUI {
 
-		//購入用のGUIを作成する処理をする予定
+		// 未来へのヒント indexOf()を使用すること
 
 		SetItemData setItemData = new SetItemData();
-		public Inventory Buy(Player p, int pages) {
 
-				Inventory gui = Bukkit.createInventory(p, 54, ChatColor.GREEN + "物品購入所");
+		public Inventory nowPlayerStock(Player p, int pages) {
+
+				Inventory gui = Bukkit.createInventory(p, 54, ChatColor.DARK_PURPLE + "出品中の在庫");
 				int i = 0;
 				int num = 45;
-				int stockSize = MakeList.getStocks().size();
-
 
 
 				while (i < num) {
+						int itemNum = (pages - 1) * 45 + i;
+						if (MakeList.getStocks().size() > itemNum) {
+								List<Object> stock = MakeList.getStocks().get(itemNum);
 
-						if ((pages - 1) * 45 + i < stockSize) {
-								List<Object> stock = MakeList.getStocks().get((pages - 1) * 45 + i);
+								Player Seller = (Player) Bukkit.getOfflinePlayer((UUID) stock.get(1));
+								System.out.println(1);
+								if ((UUID) stock.get(1) == p.getUniqueId()) {
 
-								ZonedDateTime nowTime = ZonedDateTime.now();
-
-								if (nowTime.isBefore((ZonedDateTime) stock.get(4))) {
-
-										Player Seller = (Player) Bukkit.getOfflinePlayer((UUID) stock.get(1));
-
+										System.out.println(2);
 										DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
 										String limitTime = format.format((ZonedDateTime) stock.get(4));
 
@@ -65,11 +64,9 @@ public class BuyChestGUI {
 										gui.setItem(i, merchandise);
 
 										i++;
-								} else {
-										MakeList.getStocks().get((pages - 1) * 45 + i);
 								}
 						} else {
-								gui.setItem(i, setItemData.getNoDataGlassItem());
+								gui.setItem(i,setItemData.getNoDataGlassItem());
 								i++;
 						}
 				}
@@ -85,7 +82,8 @@ public class BuyChestGUI {
 				gui.setItem(51, setItemData.getSellHistoryItem());
 				gui.setItem(52, setItemData.getTerminalItem());
 				gui.setItem(53, setItemData.getCloseItem());
-
 				return gui;
 		}
+
+
 }

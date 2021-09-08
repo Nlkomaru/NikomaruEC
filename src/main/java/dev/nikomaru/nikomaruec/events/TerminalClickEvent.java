@@ -1,6 +1,6 @@
 package dev.nikomaru.nikomaruec.events;
 
-import static dev.nikomaru.nikomaruec.utils.MakeList.getNowPage;
+import static dev.nikomaru.nikomaruec.utils.MakeList.getNowBuyPage;
 
 import dev.nikomaru.nikomaruec.gui.ec.BuyChestGUI;
 import dev.nikomaru.nikomaruec.gui.ec.SellChestGUI;
@@ -26,7 +26,7 @@ public class TerminalClickEvent implements Listener {
 										if (e.getSlot() == 0) {
 												BuyChestGUI buy = new BuyChestGUI();
 												p.openInventory(buy.Buy(p, 1));
-												getNowPage().put(p.getUniqueId(), 1);
+												getNowBuyPage().put(p.getUniqueId(), 1);
 												e.setCancelled(true);
 										} else if (e.getSlot() == 1) {
 												SellChestGUI sell = new SellChestGUI();

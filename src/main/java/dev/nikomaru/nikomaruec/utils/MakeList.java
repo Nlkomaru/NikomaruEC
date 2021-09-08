@@ -8,13 +8,17 @@ import java.util.UUID;
 public class MakeList {
 
 		public static final List<List<Object>> stocks = new ArrayList<>();
-		static HashMap<UUID, Integer> nowPage = new HashMap<>();
 
-		public static List<List<Object>> getStocks() {
-				return stocks;
-		}
+		public static List<List<Object>> getStocks() {return stocks;}
 
-		public static HashMap<UUID, Integer> getNowPage() {
-				return nowPage;
-		}
+
+		static HashMap<UUID, Integer> nowBuyPage = new HashMap<>();
+
+		public static HashMap<UUID, Integer> getNowBuyPage() {return nowBuyPage;}
+
+
+		static HashMap<UUID, Integer> nowStockPage = new HashMap<>();
+
+		public static HashMap<UUID, Integer> getNowStockPage() {return nowStockPage;}
+
 }

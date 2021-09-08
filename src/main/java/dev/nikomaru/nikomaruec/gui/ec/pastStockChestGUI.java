@@ -3,7 +3,7 @@ package dev.nikomaru.nikomaruec.gui.ec;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ReturnStockChestGUI {
+public class pastStockChestGUI {
 
 		public static final List<List<Object>> returns = new ArrayList<>();
 
