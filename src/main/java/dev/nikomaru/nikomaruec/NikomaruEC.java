@@ -3,6 +3,7 @@ package dev.nikomaru.nikomaruec;
 import dev.nikomaru.nikomaruec.api.VaultAPI;
 import dev.nikomaru.nikomaruec.commands.TerminalGUI;
 import dev.nikomaru.nikomaruec.events.BuyClickEvent;
+import dev.nikomaru.nikomaruec.events.NowStockClickEvent;
 import dev.nikomaru.nikomaruec.events.SellClickEvent;
 import dev.nikomaru.nikomaruec.events.SellCloseEvent;
 import dev.nikomaru.nikomaruec.events.TerminalClickEvent;
@@ -30,6 +31,8 @@ public final class NikomaruEC extends JavaPlugin {
 		getServer ().getPluginManager ().registerEvents (new BuyClickEvent (), this);
 		getServer ().getPluginManager ().registerEvents (new SellClickEvent (), this);
 		getServer ().getPluginManager ().registerEvents (new SellCloseEvent (), this);
+		getServer ().getPluginManager ().registerEvents (new NowStockClickEvent (), this);
+
 
 	}
 

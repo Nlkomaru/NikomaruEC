@@ -10,7 +10,6 @@ import java.util.UUID;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -23,7 +22,7 @@ public class NowStockChestGUI {
 
 	public Inventory nowPlayerStock (Player p, int pages) {
 
-		Inventory gui = Bukkit.createInventory (p, 54, Component.text ("販売履歴を見る", TextColor.color (255, 0, 255)));
+		Inventory gui = Bukkit.createInventory (p, 54, Component.text ("出品中の在庫", TextColor.color (255, 0, 255)));
 
 		int i = 0;
 		int num = 45;
@@ -36,10 +35,8 @@ public class NowStockChestGUI {
 				List<Object> stock = StockDataList.getStocks ().get (itemNum);
 
 				Player Seller = (Player) Bukkit.getOfflinePlayer ((UUID) stock.get (1));
-				System.out.println (1);
 				if (stock.get (1) == p.getUniqueId ()) {
 
-					System.out.println (2);
 					DateTimeFormatter format = DateTimeFormatter.ofPattern ("yyyy/MM/dd HH:mm");
 					String limitTime = format.format ((ZonedDateTime) stock.get (4));
 
@@ -47,15 +44,21 @@ public class NowStockChestGUI {
 
 					ItemStack merchandise = (ItemStack) stock.get (0);
 					ItemMeta merchandise_meta = merchandise.getItemMeta ();
-					ArrayList<String> merchandise_lore = new ArrayList<> ();
+					ArrayList<Component> merchandise_lore = new ArrayList<> ();
 
-					merchandise_lore.add (ChatColor.YELLOW + "出品者 : " + (ChatColor.WHITE + Seller.getName ()));
-					merchandise_lore.add (
-							ChatColor.YELLOW + "金額   : " + (ChatColor.WHITE + String.valueOf (stock.get (2))));
-					merchandise_lore.add (ChatColor.YELLOW + "期限   : " + (ChatColor.WHITE + limitTime));
-					merchandise_lore.add (ChatColor.YELLOW + "説明   : " + (ChatColor.WHITE + (String) stock.get (3)));
+					merchandise_lore.add (Component.text ("出品者 : ", TextColor.color (255, 215, 0))
+							.append (Component.text (Seller.getName (), TextColor.color (255, 255, 255))));
 
-					merchandise_meta.setLore (merchandise_lore);
+					merchandise_lore.add (Component.text ("金額   : ", TextColor.color (255, 215, 0))
+							.append (Component.text (String.valueOf (stock.get (2)), TextColor.color (255, 255, 255))));
+
+					merchandise_lore.add (Component.text ("期限   : ", TextColor.color (255, 215, 0))
+							.append (Component.text (limitTime, TextColor.color (255, 255, 255))));
+
+					merchandise_lore.add (Component.text ("説明   : ", TextColor.color (255, 215, 0))
+							.append (Component.text (String.valueOf (stock.get (3)), TextColor.color (255, 255, 255))));
+
+					merchandise_meta.lore (merchandise_lore);
 					merchandise.setItemMeta (merchandise_meta);
 
 					gui.setItem (i, merchandise);
