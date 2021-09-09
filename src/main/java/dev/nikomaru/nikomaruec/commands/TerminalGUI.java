@@ -9,23 +9,22 @@ import org.jetbrains.annotations.NotNull;
 
 public class TerminalGUI implements CommandExecutor {
 
-		//いろいろな所にアクセスできるGUIを表示するコマンドの予定
-		@Override
+	//いろいろな所にアクセスできるGUIを表示するコマンドの予定
+	@Override
 
-		public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command,
-				@NotNull String label,
-				String[] args) {
+	public boolean onCommand (@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
+			String[] args) {
 
-				if (sender instanceof Player) {
-						Player p = (Player) sender;
+		if (sender instanceof Player) {
+			Player p = (Player) sender;
 
-						TerminalChestGUI terminal = new TerminalChestGUI();
-						p.openInventory(terminal.Terminal(p));
-
-				}
-
-				return true;
+			TerminalChestGUI terminal = new TerminalChestGUI ();
+			p.openInventory (terminal.Terminal (p));
 
 		}
+
+		return true;
+
+	}
 
 }
