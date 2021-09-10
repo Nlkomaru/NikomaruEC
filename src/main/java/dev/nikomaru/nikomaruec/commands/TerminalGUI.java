@@ -10,9 +10,7 @@ import org.jetbrains.annotations.NotNull;
 public class TerminalGUI implements CommandExecutor {
 
 	//いろいろな所にアクセスできるGUIを表示するコマンドの予定
-	@Override
-
-	public boolean onCommand (@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
+	@Override public boolean onCommand (@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
 			String[] args) {
 
 		if (sender instanceof Player) {

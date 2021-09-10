@@ -3,12 +3,14 @@ package dev.nikomaru.nikomaruec.utils.conversation;
 import dev.nikomaru.nikomaruec.NikomaruEC;
 import dev.nikomaru.nikomaruec.events.SellClickEvent;
 import java.util.regex.Pattern;
+import org.bukkit.ChatColor;
 import org.bukkit.conversations.Conversation;
 import org.bukkit.conversations.ConversationContext;
 import org.bukkit.conversations.ConversationFactory;
 import org.bukkit.conversations.Prompt;
 import org.bukkit.conversations.StringPrompt;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
 
@@ -35,18 +37,20 @@ public class ConvPromptPrice extends StringPrompt {
 
 					@Override public void run () {
 						conv2.abandon ();
-						if (SellClickEvent.getData ().size () <= 2) {
-							p.sendMessage ("入力がないため処理を中断しました 説明をなしで出品する場合はコマンドから出品してください");
+						if (SellClickEvent.getData ().size () <= 3) {
+							p.sendMessage (ChatColor.YELLOW + "入力がないため処理を中断しました 説明をなしで出品する場合はコマンドから出品してください");
+							p.getInventory ().addItem ((ItemStack) SellClickEvent.getData ().get (0));
+
 						}
 					}
-				}.runTaskLater (NikomaruEC.getPlugin (), 20 * 15);
+				}.runTaskLater (NikomaruEC.getPlugin (), 20 * 12);
 
-				con.getForWhom ().sendRawMessage ("金額は" + price + "で処理しました");
+				con.getForWhom ().sendRawMessage (ChatColor.GREEN + "金額は" + price + "で処理しました");
 			} else {
-				con.getForWhom ().sendRawMessage ("処理が実行できませんでした 時間をおいてから再実行してください");
+				con.getForWhom ().sendRawMessage (ChatColor.YELLOW + "処理が実行できませんでした 時間をおいてから再実行してください");
 			}
 		} else {
-			con.getForWhom ().sendRawMessage ("正しく入力されませんでした");
+			con.getForWhom ().sendRawMessage (ChatColor.YELLOW + "正しく入力されませんでした");
 		}
 
 		return null;
@@ -54,7 +58,7 @@ public class ConvPromptPrice extends StringPrompt {
 
 	@Override public @NotNull String getPromptText (@NotNull ConversationContext context) {
 
-		return "金額を入力してください>>>";
+		return ChatColor.AQUA + "金額を入力してください>>>";
 	}
 
 }

@@ -1,6 +1,5 @@
 package dev.nikomaru.nikomaruec.events;
 
-import java.util.Objects;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.entity.Player;
@@ -14,14 +13,13 @@ public class SellCloseEvent implements Listener {
 	@EventHandler public void InventoryCloseEvent (InventoryCloseEvent e) {
 		Player p = (Player) e.getPlayer ();
 		if (e.getView ().title ().equals (Component.text ("物品販売所", TextColor.color (251, 107, 255)))) {
-
-			if (e.getInventory ().isEmpty ()) {
+			if (e.getInventory () != null) {
 				InventoryType inv = e.getInventory ().getType ();
 				if (inv == InventoryType.CHEST) {
 
 					if (e.getInventory ().getItem (3) != null) {
 
-						p.getInventory ().addItem (Objects.requireNonNull (e.getInventory ().getItem (3)));
+						p.getInventory ().addItem (e.getInventory ().getItem (3));
 					}
 				}
 			}

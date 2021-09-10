@@ -19,7 +19,7 @@ public class NowStockClickEvent implements Listener {
 	@EventHandler public void clickEvent (InventoryClickEvent e) {
 
 		Player p = (Player) e.getWhoClicked ();
-		if (e.getView ().title ().equals(Component.text ("出品中の在庫", TextColor.color (255, 0, 255)))) {
+		if (e.getView ().title ().equals (Component.text ("出品中の在庫", TextColor.color (255, 0, 255)))) {
 			if (e.getClickedInventory () != null) {
 				InventoryType inv = e.getClickedInventory ().getType ();
 				if (inv == InventoryType.CHEST) {

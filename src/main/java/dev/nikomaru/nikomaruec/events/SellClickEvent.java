@@ -59,11 +59,12 @@ public class SellClickEvent implements Listener {
 
 									@Override public void run () {
 										conv1.abandon ();
-										if (data.size () <= 1) {
+										if (data.size () <= 2) {
 											pl.sendMessage ("入力がないため処理を中断しました");
+											pl.getInventory ().addItem ((ItemStack) SellClickEvent.getData ().get (0));
 										}
 									}
-								}.runTaskLater (NikomaruEC.getPlugin (), 20 * 10);
+								}.runTaskLater (NikomaruEC.getPlugin (), 20 * 7);
 
 							}
 						}
