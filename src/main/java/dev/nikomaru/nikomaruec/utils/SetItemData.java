@@ -1,5 +1,6 @@
 package dev.nikomaru.nikomaruec.utils;
 
+
 import java.util.ArrayList;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;

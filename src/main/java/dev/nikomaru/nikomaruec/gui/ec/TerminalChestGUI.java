@@ -1,6 +1,7 @@
 package dev.nikomaru.nikomaruec.gui.ec;
 
 import dev.nikomaru.nikomaruec.utils.SetItemData;
+
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Bukkit;
