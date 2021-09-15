@@ -10,6 +10,7 @@ import java.util.Objects;
 
 public final class NikomaruEC extends JavaPlugin {
 
+
     private static NikomaruEC plugin;
 
     public static NikomaruEC getPlugin() {

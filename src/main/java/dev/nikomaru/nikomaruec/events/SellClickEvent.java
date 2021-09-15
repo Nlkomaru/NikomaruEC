@@ -64,9 +64,7 @@ public class SellClickEvent implements Listener {
                                         conv1.abandon();
                                         if (sellData.get(pl.getUniqueId()).size() <= 2) {
                                             pl.sendMessage("入力がないため処理を中断しました");
-                                            pl.getInventory().addItem(
-                                                    (ItemStack) SellClickEvent.getData().get(pl.getUniqueId())
-                                                            .get(0));
+                                            pl.getInventory().addItem((ItemStack) SellClickEvent.getData().get(pl.getUniqueId()).get(0));
                                         }
                                     }
                                 }.runTaskLater(NikomaruEC.getPlugin(), 20 * 7);

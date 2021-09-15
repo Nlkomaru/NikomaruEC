@@ -35,8 +35,6 @@ public class TerminalClickEvent implements Listener {
                     } else if (e.getSlot() == 8) {
                         p.closeInventory();
                         e.getClickedInventory().close();
-                    } else {
-
                     }
                     e.setCancelled(true);
                 }

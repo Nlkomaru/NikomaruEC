@@ -21,7 +21,7 @@ public class EasySell implements CommandExecutor {
 
     static List<Object> easySellData;
     final String nurture_num = "^[1-9][0-9]*$";
-    Pattern p1 = Pattern.compile(nurture_num);
+    final Pattern p1 = Pattern.compile(nurture_num);
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
