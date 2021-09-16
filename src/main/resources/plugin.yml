@@ -7,3 +7,5 @@ commands:
     description: Display EC GUI
   nes:
     description: display by command
+  net:
+    description: test

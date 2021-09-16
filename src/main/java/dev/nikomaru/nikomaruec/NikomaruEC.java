@@ -3,6 +3,7 @@ package dev.nikomaru.nikomaruec;
 import dev.nikomaru.nikomaruec.api.VaultAPI;
 import dev.nikomaru.nikomaruec.commands.EasySell;
 import dev.nikomaru.nikomaruec.commands.TerminalGUI;
+import dev.nikomaru.nikomaruec.commands.testCommand;
 import dev.nikomaru.nikomaruec.events.*;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -28,6 +29,7 @@ public final class NikomaruEC extends JavaPlugin {
         plugin = this;
         Objects.requireNonNull(getCommand("ne")).setExecutor(new TerminalGUI());
         Objects.requireNonNull(getCommand("nes")).setExecutor(new EasySell());
+        Objects.requireNonNull(getCommand("net")).setExecutor(new testCommand());
         getServer().getPluginManager().registerEvents(new TerminalClickEvent(), this);
         getServer().getPluginManager().registerEvents(new BuyClickEvent(), this);
         getServer().getPluginManager().registerEvents(new SellClickEvent(), this);
