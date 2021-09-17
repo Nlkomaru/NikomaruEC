@@ -3,10 +3,13 @@ package dev.nikomaru.nikomaruec;
 import dev.nikomaru.nikomaruec.api.VaultAPI;
 import dev.nikomaru.nikomaruec.commands.EasySell;
 import dev.nikomaru.nikomaruec.commands.TerminalGUI;
-import dev.nikomaru.nikomaruec.commands.testCommand;
 import dev.nikomaru.nikomaruec.events.*;
+import dev.nikomaru.nikomaruec.files.stocks.ReadStockData;
+import dev.nikomaru.nikomaruec.files.stocks.WriteStockData;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public final class NikomaruEC extends JavaPlugin {
@@ -18,6 +21,7 @@ public final class NikomaruEC extends JavaPlugin {
         return plugin;
     }
 
+    public static List<List<Object>> stocks = new ArrayList<>();
     @Override
     public void onEnable() {
         // Plugin startup logic
@@ -29,18 +33,24 @@ public final class NikomaruEC extends JavaPlugin {
         plugin = this;
         Objects.requireNonNull(getCommand("ne")).setExecutor(new TerminalGUI());
         Objects.requireNonNull(getCommand("nes")).setExecutor(new EasySell());
-        Objects.requireNonNull(getCommand("net")).setExecutor(new testCommand());
         getServer().getPluginManager().registerEvents(new TerminalClickEvent(), this);
         getServer().getPluginManager().registerEvents(new BuyClickEvent(), this);
         getServer().getPluginManager().registerEvents(new SellClickEvent(), this);
         getServer().getPluginManager().registerEvents(new SellCloseEvent(), this);
         getServer().getPluginManager().registerEvents(new NowStockClickEvent(), this);
 
+        stocks = ReadStockData.readData();
+
+
     }
 
     @Override
     public void onDisable() {
         // Plugin shutdown logic
+        WriteStockData.saveData();
+    }
+    public static List<List<Object>> getStocks() {
+        return stocks;
     }
 }
 

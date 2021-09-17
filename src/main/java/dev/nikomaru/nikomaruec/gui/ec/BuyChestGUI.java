@@ -1,8 +1,8 @@
 package dev.nikomaru.nikomaruec.gui.ec;
 
+import dev.nikomaru.nikomaruec.NikomaruEC;
 import dev.nikomaru.nikomaruec.utils.MakeGUI;
 import dev.nikomaru.nikomaruec.utils.SetItemData;
-import dev.nikomaru.nikomaruec.utils.StockDataList;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -25,12 +25,12 @@ public class BuyChestGUI {
         Inventory gui = makegui.getGui(p, 54, "物品購入所", 100, 255, 130);
         int i = 0;
         int num = 45;
-        int stockSize = StockDataList.getStocks().size();
+        int stockSize = NikomaruEC.getStocks().size();
 
         while (i < num) {
 
             if ((pages - 1) * 45 + i < stockSize) {
-                List<Object> stock = StockDataList.getStocks().get((pages - 1) * 45 + i);
+                List<Object> stock = NikomaruEC.getStocks().get((pages - 1) * 45 + i);
 
                 ZonedDateTime nowTime = ZonedDateTime.now();
 
@@ -53,7 +53,7 @@ public class BuyChestGUI {
 
                     i++;
                 } else {
-                    StockDataList.getStocks().get((pages - 1) * 45 + i);
+                    NikomaruEC.getStocks().get((pages - 1) * 45 + i);
                 }
             } else {
                 gui.setItem(i, setItemData.getNoDataGlassItem());

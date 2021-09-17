@@ -1,6 +1,6 @@
 package dev.nikomaru.nikomaruec.commands;
 
-import dev.nikomaru.nikomaruec.utils.StockDataList;
+import dev.nikomaru.nikomaruec.NikomaruEC;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -50,7 +50,7 @@ public class EasySell implements CommandExecutor {
                         ZonedDateTime limitTime = nowTime.plusDays(7);
                         easySellData.add(limitTime);
                         p.getInventory().setItemInMainHand(new ItemStack(Material.AIR));
-                        StockDataList.getStocks().add(easySellData);
+                        NikomaruEC.getStocks().add(easySellData);
                     }
                 }
             } else {

@@ -1,8 +1,8 @@
 package dev.nikomaru.nikomaruec.gui.ec;
 
+import dev.nikomaru.nikomaruec.NikomaruEC;
 import dev.nikomaru.nikomaruec.utils.MakeGUI;
 import dev.nikomaru.nikomaruec.utils.SetItemData;
-import dev.nikomaru.nikomaruec.utils.StockDataList;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -29,8 +29,8 @@ public class NowStockChestGUI {
 
             int itemNum = (pages - 1) * 45 + i;
 
-            if (StockDataList.getStocks().size() > itemNum) {
-                List<Object> stock = StockDataList.getStocks().get(itemNum);
+            if (NikomaruEC.getStocks().size() > itemNum) {
+                List<Object> stock = NikomaruEC.getStocks().get(itemNum);
 
                 Player Seller = (Player) Bukkit.getOfflinePlayer((UUID) stock.get(1));
                 if (stock.get(1) == p.getUniqueId()) {

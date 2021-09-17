@@ -1,5 +1,6 @@
 package dev.nikomaru.nikomaruec.events;
 
+import dev.nikomaru.nikomaruec.NikomaruEC;
 import dev.nikomaru.nikomaruec.gui.ec.BuyChestGUI;
 import dev.nikomaru.nikomaruec.gui.ec.NowStockChestGUI;
 import dev.nikomaru.nikomaruec.gui.ec.TerminalChestGUI;
@@ -31,7 +32,7 @@ public class BuyClickEvent implements Listener {
                     int pages = StockDataList.getNowBuyPage().get(playerUUID);
                     int i = e.getSlot();
                     int num = i + (pages - 1) * 45;
-                    int maxPage = StockDataList.getStocks().size() / 45;
+                    int maxPage = NikomaruEC.getStocks().size() / 45;
 
                     //1.戻る 2.ページ数表示(更新)  3.進む  4.売れなかった  5.販売中の在庫  6.購入履歴  7.販売履歴  8.ターミナルに戻る  9.閉じる
                     if (i >= 45 && i <= 47) {
