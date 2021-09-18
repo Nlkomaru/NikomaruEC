@@ -159,7 +159,8 @@ public class SetItemData {
     }
 
     public @NotNull ItemStack getSellerItem(@NotNull ItemStack Item, @NotNull String name, @NotNull String price, @NotNull String time, @NotNull String description) {
-        ItemMeta merchandise_meta = Item.getItemMeta();
+        ItemStack stock = Item.clone();
+        ItemMeta merchandise_meta = stock.getItemMeta();
         ArrayList<Component> merchandise_lore = new ArrayList<>();
 
         merchandise_lore.add(Component.text("出品者 : ", TextColor.color(255, 215, 0))
@@ -175,8 +176,8 @@ public class SetItemData {
                 .append(Component.text(description, TextColor.color(255, 255, 255))));
 
         merchandise_meta.lore(merchandise_lore);
-        Item.setItemMeta(merchandise_meta);
-        return Item;
+        stock.setItemMeta(merchandise_meta);
+        return stock;
     }
 
 }

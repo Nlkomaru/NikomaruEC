@@ -27,11 +27,12 @@ public class BuyChestGUI {
         int i = 0;
         int num = 45;
         int stockSize = NikomaruEC.getStocks().size();
-
+        List<Object> stock;
         while (i < num) {
 
             if ((pages - 1) * 45 + i < stockSize) {
-                List<Object> stock = NikomaruEC.getStocks().get((pages - 1) * 45 + i);
+                stock = NikomaruEC.getStocks().get((pages - 1) * 45 + i);
+
 
                 ZonedDateTime nowTime = ZonedDateTime.now();
 
@@ -47,7 +48,6 @@ public class BuyChestGUI {
                     ItemStack item = (ItemStack) stock.get(0);
                     String name = Seller.getName();
                     String price = Long.valueOf((long) stock.get(2)).toString();
-
                     String description = (String) stock.get(3);
 
                     gui.setItem(i, setItemData.getSellerItem(item, name, price, limitTime, description));
