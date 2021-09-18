@@ -3,26 +3,28 @@ package dev.nikomaru.nikomaruec.events;
 import dev.nikomaru.nikomaruec.NikomaruEC;
 import dev.nikomaru.nikomaruec.gui.ec.BuyChestGUI;
 import dev.nikomaru.nikomaruec.gui.ec.TerminalChestGUI;
+import dev.nikomaru.nikomaruec.utils.MakeGUI;
 import dev.nikomaru.nikomaruec.utils.StockDataList;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.UUID;
 
 import static dev.nikomaru.nikomaruec.utils.StockDataList.getNowBuyPage;
 
+@SuppressWarnings("DuplicatedCode")
 public class NowStockClickEvent implements Listener {
 
     @EventHandler
-    public void clickEvent(InventoryClickEvent e) {
+    public void clickEvent(@NotNull InventoryClickEvent e) {
 
         Player p = (Player) e.getWhoClicked();
-        if (e.getView().title().equals(Component.text("出品中の在庫", TextColor.color(255, 0, 255)))) {
+        MakeGUI makegui = new MakeGUI();
+        if (e.getView().title().equals(makegui.getNowStockChest())) {
             if (e.getClickedInventory() != null) {
                 InventoryType inv = e.getClickedInventory().getType();
                 if (inv == InventoryType.CHEST) {

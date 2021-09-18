@@ -13,6 +13,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.UUID;
 
+@SuppressWarnings("DuplicatedCode")
 public class BuyChestGUI {
 
     //購入用のGUIを作成する処理をする予定
@@ -22,7 +23,7 @@ public class BuyChestGUI {
     public Inventory Buy(Player p, int pages) {
 
         MakeGUI makegui = new MakeGUI();
-        Inventory gui = makegui.getGui(p, 54, "物品購入所", 100, 255, 130);
+        Inventory gui = Bukkit.createInventory(p,54, makegui.getBuyChest());
         int i = 0;
         int num = 45;
         int stockSize = NikomaruEC.getStocks().size();

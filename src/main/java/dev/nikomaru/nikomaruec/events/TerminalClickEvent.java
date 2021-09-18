@@ -2,13 +2,13 @@ package dev.nikomaru.nikomaruec.events;
 
 import dev.nikomaru.nikomaruec.gui.ec.BuyChestGUI;
 import dev.nikomaru.nikomaruec.gui.ec.SellChestGUI;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.TextColor;
+import dev.nikomaru.nikomaruec.utils.MakeGUI;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType;
+import org.jetbrains.annotations.NotNull;
 
 import static dev.nikomaru.nikomaruec.utils.StockDataList.getNowBuyPage;
 
@@ -16,10 +16,11 @@ public class TerminalClickEvent implements Listener {
 
     //いろいろなところにアクセスできるGUIのクリックを処理する予定
     @EventHandler
-    public void clickEvent(InventoryClickEvent e) {
+    public void clickEvent(@NotNull InventoryClickEvent e) {
 
         Player p = (Player) e.getWhoClicked();
-        if (e.getView().title().equals((Component.text("メニュー", TextColor.color(100, 149, 237))))) {
+        MakeGUI makegui = new MakeGUI();
+        if (e.getView().title().equals((makegui.getTerminalChest()))) {
             if (e.getClickedInventory() != null) {
                 InventoryType inv = e.getClickedInventory().getType();
                 if (inv == InventoryType.CHEST) {

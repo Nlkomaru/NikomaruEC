@@ -15,7 +15,7 @@ import java.time.ZonedDateTime;
 public class ConvPromptDescription extends StringPrompt {
 
     @Override
-    public Prompt acceptInput(ConversationContext con, String description) {
+    public Prompt acceptInput(@NotNull ConversationContext con, String description) {
 
         Player p = (Player) con.getForWhom();
 

@@ -17,7 +17,7 @@ public class ConvPromptPrice extends StringPrompt {
     final Pattern p1 = Pattern.compile(nurture_num);
 
     @Override
-    public Prompt acceptInput(@NotNull ConversationContext con, String price) {
+    public Prompt acceptInput(ConversationContext con, String price) {
         if (p1.matcher(price).matches()) {
 
             long pr = Long.parseLong(price);

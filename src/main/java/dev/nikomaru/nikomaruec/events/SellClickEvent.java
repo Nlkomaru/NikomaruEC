@@ -1,9 +1,8 @@
 package dev.nikomaru.nikomaruec.events;
 
 import dev.nikomaru.nikomaruec.NikomaruEC;
+import dev.nikomaru.nikomaruec.utils.MakeGUI;
 import dev.nikomaru.nikomaruec.utils.conversation.ConvPromptPrice;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.conversations.Conversation;
 import org.bukkit.conversations.ConversationFactory;
 import org.bukkit.entity.Player;
@@ -13,24 +12,26 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
 public class SellClickEvent implements Listener {
 
     public static List<Object> data;
-    static HashMap<UUID, List<Object>> sellData = new HashMap<>();
+    static @NotNull HashMap<UUID, List<Object>> sellData = new HashMap<>();
 
-    public static HashMap<UUID, List<Object>> getData() {
+    public static @NotNull HashMap<UUID, List<Object>> getData() {
         return sellData;
     }
 
     //販売用のアイテムがクリックされたら販売用GUIに飛ぶ処理をする予定
     @EventHandler
-    public void clickEvent(InventoryClickEvent e) {
+    public void clickEvent(@NotNull InventoryClickEvent e) {
 
         Player pl = (Player) e.getWhoClicked();
-        if (e.getView().title().equals(Component.text("物品販売所", TextColor.color(251, 107, 255)))) {
+        MakeGUI makegui = new MakeGUI();
+        if (e.getView().title().equals(makegui.getSellChest())) {
             if (e.getClickedInventory() != null) {
                 InventoryType inv = e.getClickedInventory().getType();
                 if (inv == InventoryType.CHEST) {

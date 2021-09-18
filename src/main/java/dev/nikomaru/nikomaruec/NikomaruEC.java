@@ -7,6 +7,7 @@ import dev.nikomaru.nikomaruec.events.*;
 import dev.nikomaru.nikomaruec.files.stocks.ReadStockData;
 import dev.nikomaru.nikomaruec.files.stocks.WriteStockData;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,13 +16,17 @@ import java.util.Objects;
 public final class NikomaruEC extends JavaPlugin {
 
 
+    public static @NotNull List<List<Object>> stocks = new ArrayList<>();
     private static NikomaruEC plugin;
 
     public static NikomaruEC getPlugin() {
         return plugin;
     }
 
-    public static List<List<Object>> stocks = new ArrayList<>();
+    public static @NotNull List<List<Object>> getStocks() {
+        return stocks;
+    }
+
     @Override
     public void onEnable() {
         // Plugin startup logic
@@ -48,9 +53,6 @@ public final class NikomaruEC extends JavaPlugin {
     public void onDisable() {
         // Plugin shutdown logic
         WriteStockData.saveData();
-    }
-    public static List<List<Object>> getStocks() {
-        return stocks;
     }
 }
 

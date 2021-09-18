@@ -2,12 +2,13 @@ package dev.nikomaru.nikomaruec.api;
 
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.plugin.RegisteredServiceProvider;
+import org.jetbrains.annotations.Nullable;
 
 import static org.bukkit.Bukkit.getServer;
 
 public class VaultAPI {
 
-    private static Economy econ = null;
+    private static @Nullable Economy econ = null;
 
     public static boolean setupEconomy() {
         if (getServer().getPluginManager().getPlugin("Vault") == null) {
@@ -22,7 +23,7 @@ public class VaultAPI {
 
     }
 
-    public static Economy getEconomy() {
+    public static @Nullable Economy getEconomy() {
 
         return econ;
     }

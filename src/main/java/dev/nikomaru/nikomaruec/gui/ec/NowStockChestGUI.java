@@ -7,21 +7,23 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.UUID;
 
+@SuppressWarnings({"ALL", "DuplicatedCode"})
 public class NowStockChestGUI {
 
     // 未来へのヒント indexOf()を使用すること
     final SetItemData setItemData = new SetItemData();
 
-    public Inventory nowPlayerStock(Player p, int pages) {
+    public Inventory nowPlayerStock(@NotNull Player p, int pages) {
 
         MakeGUI makegui = new MakeGUI();
-        Inventory gui = makegui.getGui(p, 54, "出品中の在庫", 255, 0, 255);
+        Inventory gui = Bukkit.createInventory(p,54, makegui.getNowStockChest());
         int i = 0;
         int num = 45;
 
@@ -46,9 +48,12 @@ public class NowStockChestGUI {
                     String description = (String) stock.get(3);
 
                     gui.setItem(i, setItemData.getSellerItem(item, name, price, limitTime, description));
+
+
                 }
             } else {
                 gui.setItem(i, setItemData.getNoDataGlassItem());
+
             }
             i++;
         }
@@ -62,5 +67,10 @@ public class NowStockChestGUI {
         gui.setItem(52, setItemData.getTerminalItem());
         gui.setItem(53, setItemData.getCloseItem());
         return gui;
+    }
+
+    @NotNull
+    private SetItemData getSetItemData() {
+        return setItemData;
     }
 }
