@@ -1,16 +1,20 @@
 package dev.nikomaru.nikomaruec.events;
 
 import dev.nikomaru.nikomaruec.NikomaruEC;
+import dev.nikomaru.nikomaruec.gui.ec.BuyAcceptChestGUI;
 import dev.nikomaru.nikomaruec.gui.ec.BuyChestGUI;
 import dev.nikomaru.nikomaruec.gui.ec.NowStockChestGUI;
 import dev.nikomaru.nikomaruec.gui.ec.TerminalChestGUI;
+import dev.nikomaru.nikomaruec.utils.GetItemMeta;
 import dev.nikomaru.nikomaruec.utils.MakeGUI;
+import dev.nikomaru.nikomaruec.utils.SetItemData;
 import dev.nikomaru.nikomaruec.utils.StockDataList;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.UUID;
@@ -37,9 +41,25 @@ public class BuyClickEvent implements Listener {
                     int maxPage = NikomaruEC.getStocks().size() / 45;
 
                     //1.戻る 2.ページ数表示(更新)  3.進む  4.売れなかった  5.販売中の在庫  6.購入履歴  7.販売履歴  8.ターミナルに戻る  9.閉じる
-                    if (0 <= i && 44 >= i) {
+                    if ((0 <= i && 44 >= i) && num < NikomaruEC.getStocks().size()) {
 
-                    } else if (i <= 47) {
+                        if (NikomaruEC.getStocks().get(num).get(1).equals(playerUUID)) {
+                            SetItemData setItemData = new SetItemData();
+                            e.getClickedInventory().setItem(i, setItemData.getNoticeItem());
+
+                            new BukkitRunnable() {
+                                @Override
+                                public void run() {
+                                    GetItemMeta getItemMeta = new GetItemMeta();
+                                    e.getClickedInventory().setItem(i, getItemMeta.setItemMeta(NikomaruEC.getStocks().get(num)));
+                                }
+                            }.runTaskLater(NikomaruEC.getPlugin(), 20 * 2);
+
+                        } else {
+                            BuyAcceptChestGUI buyAcceptChestGUI = new BuyAcceptChestGUI();
+                            p.openInventory(buyAcceptChestGUI.BuyAccept(p, num));
+                        }
+                    } else if (i >= 45 && i <= 47) {
 
                         int change = 0;
 

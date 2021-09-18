@@ -9,16 +9,24 @@ public class MakeGUI {
         return Component.text(name, TextColor.color(r, g, b));
     }
 
-    public Component getBuyChest(){
+    public Component getBuyChest() {
         return getComponent("物品購入所", 100, 255, 130);
     }
-    public Component getSellChest(){
+
+    public Component getSellChest() {
         return getComponent("物品販売所", 251, 107, 255);
     }
-    public Component getNowStockChest(){
+
+    public Component getNowStockChest() {
         return getComponent("出品中の在庫", 255, 0, 255);
     }
-    public Component getTerminalChest(){
+
+    public Component getTerminalChest() {
         return getComponent("メニュー", 100, 149, 237);
     }
+
+    public Component getBuyAcceptChest() {
+        return getComponent("購入決定画面", 50, 205, 50);
+    }
+
 }

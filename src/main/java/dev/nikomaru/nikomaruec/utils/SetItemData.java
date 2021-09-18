@@ -83,6 +83,18 @@ public class SetItemData {
         return terminal;
     }
 
+    public @NotNull ItemStack getNoticeItem() {
+        //ページを閉じることを知らせるバリアブロック
+        ItemStack notice = new ItemStack(Material.BARRIER);
+        ItemMeta notice_meta = notice.getItemMeta();
+        notice_meta.displayName(Component.text("このアイテムは購入できません。", TextColor.color(232, 57, 41)));
+        ArrayList<Component> notice_lore = new ArrayList<>();
+        notice_lore.add(Component.text("アイテムの出品を取り下げる場合は出品中の在庫から選択してください", TextColor.color(128, 128, 128)));
+        notice_meta.lore(notice_lore);
+        notice.setItemMeta(notice_meta);
+        return notice;
+    }
+
     public @NotNull ItemStack getCloseItem() {
         //ページを閉じることを知らせるバリアブロック
         ItemStack close = new ItemStack(Material.BARRIER);
@@ -104,7 +116,6 @@ public class SetItemData {
         noDataGlass_lore.add(Component.text("これは商品ではありません", TextColor.color(122, 147, 255)));
         noDataGlass_meta.lore(noDataGlass_lore);
         noDataGlass.setItemMeta(noDataGlass_meta);
-
         return noDataGlass;
     }
 
@@ -146,6 +157,15 @@ public class SetItemData {
         return setItemGlass;
     }
 
+    public @NotNull ItemStack getBlankGlassItem() {
+        //アイテムをセットすることを伝えるガラス
+        ItemStack blankGlass = new ItemStack(Material.GRAY_STAINED_GLASS_PANE);
+        ItemMeta blank_meta = blankGlass.getItemMeta();
+        blank_meta.displayName(Component.text("ボタンを押して選択してください", TextColor.color(255, 255, 255)));
+        blankGlass.setItemMeta(blank_meta);
+        return blankGlass;
+    }
+
     public @NotNull ItemStack getAcceptItem() {
         //決定用ボタンの羊毛
         ItemStack accept = new ItemStack(Material.LIME_WOOL);
@@ -156,6 +176,18 @@ public class SetItemData {
         accept_meta.lore(accept_lore);
         accept.setItemMeta(accept_meta);
         return accept;
+    }
+
+    public @NotNull ItemStack getDenyItem() {
+        //拒否用ボタンの羊毛
+        ItemStack deny = new ItemStack(Material.RED_WOOL);
+        ItemMeta deny_meta = deny.getItemMeta();
+        deny_meta.displayName(Component.text("戻る", TextColor.color(255, 0, 0)));
+        ArrayList<Component> deny_lore = new ArrayList<>();
+        deny_lore.add(Component.text("戻る場合こちら", TextColor.color(178, 34, 34)));
+        deny_meta.lore(deny_lore);
+        deny.setItemMeta(deny_meta);
+        return deny;
     }
 
     public @NotNull ItemStack getSellerItem(@NotNull ItemStack Item, @NotNull String name, @NotNull String price, @NotNull String time, @NotNull String description) {

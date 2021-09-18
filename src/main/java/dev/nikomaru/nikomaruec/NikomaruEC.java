@@ -16,7 +16,7 @@ import java.util.Objects;
 public final class NikomaruEC extends JavaPlugin {
 
 
-    public static @NotNull List<List<Object>> stocks = new ArrayList<>();
+    public static List<List<Object>> stocks = new ArrayList<>();
     private static NikomaruEC plugin;
 
     public static NikomaruEC getPlugin() {

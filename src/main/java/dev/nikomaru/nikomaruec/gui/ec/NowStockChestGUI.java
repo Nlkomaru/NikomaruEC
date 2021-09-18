@@ -1,20 +1,17 @@
 package dev.nikomaru.nikomaruec.gui.ec;
 
 import dev.nikomaru.nikomaruec.NikomaruEC;
+import dev.nikomaru.nikomaruec.utils.GetItemMeta;
 import dev.nikomaru.nikomaruec.utils.MakeGUI;
 import dev.nikomaru.nikomaruec.utils.SetItemData;
 import dev.nikomaru.nikomaruec.utils.StockDataList;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
-import java.util.UUID;
 
 import static dev.nikomaru.nikomaruec.utils.StockDataList.getPlayerNowStockNum;
 
@@ -42,31 +39,14 @@ public class NowStockChestGUI {
                 List<Object> stock = NikomaruEC.getStocks().get(itemNum);
 
 
-
-                Player Seller = (Player) Bukkit.getOfflinePlayer((UUID) stock.get(1));
-
-
                 if (stock.get(1).equals(p.getUniqueId())) {
+                    GetItemMeta getItemMeta = new GetItemMeta();
 
 
-
-                    stockNum.put(i, j);
-                    getPlayerNowStockNum().put(p.getUniqueId(), stockNum);
-
-                    DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
-                    String limitTime = format.format((ZonedDateTime) stock.get(4));
-
-                    // {itemStack} {player uuid} {price} {description} {time}
-
-                    ItemStack item = (ItemStack) stock.get(0);
-                    String name = Seller.getName();
-                    String price = Long.valueOf((long) stock.get(2)).toString();
-                    String description = (String) stock.get(3);
-
-                    gui.setItem(i, setItemData.getSellerItem(item, name, price, limitTime, description));
+                    gui.setItem(i, getItemMeta.setItemMeta(stock));
 
 
-                    StockDataList.getPlayerNowStockNum().put(p.getUniqueId(),stockNum);
+                    StockDataList.getPlayerNowStockNum().put(p.getUniqueId(), stockNum);
                     j++;
                 }
             } else {

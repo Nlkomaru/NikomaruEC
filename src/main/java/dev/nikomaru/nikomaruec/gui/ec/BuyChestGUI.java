@@ -1,17 +1,15 @@
 package dev.nikomaru.nikomaruec.gui.ec;
 
 import dev.nikomaru.nikomaruec.NikomaruEC;
+import dev.nikomaru.nikomaruec.utils.GetItemMeta;
 import dev.nikomaru.nikomaruec.utils.MakeGUI;
 import dev.nikomaru.nikomaruec.utils.SetItemData;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
 
 import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.UUID;
 
 @SuppressWarnings("DuplicatedCode")
 public class BuyChestGUI {
@@ -23,7 +21,7 @@ public class BuyChestGUI {
     public Inventory Buy(Player p, int pages) {
 
         MakeGUI makegui = new MakeGUI();
-        Inventory gui = Bukkit.createInventory(p,54, makegui.getBuyChest());
+        Inventory gui = Bukkit.createInventory(p, 54, makegui.getBuyChest());
         int i = 0;
         int num = 45;
         int stockSize = NikomaruEC.getStocks().size();
@@ -37,21 +35,10 @@ public class BuyChestGUI {
                 ZonedDateTime nowTime = ZonedDateTime.now();
 
                 if (nowTime.isBefore((ZonedDateTime) stock.get(4))) {
+                    GetItemMeta getItemMeta = new GetItemMeta();
 
-                    Player Seller = (Player) Bukkit.getOfflinePlayer((UUID) stock.get(1));
 
-                    DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
-                    String limitTime = format.format((ZonedDateTime) stock.get(4));
-
-                    // {itemStack} {player uuid} {price} {description} {time}
-
-                    ItemStack item = (ItemStack) stock.get(0);
-                    String name = Seller.getName();
-                    String price = Long.valueOf((long) stock.get(2)).toString();
-                    String description = (String) stock.get(3);
-
-                    gui.setItem(i, setItemData.getSellerItem(item, name, price, limitTime, description));
-
+                    gui.setItem(i, getItemMeta.setItemMeta(stock));
                     i++;
                 } else {
                     NikomaruEC.getStocks().get((pages - 1) * 45 + i);
