@@ -3,14 +3,13 @@ package dev.nikomaru.nikomaruec.events;
 import dev.nikomaru.nikomaruec.gui.ec.BuyChestGUI;
 import dev.nikomaru.nikomaruec.gui.ec.SellChestGUI;
 import dev.nikomaru.nikomaruec.utils.MakeGUI;
+import dev.nikomaru.nikomaruec.utils.StockDataList;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.jetbrains.annotations.NotNull;
-
-import static dev.nikomaru.nikomaruec.utils.StockDataList.getNowBuyPage;
 
 public class TerminalClickEvent implements Listener {
 
@@ -27,8 +26,8 @@ public class TerminalClickEvent implements Listener {
 
                     if (e.getSlot() == 0) {
                         BuyChestGUI buy = new BuyChestGUI();
-                        p.openInventory(buy.Buy(p, 1));
-                        getNowBuyPage().put(p.getUniqueId(), 1);
+	                    p.openInventory (buy.Buy (p,1));
+	                    StockDataList.getNowBuyPage ().put (p.getUniqueId (),1);
                     } else if (e.getSlot() == 1) {
                         SellChestGUI sell = new SellChestGUI();
                         p.openInventory(sell.Sell(p));

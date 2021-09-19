@@ -46,64 +46,85 @@ public class SetItemData {
         leftovers.setItemMeta(leftovers_meta);
         return leftovers;
     }
-
-    public @NotNull ItemStack getStoreItem() {
+    
+    public @NotNull ItemStack getStoreItem () {
         //出品中の在庫を見るためのチェスト
-        ItemStack store = new ItemStack(Material.ENDER_CHEST);
-        ItemMeta store_meta = store.getItemMeta();
-        store_meta.displayName(Component.text("出品中の在庫", TextColor.color(255, 255, 0)));
-        store.setItemMeta(store_meta);
+        ItemStack store = new ItemStack (Material.ENDER_CHEST);
+        ItemMeta store_meta = store.getItemMeta ();
+        store_meta.displayName (Component.text ("出品中の在庫",TextColor.color (255,255,0)));
+        store.setItemMeta (store_meta);
         return store;
     }
-
-    public @NotNull ItemStack getBuyHistoryItem() {
+    
+    public @NotNull ItemStack getBuyHistoryItem () {
         //購入履歴表示用の本
-        ItemStack buyHistory = new ItemStack(Material.KNOWLEDGE_BOOK);
-        ItemMeta buyHistory_meta = buyHistory.getItemMeta();
-        buyHistory_meta.displayName(Component.text("購入履歴を見る", TextColor.color(0, 226, 0)));
-        buyHistory.setItemMeta(buyHistory_meta);
+        ItemStack buyHistory = new ItemStack (Material.KNOWLEDGE_BOOK);
+        ItemMeta buyHistory_meta = buyHistory.getItemMeta ();
+        buyHistory_meta.displayName (Component.text ("購入履歴を見る",TextColor.color (0,226,0)));
+        buyHistory.setItemMeta (buyHistory_meta);
         return buyHistory;
     }
-
-    public @NotNull ItemStack getSellHistoryItem() {
+    
+    public @NotNull ItemStack getSellHistoryItem () {
         //販売履歴表示用の本
-        ItemStack sellHistory = new ItemStack(Material.ENCHANTED_BOOK);
-        ItemMeta sellHistory_meta = sellHistory.getItemMeta();
-        sellHistory_meta.displayName(Component.text("販売履歴を見る", TextColor.color(255, 0, 255)));
-        sellHistory.setItemMeta(sellHistory_meta);
+        ItemStack sellHistory = new ItemStack (Material.ENCHANTED_BOOK);
+        ItemMeta sellHistory_meta = sellHistory.getItemMeta ();
+        sellHistory_meta.displayName (Component.text ("販売履歴を見る",TextColor.color (255,0,255)));
+        sellHistory.setItemMeta (sellHistory_meta);
         return sellHistory;
     }
-
-    public @NotNull ItemStack getTerminalItem() {
+    
+    public @NotNull ItemStack getTerminalItem () {
         //ターミナルに戻るためのネザースター
-        ItemStack terminal = new ItemStack(Material.NETHER_STAR);
-        ItemMeta terminal_meta = terminal.getItemMeta();
-        terminal_meta.displayName(Component.text("ターミナルに戻る", TextColor.color(42, 101, 255)));
-        terminal.setItemMeta(terminal_meta);
+        ItemStack terminal = new ItemStack (Material.NETHER_STAR);
+        ItemMeta terminal_meta = terminal.getItemMeta ();
+        terminal_meta.displayName (Component.text ("ターミナルに戻る",TextColor.color (42,101,255)));
+        terminal.setItemMeta (terminal_meta);
         return terminal;
     }
-
-    public @NotNull ItemStack getNoticeItem() {
-        //ページを閉じることを知らせるバリアブロック
-        ItemStack notice = new ItemStack(Material.BARRIER);
-        ItemMeta notice_meta = notice.getItemMeta();
-        notice_meta.displayName(Component.text("このアイテムは購入できません。", TextColor.color(232, 57, 41)));
-        ArrayList<Component> notice_lore = new ArrayList<>();
-        notice_lore.add(Component.text("アイテムの出品を取り下げる場合は出品中の在庫から選択してください", TextColor.color(128, 128, 128)));
-        notice_meta.lore(notice_lore);
-        notice.setItemMeta(notice_meta);
-        return notice;
+    
+    public @NotNull ItemStack getNoticeYoursItem () {
+        
+        ItemStack yours = new ItemStack (Material.BARRIER);
+        ItemMeta yours_meta = yours.getItemMeta ();
+        yours_meta.displayName (Component.text ("このアイテムは購入できません。",TextColor.color (232,57,41)));
+        ArrayList<Component> yours_lore = new ArrayList<> ();
+        yours_lore.add (Component.text ("アイテムの出品を取り下げる場合は出品中の在庫から選択してください",TextColor.color (128,128,128)));
+        yours_meta.lore (yours_lore);
+        yours.setItemMeta (yours_meta);
+        return yours;
     }
-
-    public @NotNull ItemStack getCloseItem() {
+    
+    public @NotNull ItemStack getNoticeNoEmptyItem () {
+        
+        ItemStack noEmpty = new ItemStack (Material.BARRIER);
+        ItemMeta noEmpty_meta = noEmpty.getItemMeta ();
+        noEmpty_meta.displayName (Component.text ("インベントリに空きスロットがありません",TextColor.color (232,57,41)));
+        ArrayList<Component> noEmpty_lore = new ArrayList<> ();
+        noEmpty_lore.add (Component.text ("購入する場合はインベントリを開けてください",TextColor.color (128,128,128)));
+        noEmpty_meta.lore (noEmpty_lore);
+        noEmpty.setItemMeta (noEmpty_meta);
+        return noEmpty;
+    }
+    
+    public @NotNull ItemStack getNoticeNoMoneyItem () {
+        
+        ItemStack noMoney = new ItemStack (Material.BARRIER);
+        ItemMeta noMoney_meta = noMoney.getItemMeta ();
+        noMoney_meta.displayName (Component.text ("購入するためのお金を持っていません",TextColor.color (232,57,41)));
+        noMoney.setItemMeta (noMoney_meta);
+        return noMoney;
+    }
+    
+    public @NotNull ItemStack getCloseItem () {
         //ページを閉じることを知らせるバリアブロック
-        ItemStack close = new ItemStack(Material.BARRIER);
-        ItemMeta close_meta = close.getItemMeta();
-        close_meta.displayName(Component.text("閉じる", TextColor.color(232, 57, 41)));
-        ArrayList<Component> close_lore = new ArrayList<>();
-        close_lore.add(Component.text("ページを閉じる", TextColor.color(128, 128, 128)));
-        close_meta.lore(close_lore);
-        close.setItemMeta(close_meta);
+        ItemStack close = new ItemStack (Material.BARRIER);
+        ItemMeta close_meta = close.getItemMeta ();
+        close_meta.displayName (Component.text ("閉じる",TextColor.color (232,57,41)));
+        ArrayList<Component> close_lore = new ArrayList<> ();
+        close_lore.add (Component.text ("ページを閉じる",TextColor.color (128,128,128)));
+        close_meta.lore (close_lore);
+        close.setItemMeta (close_meta);
         return close;
     }
 

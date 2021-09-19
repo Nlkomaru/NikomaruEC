@@ -4,6 +4,7 @@ import dev.nikomaru.nikomaruec.NikomaruEC;
 import dev.nikomaru.nikomaruec.utils.GetItemMeta;
 import dev.nikomaru.nikomaruec.utils.MakeGUI;
 import dev.nikomaru.nikomaruec.utils.SetItemData;
+import dev.nikomaru.nikomaruec.utils.StockDataList;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -15,6 +16,7 @@ public class BuyAcceptChestGUI {
 
         MakeGUI makegui = new MakeGUI();
         Inventory gui = Bukkit.createInventory(p, 9, makegui.getBuyAcceptChest());
+        StockDataList.getSelectNum ().put (p.getUniqueId (),i);
 
         SetItemData setItemData = new SetItemData();
         GetItemMeta getItemMeta = new GetItemMeta();

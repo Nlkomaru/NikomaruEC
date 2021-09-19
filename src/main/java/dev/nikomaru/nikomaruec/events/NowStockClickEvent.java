@@ -16,7 +16,7 @@ import java.util.UUID;
 
 import static dev.nikomaru.nikomaruec.utils.StockDataList.getNowBuyPage;
 
-@SuppressWarnings("DuplicatedCode")
+
 public class NowStockClickEvent implements Listener {
 
     @EventHandler
@@ -36,16 +36,7 @@ public class NowStockClickEvent implements Listener {
 
                     //1.戻る 2.ページ数表示(更新)  3.進む  4.売れなかった  5.販売中の在庫  6.購入履歴  7.販売履歴  8.ターミナルに戻る  9.閉じる
                     if (i >= 45 && i <= 47) {
-                        int change = 0;
-                        if (pages > 1 && i == 45) {
-                            change = -1;
-                        } else if (pages <= 1 && i == 47 && pages < maxPage) {
-                            change = 1;
-                        }
-                        StockDataList.getNowBuyPage().put(playerUUID, pages + change);
-                        BuyChestGUI buy = new BuyChestGUI();
-                        p.openInventory(buy.Buy(p, pages + change));
-                        e.setCancelled(true);
+                        BuyClickEvent.changePages (e,p,playerUUID,pages,i,maxPage);
                     } else if (i == 48) {
                         //物品購入所
                         BuyChestGUI buy = new BuyChestGUI();

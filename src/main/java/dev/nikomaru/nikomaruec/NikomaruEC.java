@@ -42,7 +42,8 @@ public final class NikomaruEC extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new BuyClickEvent(), this);
         getServer().getPluginManager().registerEvents(new SellClickEvent(), this);
         getServer().getPluginManager().registerEvents(new SellCloseEvent(), this);
-        getServer().getPluginManager().registerEvents(new NowStockClickEvent(), this);
+        getServer ().getPluginManager ().registerEvents (new NowStockClickEvent (),this);
+        getServer ().getPluginManager ().registerEvents (new BuyAcceptClickEvent (),this);
 
         stocks = ReadStockData.readData();
 
