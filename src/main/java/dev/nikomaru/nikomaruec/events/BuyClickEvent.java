@@ -19,6 +19,7 @@ import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Objects;
 import java.util.UUID;
 
 import static dev.nikomaru.nikomaruec.utils.StockDataList.getNowStockPage;
@@ -60,9 +61,9 @@ public class BuyClickEvent implements Listener {
             
                         }
                         else {
-                            if (eco.getBalance (p.getPlayer ()) > (long) NikomaruEC.getStocks ().get (i).get (2)) {
+                            if (Objects.requireNonNull (eco).getBalance (p.getPlayer ()) > (long) NikomaruEC.getStocks ().get (i).get (2)) {
                                 if (p.getInventory ().firstEmpty () == - 1) {
-                    
+            
                                     e.getClickedInventory ().setItem (i,setItemData.getNoticeNoEmptyItem ());
                                     new BukkitRunnable () {
                                         @Override

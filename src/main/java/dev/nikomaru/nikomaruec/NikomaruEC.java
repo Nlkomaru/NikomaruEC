@@ -4,19 +4,19 @@ import dev.nikomaru.nikomaruec.api.VaultAPI;
 import dev.nikomaru.nikomaruec.commands.EasySell;
 import dev.nikomaru.nikomaruec.commands.TerminalGUI;
 import dev.nikomaru.nikomaruec.events.*;
+import dev.nikomaru.nikomaruec.files.returnStocks.WriteReturnStockData;
 import dev.nikomaru.nikomaruec.files.stocks.ReadStockData;
 import dev.nikomaru.nikomaruec.files.stocks.WriteStockData;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public final class NikomaruEC extends JavaPlugin {
 
 
     public static List<List<Object>> stocks = new ArrayList<>();
+    public static HashMap<UUID,List<List<Object>>> returnStocks;
     private static NikomaruEC plugin;
 
     public static NikomaruEC getPlugin() {
@@ -26,7 +26,11 @@ public final class NikomaruEC extends JavaPlugin {
     public static @NotNull List<List<Object>> getStocks() {
         return stocks;
     }
-
+    public static @NotNull HashMap<UUID,List<List<Object>>> getReturnStocks() {
+        return returnStocks;
+    }
+    
+    
     @Override
     public void onEnable() {
         // Plugin startup logic
@@ -54,6 +58,7 @@ public final class NikomaruEC extends JavaPlugin {
     public void onDisable() {
         // Plugin shutdown logic
         WriteStockData.saveData();
+        WriteReturnStockData.saveData();
     }
 }
 

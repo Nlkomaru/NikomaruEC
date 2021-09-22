@@ -1,15 +1,19 @@
 package dev.nikomaru.nikomaruec.gui.ec;
 
 import dev.nikomaru.nikomaruec.NikomaruEC;
+import dev.nikomaru.nikomaruec.utils.ChangeItemData;
 import dev.nikomaru.nikomaruec.utils.GetItemMeta;
 import dev.nikomaru.nikomaruec.utils.MakeGUI;
 import dev.nikomaru.nikomaruec.utils.SetItemData;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
 
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @SuppressWarnings("DuplicatedCode")
 public class BuyChestGUI {
@@ -41,7 +45,22 @@ public class BuyChestGUI {
                     gui.setItem(i, getItemMeta.setItemMeta(stock));
                     i++;
                 } else {
-                    NikomaruEC.getStocks().get((pages - 1) * 45 + i);
+                    // {itemStack} {player uuid} {price} {description} {time}
+                    List<Object> returnStock = new ArrayList<> ();
+                    String encodeReturnStock = ChangeItemData.encode ((ItemStack) NikomaruEC.getStocks ().get ((pages - 1) * 45 + i).get (0));
+                    UUID uuid = (UUID) NikomaruEC.getStocks ().get ((pages - 1) * 45 + i).get (1);
+                    Long price = (Long) NikomaruEC.getStocks ().get ((pages - 1) * 45 + i).get (2);
+                    ZonedDateTime time = ZonedDateTime.now ();
+                    
+                    returnStock.add (encodeReturnStock);
+                    returnStock.add (uuid);
+                    returnStock.add (price);
+                    returnStock.add (price);
+                    returnStock.add (time);
+                    NikomaruEC.getReturnStocks ().get (uuid).add (returnStock);
+                    
+                    NikomaruEC.getStocks ().remove ((pages - 1) * 45 + i);
+                    
                 }
             } else {
                 gui.setItem(i, setItemData.getNoDataGlassItem());

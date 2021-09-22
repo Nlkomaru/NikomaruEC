@@ -22,7 +22,7 @@ public class ConvPromptDescription extends StringPrompt {
         SellClickEvent.getData().get(p.getUniqueId()).add(description);
 
         ZonedDateTime nowTime = ZonedDateTime.now();
-        ZonedDateTime limitTime = nowTime.plusDays(7);
+        ZonedDateTime limitTime = nowTime.plusMinutes (30);
         SellClickEvent.getData().get(p.getUniqueId()).add(limitTime);
 
         NikomaruEC.getStocks().add(SellClickEvent.getData().get(p.getUniqueId()));

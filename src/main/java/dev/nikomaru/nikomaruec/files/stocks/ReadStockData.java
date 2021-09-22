@@ -1,13 +1,15 @@
 package dev.nikomaru.nikomaruec.files.stocks;
 
+import dev.nikomaru.nikomaruec.utils.ChangeItemData;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.util.io.BukkitObjectInputStream;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.List;
 import java.util.UUID;
 
@@ -19,7 +21,7 @@ public class ReadStockData {
         // {itemStack} {player uuid} {price} {description} {time}
 
 
-        String path = "plugins\\NikomaruEC\\test.dat";
+        String path = "plugins\\NikomaruEC\\stock.dat";
 
         List<List<Object>> storeStocks = new ArrayList<>();
         List<List<Object>> restoreStocks = new ArrayList<>();
@@ -46,16 +48,8 @@ public class ReadStockData {
                 String description = (String) objects.get(3);
                 ZonedDateTime time = (ZonedDateTime) objects.get(4);
 
-                ItemStack item = null;
-                try {
-                    byte[] serializedObject = Base64.getDecoder().decode(stoneItem);
-                    ByteArrayInputStream bais = new ByteArrayInputStream(serializedObject);
-                    BukkitObjectInputStream bois = new BukkitObjectInputStream(bais);
-
-                    item = (ItemStack) bois.readObject();
-                } catch (@NotNull IOException | ClassNotFoundException e) {
-                    e.printStackTrace();
-                }
+                ItemStack item = ChangeItemData.decode(stoneItem);
+                
                 stock.add(item);
                 stock.add(uuid);
                 stock.add(price);
