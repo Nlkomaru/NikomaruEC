@@ -28,33 +28,33 @@ public class SetItemData {
         reload.setItemMeta(reload_meta);
         return reload;
     }
-
-    public @NotNull ItemStack getNextItem() {
-        //次のページに進むためのガラス
-        ItemStack next = new ItemStack(Material.BLUE_STAINED_GLASS_PANE);
-        ItemMeta next_meta = next.getItemMeta();
-        next_meta.displayName(Component.text("次のページへ進む", TextColor.color(0, 191, 255)));
-        next.setItemMeta(next_meta);
-        return next;
-    }
-
-    public @NotNull ItemStack getLeftoversItem() {
-        //売れなかった在庫を見るためのチェスト
-        ItemStack leftovers = new ItemStack(Material.CHEST);
-        ItemMeta leftovers_meta = leftovers.getItemMeta();
-        leftovers_meta.displayName(Component.text("返却された在庫", TextColor.color(246, 31, 255)));
-        leftovers.setItemMeta(leftovers_meta);
-        return leftovers;
-    }
-    
-    public @NotNull ItemStack getStoreItem () {
-        //出品中の在庫を見るためのチェスト
-        ItemStack store = new ItemStack (Material.ENDER_CHEST);
-        ItemMeta store_meta = store.getItemMeta ();
-        store_meta.displayName (Component.text ("出品中の在庫",TextColor.color (255,255,0)));
-        store.setItemMeta (store_meta);
-        return store;
-    }
+	
+	public @NotNull ItemStack getNextItem () {
+		//次のページに進むためのガラス
+		ItemStack next = new ItemStack (Material.BLUE_STAINED_GLASS_PANE);
+		ItemMeta next_meta = next.getItemMeta ();
+		next_meta.displayName (Component.text ("次のページへ進む",TextColor.color (0,191,255)));
+		next.setItemMeta (next_meta);
+		return next;
+	}
+	
+	public @NotNull ItemStack getReturnedItem () {
+		//売れなかった在庫を見るためのチェスト
+		ItemStack leftovers = new ItemStack (Material.CHEST);
+		ItemMeta leftovers_meta = leftovers.getItemMeta ();
+		leftovers_meta.displayName (Component.text ("返却された在庫",TextColor.color (246,31,255)));
+		leftovers.setItemMeta (leftovers_meta);
+		return leftovers;
+	}
+	
+	public @NotNull ItemStack getStoreItem () {
+		//出品中の在庫を見るためのチェスト
+		ItemStack store = new ItemStack (Material.ENDER_CHEST);
+		ItemMeta store_meta = store.getItemMeta ();
+		store_meta.displayName (Component.text ("出品中の在庫",TextColor.color (255,255,0)));
+		store.setItemMeta (store_meta);
+		return store;
+	}
     
     public @NotNull ItemStack getBuyHistoryItem () {
         //購入履歴表示用の本
@@ -200,37 +200,59 @@ public class SetItemData {
     }
 
     public @NotNull ItemStack getDenyItem() {
-        //拒否用ボタンの羊毛
-        ItemStack deny = new ItemStack(Material.RED_WOOL);
-        ItemMeta deny_meta = deny.getItemMeta();
-        deny_meta.displayName(Component.text("戻る", TextColor.color(255, 0, 0)));
-        ArrayList<Component> deny_lore = new ArrayList<>();
-        deny_lore.add(Component.text("戻る場合こちら", TextColor.color(178, 34, 34)));
-        deny_meta.lore(deny_lore);
-        deny.setItemMeta(deny_meta);
-        return deny;
+	    //拒否用ボタンの羊毛
+	    ItemStack deny = new ItemStack (Material.RED_WOOL);
+	    ItemMeta deny_meta = deny.getItemMeta ();
+	    deny_meta.displayName (Component.text ("戻る",TextColor.color (255,0,0)));
+	    ArrayList<Component> deny_lore = new ArrayList<> ();
+	    deny_lore.add (Component.text ("戻る場合こちら",TextColor.color (178,34,34)));
+	    deny_meta.lore (deny_lore);
+	    deny.setItemMeta (deny_meta);
+	    return deny;
     }
-
-    public @NotNull ItemStack getSellerItem(@NotNull ItemStack Item, @NotNull String name, @NotNull String price, @NotNull String time, @NotNull String description) {
-        ItemStack stock = Item.clone();
-        ItemMeta merchandise_meta = stock.getItemMeta();
-        ArrayList<Component> merchandise_lore = new ArrayList<>();
-
-        merchandise_lore.add(Component.text("出品者 : ", TextColor.color(255, 215, 0))
-                .append(Component.text(name, TextColor.color(255, 255, 255))));
-
-        merchandise_lore.add(Component.text("金額   : ", TextColor.color(255, 215, 0))
-                .append(Component.text(Long.valueOf(price).toString(), TextColor.color(255, 255, 255))));
-
-        merchandise_lore.add(Component.text("期限   : ", TextColor.color(255, 215, 0))
-                .append(Component.text(time, TextColor.color(255, 255, 255))));
-
-        merchandise_lore.add(Component.text("説明   : ", TextColor.color(255, 215, 0))
-                .append(Component.text(description, TextColor.color(255, 255, 255))));
-
-        merchandise_meta.lore(merchandise_lore);
-        stock.setItemMeta(merchandise_meta);
-        return stock;
-    }
-
+	
+	public @NotNull ItemStack getSellerItem (@NotNull ItemStack Item,@NotNull String name,@NotNull String price,@NotNull String time,@NotNull String description) {
+		ItemStack stock = Item.clone ();
+		ItemMeta merchandise_meta = stock.getItemMeta ();
+		ArrayList<Component> merchandise_lore = new ArrayList<> ();
+		
+		merchandise_lore.add (Component.text ("出品者 : ",TextColor.color (255,215,0))
+				.append (Component.text (name,TextColor.color (255,255,255))));
+		
+		merchandise_lore.add (Component.text ("金額   : ",TextColor.color (255,215,0))
+				.append (Component.text (Long.valueOf (price).toString (),TextColor.color (255,255,255))));
+		
+		merchandise_lore.add (Component.text ("期限   : ",TextColor.color (255,215,0))
+				.append (Component.text (time,TextColor.color (255,255,255))));
+		
+		merchandise_lore.add (Component.text ("説明   : ",TextColor.color (255,215,0))
+				.append (Component.text (description,TextColor.color (255,255,255))));
+		
+		merchandise_meta.lore (merchandise_lore);
+		stock.setItemMeta (merchandise_meta);
+		return stock;
+	}
+	
+	public @NotNull ItemStack getReturnedItem (@NotNull ItemStack Item,@NotNull String name,@NotNull String price,@NotNull String time,@NotNull String description) {
+		ItemStack stock = Item.clone ();
+		ItemMeta merchandise_meta = stock.getItemMeta ();
+		ArrayList<Component> merchandise_lore = new ArrayList<> ();
+		
+		merchandise_lore.add (Component.text ("出品者       : ",TextColor.color (255,215,0))
+				.append (Component.text (name,TextColor.color (255,255,255))));
+		
+		merchandise_lore.add (Component.text ("金額         : ",TextColor.color (255,215,0))
+				.append (Component.text (Long.valueOf (price).toString (),TextColor.color (255,255,255))));
+		
+		merchandise_lore.add (Component.text ("返却された時間 : ",TextColor.color (255,215,0))
+				.append (Component.text (time,TextColor.color (255,255,255))));
+		
+		merchandise_lore.add (Component.text ("説明         : ",TextColor.color (255,215,0))
+				.append (Component.text (description,TextColor.color (255,255,255))));
+		
+		merchandise_meta.lore (merchandise_lore);
+		stock.setItemMeta (merchandise_meta);
+		return stock;
+	}
+	
 }

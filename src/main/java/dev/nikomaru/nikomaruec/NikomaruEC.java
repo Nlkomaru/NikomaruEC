@@ -13,20 +13,21 @@ import org.jetbrains.annotations.NotNull;
 import java.util.*;
 
 public final class NikomaruEC extends JavaPlugin {
-
-
-    public static List<List<Object>> stocks = new ArrayList<>();
-    public static HashMap<UUID,List<List<Object>>> returnStocks;
-    private static NikomaruEC plugin;
-
-    public static NikomaruEC getPlugin() {
-        return plugin;
-    }
-
-    public static @NotNull List<List<Object>> getStocks() {
-        return stocks;
-    }
-    public static @NotNull HashMap<UUID,List<List<Object>>> getReturnStocks() {
+	
+	
+	public static List<List<Object>> stocks = new ArrayList<> ();
+	public static HashMap<UUID,List<List<Object>>> returnStocks = new HashMap<> ();
+	private static NikomaruEC plugin;
+	
+	public static NikomaruEC getPlugin () {
+		return plugin;
+	}
+	
+	public static @NotNull List<List<Object>> getStocks () {
+		return stocks;
+	}
+	
+	public static @NotNull HashMap<UUID,List<List<Object>>> getReturnStocks () {
         return returnStocks;
     }
     
@@ -57,8 +58,10 @@ public final class NikomaruEC extends JavaPlugin {
     @Override
     public void onDisable() {
         // Plugin shutdown logic
-        WriteStockData.saveData();
-        WriteReturnStockData.saveData();
+	    WriteStockData writeStockData = new WriteStockData ();
+        writeStockData.saveData ();
+	    WriteReturnStockData writeReturnStockData = new WriteReturnStockData ();
+        writeReturnStockData.saveData();
     }
 }
 

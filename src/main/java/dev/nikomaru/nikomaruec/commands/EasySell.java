@@ -31,28 +31,37 @@ public class EasySell implements CommandExecutor {
             Player p = (Player) sender;
             easySellData = new ArrayList<>();
             if (p.getInventory().getItemInMainHand().getType() != Material.AIR) {
-                if (args.length == 1 || args.length == 2) {
-                    if (p1.matcher(args[0]).matches()) {
-                        // {itemStack} {player uuid} {price} {description} {time}
-                        long price = Long.parseLong(args[0]);
-                        easySellData.add(p.getInventory().getItemInMainHand());
-                        easySellData.add(p.getUniqueId());
-                        easySellData.add(price);
-
-                        if (args.length == 1) {
-                            easySellData.add("説明はありません");
-
-                        } else {
-                            easySellData.add(args[1]);
-                        }
-
-                        ZonedDateTime nowTime = ZonedDateTime.now();
-                        ZonedDateTime limitTime = nowTime.plusDays(7);
-                        easySellData.add(limitTime);
-                        p.getInventory().setItemInMainHand(new ItemStack(Material.AIR));
-                        NikomaruEC.getStocks().add(easySellData);
-                    }
-                }
+	            if (args.length == 1 || args.length == 2) {
+		            if (p1.matcher(args[0]).matches()) {
+			            // {itemStack} {player uuid} {price} {description} {time}
+			            long price = Long.parseLong(args[0]);
+			            easySellData.add(p.getInventory().getItemInMainHand());
+			            easySellData.add (p.getUniqueId ());
+			            easySellData.add (price);
+			
+			            if (args.length == 1) {
+				            easySellData.add ("説明はありません");
+				
+			            }else {
+				            easySellData.add (args[1]);
+			            }
+			
+			            ZonedDateTime nowTime = ZonedDateTime.now ();
+			            ZonedDateTime limitTime = nowTime.plusMinutes (2);
+			            easySellData.add (limitTime);
+			            p.sendMessage (ChatColor.GREEN + String.format ("%s円で、説明は「%s」で処理しました",easySellData.get (2).toString (),easySellData.get (3).toString ()));
+			            p.getInventory ().setItemInMainHand (new ItemStack (Material.AIR));
+						
+			            NikomaruEC.getStocks ().add (easySellData);
+			
+		            }
+		            else {
+			            p.sendMessage (ChatColor.YELLOW + "金額は自然数を入力してください");
+		            }
+	            }
+	            else {
+		            p.sendMessage (ChatColor.YELLOW + "コマンドの長さが不適切です");
+	            }
             } else {
                 p.sendMessage(ChatColor.YELLOW + "アイテムをメインハンドに持ってください");
             }

@@ -17,7 +17,7 @@ public class WriteStockData {
     //アイテムのデータを保存する処理をする予定
 
 
-    public static void saveData() {
+    public void saveData() {
         List<List<Object>> rawStocks = NikomaruEC.getStocks();
 
         // {itemStack} {player uuid} {price} {description} {time}

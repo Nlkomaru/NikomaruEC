@@ -37,37 +37,38 @@ public class NowStockChestGUI {
 
             if (NikomaruEC.getStocks().size() > itemNum) {
                 List<Object> stock = NikomaruEC.getStocks().get(itemNum);
-
-
-                if (stock.get(1).equals(p.getUniqueId())) {
-                    GetItemMeta getItemMeta = new GetItemMeta();
-
-
-                    gui.setItem(i, getItemMeta.setItemMeta(stock));
-
-
-                    StockDataList.getPlayerNowStockNum().put(p.getUniqueId(), stockNum);
-                    j++;
-                }
-            } else {
-                gui.setItem(i, setItemData.getNoDataGlassItem());
-
+	
+	
+	            if (stock.get (1).equals (p.getUniqueId ())) {
+		            GetItemMeta getItemMeta = new GetItemMeta ();
+		
+		
+		            gui.setItem (i,getItemMeta.setItemMeta (stock));
+		
+		
+		            StockDataList.getPlayerNowStockNum ().put (p.getUniqueId (),stockNum);
+		            j++;
+	            }
             }
-            i++;
+            else {
+	            gui.setItem (i,setItemData.getNoDataGlassItem ());
+	
+            }
+	        i++;
         }
-        gui.setItem(45, setItemData.getPrevItem());
-        gui.setItem(46, setItemData.getReloadItem());
-        gui.setItem(47, setItemData.getNextItem());
-        gui.setItem(48, setItemData.getLeftoversItem());
-        gui.setItem(49, setItemData.getStoreItem());
-        gui.setItem(50, setItemData.getBuyHistoryItem());
-        gui.setItem(51, setItemData.getSellHistoryItem());
-        gui.setItem(52, setItemData.getTerminalItem());
-        gui.setItem(53, setItemData.getCloseItem());
-
-
-        return gui;
-
+	    gui.setItem (45,setItemData.getPrevItem ());
+	    gui.setItem (46,setItemData.getReloadItem ());
+	    gui.setItem (47,setItemData.getNextItem ());
+	    gui.setItem (48,setItemData.getReturnedItem ());
+	    gui.setItem (49,setItemData.getStoreItem ());
+	    gui.setItem (50,setItemData.getBuyHistoryItem ());
+	    gui.setItem (51,setItemData.getSellHistoryItem ());
+	    gui.setItem (52,setItemData.getTerminalItem ());
+	    gui.setItem (53,setItemData.getCloseItem ());
+	
+	
+	    return gui;
+	
     }
 
     @NotNull

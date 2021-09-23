@@ -2,10 +2,7 @@ package dev.nikomaru.nikomaruec.events;
 
 import dev.nikomaru.nikomaruec.NikomaruEC;
 import dev.nikomaru.nikomaruec.api.VaultAPI;
-import dev.nikomaru.nikomaruec.gui.ec.BuyAcceptChestGUI;
-import dev.nikomaru.nikomaruec.gui.ec.BuyChestGUI;
-import dev.nikomaru.nikomaruec.gui.ec.NowStockChestGUI;
-import dev.nikomaru.nikomaruec.gui.ec.TerminalChestGUI;
+import dev.nikomaru.nikomaruec.gui.ec.*;
 import dev.nikomaru.nikomaruec.utils.GetItemMeta;
 import dev.nikomaru.nikomaruec.utils.MakeGUI;
 import dev.nikomaru.nikomaruec.utils.SetItemData;
@@ -23,6 +20,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 import static dev.nikomaru.nikomaruec.utils.StockDataList.getNowStockPage;
+import static dev.nikomaru.nikomaruec.utils.StockDataList.getReturnPage;
 
 public class BuyClickEvent implements Listener {
 
@@ -72,8 +70,7 @@ public class BuyClickEvent implements Listener {
                                             e.getClickedInventory ().setItem (i,getItemMeta.setItemMeta (NikomaruEC.getStocks ().get (num)));
                                         }
                                     }.runTaskLater (NikomaruEC.getPlugin (),20 * 2);
-                                }
-                                else {
+                                }else {
                                     BuyAcceptChestGUI buyAcceptChestGUI = new BuyAcceptChestGUI ();
                                     p.openInventory (buyAcceptChestGUI.BuyAccept (p,num));
                                 }
@@ -94,16 +91,18 @@ public class BuyClickEvent implements Listener {
                         changePages (e,p,uuid,pages,i,maxPage);
         
                     } else if (i == 48) {
-
+    
                         //売れなかった在庫
-
+                        ReturnedChestGUI returnedStock = new ReturnedChestGUI ();
+                        p.openInventory (returnedStock.returned (p,1));
+                        getReturnPage ().put (p.getUniqueId (),1);
+    
                     } else if (i == 49) {
                         //自分の販売中の在庫
 
                         NowStockChestGUI nowStock = new NowStockChestGUI();
                         p.openInventory(nowStock.nowPlayerStock(p, 1));
                         getNowStockPage().put(p.getUniqueId(), 1);
-                        e.setCancelled(true);
 
                     } else if (i == 50) {
 

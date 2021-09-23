@@ -28,5 +28,10 @@ public class MakeGUI {
     public Component getBuyAcceptChest() {
         return getComponent("購入決定画面", 50, 205, 50);
     }
-
+    
+    public Component getReturnedChest() {
+        return getComponent("返却された在庫", 139, 0, 139);
+    }
+    
+    
 }
