@@ -1,5 +1,5 @@
 name: NikomaruEC
-version: '${project.version}'
+version: 1.0
 main: dev.nikomaru.nikomaruec.NikomaruEC
 api-version: 1.17
 commands:

@@ -4,6 +4,7 @@ import dev.nikomaru.nikomaruec.api.VaultAPI;
 import dev.nikomaru.nikomaruec.commands.EasySell;
 import dev.nikomaru.nikomaruec.commands.TerminalGUI;
 import dev.nikomaru.nikomaruec.events.*;
+import dev.nikomaru.nikomaruec.files.returnStocks.ReadReturnStockData;
 import dev.nikomaru.nikomaruec.files.returnStocks.WriteReturnStockData;
 import dev.nikomaru.nikomaruec.files.stocks.ReadStockData;
 import dev.nikomaru.nikomaruec.files.stocks.WriteStockData;
@@ -49,8 +50,10 @@ public final class NikomaruEC extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new SellCloseEvent(), this);
         getServer ().getPluginManager ().registerEvents (new NowStockClickEvent (),this);
         getServer ().getPluginManager ().registerEvents (new BuyAcceptClickEvent (),this);
+	    getServer ().getPluginManager ().registerEvents (new ReturnedClickEvent (),this);
 
         stocks = ReadStockData.readData();
+		returnStocks = ReadReturnStockData.readData ();
 
 
     }
@@ -58,10 +61,8 @@ public final class NikomaruEC extends JavaPlugin {
     @Override
     public void onDisable() {
         // Plugin shutdown logic
-	    WriteStockData writeStockData = new WriteStockData ();
-        writeStockData.saveData ();
-	    WriteReturnStockData writeReturnStockData = new WriteReturnStockData ();
-        writeReturnStockData.saveData();
+        WriteStockData.saveData ();
+        WriteReturnStockData.saveData();
     }
 }
 

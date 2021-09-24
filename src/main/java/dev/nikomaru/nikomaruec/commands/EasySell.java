@@ -47,7 +47,7 @@ public class EasySell implements CommandExecutor {
 			            }
 			
 			            ZonedDateTime nowTime = ZonedDateTime.now ();
-			            ZonedDateTime limitTime = nowTime.plusMinutes (2);
+			            ZonedDateTime limitTime = nowTime.plusSeconds (25);
 			            easySellData.add (limitTime);
 			            p.sendMessage (ChatColor.GREEN + String.format ("%s円で、説明は「%s」で処理しました",easySellData.get (2).toString (),easySellData.get (3).toString ()));
 			            p.getInventory ().setItemInMainHand (new ItemStack (Material.AIR));

@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.UUID;
 
 public class WriteReturnStockData {
-	public void saveData() {
+	public static void saveData () {
 		String dir = "plugins\\NikomaruEC";
 		String path = "plugins\\NikomaruEC\\returnStock.dat";
 		

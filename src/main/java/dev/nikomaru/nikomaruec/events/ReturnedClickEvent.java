@@ -5,17 +5,14 @@ import dev.nikomaru.nikomaruec.gui.ec.BuyChestGUI;
 import dev.nikomaru.nikomaruec.gui.ec.NowStockChestGUI;
 import dev.nikomaru.nikomaruec.gui.ec.ReturnedChestGUI;
 import dev.nikomaru.nikomaruec.gui.ec.TerminalChestGUI;
-import dev.nikomaru.nikomaruec.utils.GetItemMeta;
-import dev.nikomaru.nikomaruec.utils.MakeGUI;
-import dev.nikomaru.nikomaruec.utils.SetItemData;
-import dev.nikomaru.nikomaruec.utils.StockDataList;
+import dev.nikomaru.nikomaruec.utils.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.UUID;
 
@@ -50,20 +47,14 @@ public class ReturnedClickEvent implements Listener {
 							}.runTaskLater (NikomaruEC.getPlugin (),20 * 2);
 						}
 						else {
-							p.getInventory ().addItem ((ItemStack) NikomaruEC.getReturnStocks ().get (uuid).get (num).get (0));
+							p.getInventory ().addItem (ChangeItemData.decode(NikomaruEC.getReturnStocks ().get (uuid).get (num).get (0).toString ()));
 							NikomaruEC.getReturnStocks ().get (uuid).remove (num);
 							ReturnedChestGUI returnedChestGUI = new ReturnedChestGUI ();
-							returnedChestGUI.returned (p,pages);
+							p.openInventory (returnedChestGUI.returned (p,pages));
 						}
 					}
-					else if (clickedSlot == 45) {
-						//前のページ
-					}
-					else if (clickedSlot == 46) {
-						//ページ更新
-					}
-					else if (clickedSlot == 47) {
-						//次のページ
+					else if (clickedSlot >= 45 && clickedSlot <= 47) {
+						changePages (e,p,uuid,pages,clickedSlot,maxPage);
 					}
 					else if (clickedSlot == 48) {
 						//販売場
@@ -96,5 +87,24 @@ public class ReturnedClickEvent implements Listener {
 				}
 			}
 		}
+	}
+	
+	static void changePages (@NotNull InventoryClickEvent e,Player p,UUID playerUUID,int pages,int i,int maxPage) {
+		
+		int change = 0;
+		if (pages > 1 && i == 45) {
+			change = - 1;
+			
+		}
+		else if (pages <= 1 && i == 47 && pages < maxPage) {
+			
+			change = 1;
+			
+		}
+		
+		StockDataList.getReturnPage ().put (playerUUID,pages + change);
+		ReturnedChestGUI returned = new ReturnedChestGUI ();
+		p.openInventory (returned.returned (p,pages + change));
+		e.setCancelled (true);
 	}
 }
