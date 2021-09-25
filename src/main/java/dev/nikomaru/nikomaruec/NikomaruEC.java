@@ -54,8 +54,8 @@ public final class NikomaruEC extends JavaPlugin {
 
         stocks = ReadStockData.readData();
 		returnStocks = ReadReturnStockData.readData ();
-
-
+	
+	
     }
 
     @Override

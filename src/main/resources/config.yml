@@ -1,0 +1,6 @@
+SetLimit:
+  DaysLater : 7
+  HoursLater : 0
+Price :
+  Max : 1000000
+  Min : 0

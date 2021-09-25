@@ -1,6 +1,7 @@
 package dev.nikomaru.nikomaruec.events;
 
 import dev.nikomaru.nikomaruec.NikomaruEC;
+import dev.nikomaru.nikomaruec.utils.ChangeItemData;
 import dev.nikomaru.nikomaruec.utils.MakeGUI;
 import dev.nikomaru.nikomaruec.utils.conversation.ConvPromptPrice;
 import org.bukkit.conversations.Conversation;
@@ -49,9 +50,9 @@ public class SellClickEvent implements Listener {
                             if (item != null) {
                                 pl.closeInventory();
                                 data = new ArrayList<>();
-                                sellData.put(pl.getUniqueId(), data);
-                                sellData.get(pl.getUniqueId()).add(item);
-                                sellData.get(pl.getUniqueId()).add(pl.getUniqueId());
+                                sellData.put (pl.getUniqueId (),data);
+                                sellData.get (pl.getUniqueId ()).add (ChangeItemData.encode (item));
+                                sellData.get (pl.getUniqueId ()).add (pl.getUniqueId ());
 
                                 ConversationFactory cf = new ConversationFactory(NikomaruEC.getPlugin());
                                 Conversation conv1 = cf.withFirstPrompt(new ConvPromptPrice()).withLocalEcho(true)
@@ -64,8 +65,8 @@ public class SellClickEvent implements Listener {
                                     public void run() {
                                         conv1.abandon();
                                         if (sellData.get(pl.getUniqueId()).size() <= 2) {
-                                            pl.sendMessage("入力がないため処理を中断しました");
-                                            pl.getInventory().addItem((ItemStack) SellClickEvent.getData().get(pl.getUniqueId()).get(0));
+                                            pl.sendMessage ("入力がないため処理を中断しました");
+                                            pl.getInventory ().addItem (ChangeItemData.decode (SellClickEvent.getData ().get (pl.getUniqueId ()).get (0).toString ()));
                                         }
                                     }
                                 }.runTaskLater(NikomaruEC.getPlugin(), 20 * 7);

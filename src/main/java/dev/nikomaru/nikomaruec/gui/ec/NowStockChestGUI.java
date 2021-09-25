@@ -60,7 +60,7 @@ public class NowStockChestGUI {
 	    gui.setItem (46,setItemData.getReloadItem ());
 	    gui.setItem (47,setItemData.getNextItem ());
 	    gui.setItem (48,setItemData.getReturnedItem ());
-	    gui.setItem (49,setItemData.getStoreItem ());
+	    gui.setItem (49,setItemData.getBuyItem ());
 	    gui.setItem (50,setItemData.getBuyHistoryItem ());
 	    gui.setItem (51,setItemData.getSellHistoryItem ());
 	    gui.setItem (52,setItemData.getTerminalItem ());

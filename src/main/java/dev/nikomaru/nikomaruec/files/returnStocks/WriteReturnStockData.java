@@ -17,19 +17,20 @@ public class WriteReturnStockData {
 		
 		HashMap<UUID,List<List<Object>>> returnStock = NikomaruEC.getReturnStocks ();
 		
-		MakeFile.makeFile(dir,path);
 		
-		
-		try {
-			ObjectOutputStream objOutStream = new ObjectOutputStream(new FileOutputStream (path));
-			SerializableReturnStock srs = new SerializableReturnStock(returnStock);
-			
-			objOutStream.writeObject(srs);
-			objOutStream.close();
-			
-		} catch (IOException e) {
-			e.printStackTrace();
+		if(!(returnStock.isEmpty ())){
+			MakeFile.makeFile(dir,path);
+			try {
+				ObjectOutputStream objOutStream = new ObjectOutputStream (new FileOutputStream (path));
+				SerializableReturnStock srs = new SerializableReturnStock (returnStock);
+				
+				objOutStream.writeObject (srs);
+				objOutStream.flush ();
+				objOutStream.close ();
+				
+			} catch (IOException e) {
+				e.printStackTrace ();
+			}
 		}
 	}
-	
 }

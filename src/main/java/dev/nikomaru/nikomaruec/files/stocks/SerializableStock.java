@@ -4,7 +4,8 @@ import java.io.Serializable;
 import java.util.List;
 
 public class SerializableStock implements Serializable {
-    List<List<Object>> stock;
+    private static final long serialVersionUID = - 8549839403246768345L;
+	List<List<Object>> stock;
 
     public SerializableStock(List<List<Object>> stock) {
         this.stock = stock;

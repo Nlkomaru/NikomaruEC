@@ -1,7 +1,5 @@
 package dev.nikomaru.nikomaruec.files.stocks;
 
-import dev.nikomaru.nikomaruec.utils.ChangeItemData;
-import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
@@ -42,15 +40,14 @@ public class ReadStockData {
             for (List<Object> objects : storeStocks) {
                 List<Object> stock = new ArrayList<>();
 
-                String stoneItem = (String) objects.get(0);
-                UUID uuid = (UUID) objects.get(1);
+                String item = (String) objects.get (0);
+	            UUID uuid = (UUID) objects.get (1);
                 Long price = (Long) objects.get(2);
                 String description = (String) objects.get(3);
                 ZonedDateTime time = (ZonedDateTime) objects.get(4);
-
-                ItemStack item = ChangeItemData.decode(stoneItem);
-                
-                stock.add(item);
+	
+	
+	            stock.add(item);
                 stock.add(uuid);
                 stock.add(price);
                 stock.add(description);
