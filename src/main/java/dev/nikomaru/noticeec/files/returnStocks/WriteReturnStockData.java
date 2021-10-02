@@ -1,3 +1,7 @@
+/*
+ * To the extent possible under law, Nikomaru has waived all copyright and related or neighboring rights to NoticeEC. This work is published from: 日本.
+ */
+
 package dev.nikomaru.noticeec.files.returnStocks;
 
 import dev.nikomaru.noticeec.files.MakeFile;
@@ -12,8 +16,8 @@ import java.util.UUID;
 
 public class WriteReturnStockData {
 	public static void saveData () {
-		String dir = "plugins\\NoticeEC\\";
-		String path = dir + "returnStock\\returnStock.dat";
+		String dir = "plugins\\NoticeEC";
+		String path = dir + "\\returnStock\\returnStock.dat";
 		
 		HashMap<UUID,List<List<Object>>> returnStock = StockDataList.getReturnStocks ();
 		
