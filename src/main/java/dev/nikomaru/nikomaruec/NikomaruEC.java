@@ -22,38 +22,36 @@ public final class NikomaruEC extends JavaPlugin {
 		return plugin;
 	}
 	
-
-    
-    
-    @Override
-    public void onEnable() {
-        // Plugin startup logic
-        if (!VaultAPI.setupEconomy()) {
-            System.out.println("No economy plugin found. Disabling Vault");
-            getServer().getPluginManager().disablePlugin(this);
-            return;
-        }
-        plugin = this;
-	    Objects.requireNonNull (getCommand ("ne")).setExecutor (new TerminalGUI ());
-	    Objects.requireNonNull (getCommand ("nes")).setExecutor (new EasySell ());
-	    getServer ().getPluginManager ().registerEvents (new TerminalClickEvent (),this);
-	    getServer ().getPluginManager ().registerEvents (new BuyClickEvent (),this);
-	    getServer ().getPluginManager ().registerEvents (new SellClickEvent (),this);
-	    getServer ().getPluginManager ().registerEvents (new SellCloseEvent (),this);
-	    getServer ().getPluginManager ().registerEvents (new NowStockClickEvent (),this);
-	    getServer ().getPluginManager ().registerEvents (new BuyAcceptClickEvent (),this);
-	    getServer ().getPluginManager ().registerEvents (new ReturnedClickEvent (),this);
 	
-	    StockDataList.setStocks (ReadStockData.readData ());
-	    StockDataList.setReturnStocks (ReadReturnStockData.readData ());
+	@Override
+	public void onEnable () {
+		// Plugin startup logic
+		if (! VaultAPI.setupEconomy ()) {
+			System.out.println ("No economy plugin found. Disabling Vault");
+			getServer ().getPluginManager ().disablePlugin (this);
+			return;
+		}
+		plugin = this;
+		Objects.requireNonNull (getCommand ("ne")).setExecutor (new TerminalGUI ());
+		Objects.requireNonNull (getCommand ("nes")).setExecutor (new EasySell ());
+		getServer ().getPluginManager ().registerEvents (new TerminalClickEvent (),this);
+		getServer ().getPluginManager ().registerEvents (new BuyClickEvent (),this);
+		getServer ().getPluginManager ().registerEvents (new SellClickEvent (),this);
+		getServer ().getPluginManager ().registerEvents (new SellCloseEvent (),this);
+		getServer ().getPluginManager ().registerEvents (new NowStockClickEvent (),this);
+		getServer ().getPluginManager ().registerEvents (new BuyAcceptClickEvent (),this);
+		getServer ().getPluginManager ().registerEvents (new ReturnedClickEvent (),this);
+		
+		StockDataList.setStocks (ReadStockData.readData ());
+		StockDataList.setReturnStocks (ReadReturnStockData.readData ());
+		
+	}
 	
-    }
-
-    @Override
-    public void onDisable() {
-        // Plugin shutdown logic
-        WriteStockData.saveData ();
-        WriteReturnStockData.saveData();
-    }
+	@Override
+	public void onDisable () {
+		// Plugin shutdown logic
+		WriteStockData.saveData ();
+		WriteReturnStockData.saveData ();
+	}
 }
 

@@ -27,5 +27,5 @@ public class SellCloseEvent implements Listener {
 				}
 			}
 		}
-    }
+	}
 }

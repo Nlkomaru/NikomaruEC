@@ -18,8 +18,8 @@ public class WriteReturnStockData {
 		HashMap<UUID,List<List<Object>>> returnStock = StockDataList.getReturnStocks ();
 		
 		
-		if(!(returnStock.isEmpty ())){
-			MakeFile.makeFile(dir,path);
+		if (! (returnStock.isEmpty ())) {
+			MakeFile.makeFile (dir,path);
 			try {
 				ObjectOutputStream objOutStream = new ObjectOutputStream (new FileOutputStream (path));
 				SerializableReturnStock srs = new SerializableReturnStock (returnStock);

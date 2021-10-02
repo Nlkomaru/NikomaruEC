@@ -8,24 +8,24 @@ import java.util.UUID;
 public class StockDataList {
 	
 	private static HashMap<UUID,Integer> nowBuyPage = new HashMap<> ();
+	private static HashMap<UUID,Integer> nowStockPage = new HashMap<> ();
+	private static HashMap<UUID,Integer> selectNum = new HashMap<> ();
+	private static HashMap<UUID,Integer> returnPage = new HashMap<> ();
+	private static HashMap<UUID,List<Object>> sellData = new HashMap<> ();
+	private static List<List<Object>> stocks = new ArrayList<> ();
+	private static HashMap<UUID,List<List<Object>>> returnStocks = new HashMap<> ();
 	
 	public static HashMap<UUID,Integer> getNowBuyPage () {
 		return nowBuyPage;
 	}
-	private static HashMap<UUID,Integer> nowStockPage = new HashMap<> ();
-	private static HashMap<UUID,Integer> selectNum = new HashMap<> ();
 	
 	public static HashMap<UUID,Integer> getNowStockPage () {
 		return nowStockPage;
 	}
-	private static HashMap<UUID,Integer> returnPage = new HashMap<> ();
-	private static HashMap<UUID,List<Object>> sellData = new HashMap<> ();
-	
+
 	public static HashMap<UUID,Integer> getSelectNum () {
 		return selectNum;
 	}
-	private static List<List<Object>> stocks = new ArrayList<> ();
-	private static HashMap<UUID,List<List<Object>>> returnStocks = new HashMap<> ();
 	
 	public static HashMap<UUID,Integer> getReturnPage () {
 		return returnPage;

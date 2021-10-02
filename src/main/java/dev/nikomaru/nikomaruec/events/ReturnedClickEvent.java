@@ -20,10 +20,10 @@ import java.util.UUID;
 public class ReturnedClickEvent implements Listener {
 	
 	@EventHandler
-	public void clickEvent(InventoryClickEvent e){
-		MakeGUI makegui = new MakeGUI();
-		if(e.getView ().title ().equals (makegui.getReturnedChest ())) {
-			if(e.getClickedInventory () != null) {
+	public void clickEvent (InventoryClickEvent e) {
+		MakeGUI makegui = new MakeGUI ();
+		if (e.getView ().title ().equals (makegui.getReturnedChest ())) {
+			if (e.getClickedInventory () != null) {
 				InventoryType inv = e.getClickedInventory ().getType ();
 				if (inv == InventoryType.CHEST) {
 					Player p = (Player) e.getWhoClicked ();

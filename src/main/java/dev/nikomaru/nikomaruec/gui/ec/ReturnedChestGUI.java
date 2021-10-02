@@ -11,6 +11,7 @@ import java.util.List;
 public class ReturnedChestGUI {
 	//TODO 返却されたアイテムをHashMapからListに変更
 	final SetItemData setItemData = new SetItemData ();
+	
 	public Inventory returned (Player p,int pages) {
 		MakeGUI makegui = new MakeGUI ();
 		Inventory gui = Bukkit.createInventory (p,54,makegui.getReturnedChest ());
@@ -33,7 +34,8 @@ public class ReturnedChestGUI {
 				displayReturned.add (returned.get (4));
 				gui.setItem (i,getItemMeta.setReturnedItemMeta (displayReturned));
 				
-			}else {
+			}
+			else {
 				gui.setItem (i,setItemData.getNoDataGlassItem ());
 				
 			}
