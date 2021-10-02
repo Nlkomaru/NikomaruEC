@@ -5,11 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>dev.nikomaru</groupId>
-    <artifactId>NikomaruEC</artifactId>
+    <artifactId>NoticeEC</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>NikomaruEC</name>
+    <name>NoticeEC</name>
 
     <properties>
         <java.version>1.8</java.version>

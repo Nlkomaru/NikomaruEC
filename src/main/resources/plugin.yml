@@ -1,6 +1,6 @@
-name: NikomaruEC
+name: NoticeEC
 version: 1.0
-main: dev.nikomaru.nikomaruec.NikomaruEC
+main: dev.nikomaru.noticeec.NoticeEC
 api-version: 1.17
 commands:
   ne:
