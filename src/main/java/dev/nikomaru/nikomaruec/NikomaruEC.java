@@ -8,29 +8,21 @@ import dev.nikomaru.nikomaruec.files.returnStocks.ReadReturnStockData;
 import dev.nikomaru.nikomaruec.files.returnStocks.WriteReturnStockData;
 import dev.nikomaru.nikomaruec.files.stocks.ReadStockData;
 import dev.nikomaru.nikomaruec.files.stocks.WriteStockData;
+import dev.nikomaru.nikomaruec.utils.StockDataList;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.jetbrains.annotations.NotNull;
 
-import java.util.*;
+import java.util.Objects;
 
 public final class NikomaruEC extends JavaPlugin {
 	
 	
-	public static List<List<Object>> stocks = new ArrayList<> ();
-	public static HashMap<UUID,List<List<Object>>> returnStocks = new HashMap<> ();
 	private static NikomaruEC plugin;
 	
 	public static NikomaruEC getPlugin () {
 		return plugin;
 	}
 	
-	public static @NotNull List<List<Object>> getStocks () {
-		return stocks;
-	}
-	
-	public static @NotNull HashMap<UUID,List<List<Object>>> getReturnStocks () {
-        return returnStocks;
-    }
+
     
     
     @Override
@@ -42,19 +34,18 @@ public final class NikomaruEC extends JavaPlugin {
             return;
         }
         plugin = this;
-        Objects.requireNonNull(getCommand("ne")).setExecutor(new TerminalGUI());
-        Objects.requireNonNull(getCommand("nes")).setExecutor(new EasySell());
-        getServer().getPluginManager().registerEvents(new TerminalClickEvent(), this);
-        getServer().getPluginManager().registerEvents(new BuyClickEvent(), this);
-        getServer().getPluginManager().registerEvents(new SellClickEvent(), this);
-        getServer().getPluginManager().registerEvents(new SellCloseEvent(), this);
-        getServer ().getPluginManager ().registerEvents (new NowStockClickEvent (),this);
-        getServer ().getPluginManager ().registerEvents (new BuyAcceptClickEvent (),this);
+	    Objects.requireNonNull (getCommand ("ne")).setExecutor (new TerminalGUI ());
+	    Objects.requireNonNull (getCommand ("nes")).setExecutor (new EasySell ());
+	    getServer ().getPluginManager ().registerEvents (new TerminalClickEvent (),this);
+	    getServer ().getPluginManager ().registerEvents (new BuyClickEvent (),this);
+	    getServer ().getPluginManager ().registerEvents (new SellClickEvent (),this);
+	    getServer ().getPluginManager ().registerEvents (new SellCloseEvent (),this);
+	    getServer ().getPluginManager ().registerEvents (new NowStockClickEvent (),this);
+	    getServer ().getPluginManager ().registerEvents (new BuyAcceptClickEvent (),this);
 	    getServer ().getPluginManager ().registerEvents (new ReturnedClickEvent (),this);
-
-        stocks = ReadStockData.readData();
-		returnStocks = ReadReturnStockData.readData ();
 	
+	    StockDataList.setStocks (ReadStockData.readData ());
+	    StockDataList.setReturnStocks (ReadReturnStockData.readData ());
 	
     }
 

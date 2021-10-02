@@ -16,7 +16,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.UUID;
 
-import static dev.nikomaru.nikomaruec.utils.StockDataList.getNowStockPage;
 
 public class ReturnedClickEvent implements Listener {
 	
@@ -31,7 +30,7 @@ public class ReturnedClickEvent implements Listener {
 					UUID uuid = p.getUniqueId ();
 					int clickedSlot = e.getSlot ();
 					int pages = StockDataList.getReturnPage ().get (uuid);
-					int returnedNum = NikomaruEC.getReturnStocks ().get (uuid).size ();
+					int returnedNum = StockDataList.getReturnStocks ().get (uuid).size ();
 					int maxPage = (int) Math.ceil ((double) returnedNum / 45);
 					int num = clickedSlot + (pages - 1) * 45;
 					if ((0 <= clickedSlot && clickedSlot <= 44) && num < returnedNum) {
@@ -42,13 +41,13 @@ public class ReturnedClickEvent implements Listener {
 								@Override
 								public void run () {
 									GetItemMeta getItemMeta = new GetItemMeta ();
-									e.getClickedInventory ().setItem (clickedSlot,getItemMeta.setItemMeta (NikomaruEC.getReturnStocks ().get (uuid).get (num)));
+									e.getClickedInventory ().setItem (clickedSlot,getItemMeta.setItemMeta (StockDataList.getReturnStocks ().get (uuid).get (num)));
 								}
 							}.runTaskLater (NikomaruEC.getPlugin (),20 * 2);
 						}
 						else {
-							p.getInventory ().addItem (ChangeItemData.decode(NikomaruEC.getReturnStocks ().get (uuid).get (num).get (0).toString ()));
-							NikomaruEC.getReturnStocks ().get (uuid).remove (num);
+							p.getInventory ().addItem (ChangeItemData.decode (StockDataList.getReturnStocks ().get (uuid).get (num).get (0).toString ()));
+							StockDataList.removeReturnStocks (uuid,num);
 							ReturnedChestGUI returnedChestGUI = new ReturnedChestGUI ();
 							p.openInventory (returnedChestGUI.returned (p,pages));
 						}
@@ -60,13 +59,13 @@ public class ReturnedClickEvent implements Listener {
 						//販売場
 						BuyChestGUI buyChestGUI = new BuyChestGUI ();
 						p.openInventory (buyChestGUI.Buy (p,1));
-						getNowStockPage ().put (uuid,1);
+						StockDataList.putNowBuyPage (uuid,1);
 					}
 					else if (clickedSlot == 49) {
 						//自分の販売中の在庫
 						NowStockChestGUI nowStock = new NowStockChestGUI ();
 						p.openInventory (nowStock.nowPlayerStock (p,1));
-						getNowStockPage ().put (p.getUniqueId (),1);
+						StockDataList.putNowStockPage (p.getUniqueId (),1);
 					}
 					else if (clickedSlot == 50) {
 						//購入履歴
@@ -102,7 +101,7 @@ public class ReturnedClickEvent implements Listener {
 			
 		}
 		
-		StockDataList.getReturnPage ().put (playerUUID,pages + change);
+		StockDataList.putReturnPage (playerUUID,pages + change);
 		ReturnedChestGUI returned = new ReturnedChestGUI ();
 		p.openInventory (returned.returned (p,pages + change));
 		e.setCancelled (true);

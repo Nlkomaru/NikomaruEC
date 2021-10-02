@@ -19,8 +19,6 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Objects;
 import java.util.UUID;
 
-import static dev.nikomaru.nikomaruec.utils.StockDataList.getNowStockPage;
-import static dev.nikomaru.nikomaruec.utils.StockDataList.getReturnPage;
 
 public class BuyClickEvent implements Listener {
 
@@ -38,14 +36,14 @@ public class BuyClickEvent implements Listener {
                     int pages = StockDataList.getNowBuyPage ().get (uuid);
                     int i = e.getSlot ();
                     int num = i + (pages - 1) * 45;
-                    int stockNum = NikomaruEC.getStocks ().size ();
+                    int stockNum = StockDataList.getStocks ().size ();
                     int maxPage = (int) Math.ceil ((double) stockNum / 45);
                     SetItemData setItemData = new SetItemData ();
                     Economy eco = VaultAPI.getEconomy ();
                     //1.戻る 2.ページ数表示(更新)  3.進む  4.売れなかった  5.販売中の在庫  6.購入履歴  7.販売履歴  8.ターミナルに戻る  9.閉じる
-                    if ((0 <= i && 44 >= i) && num < NikomaruEC.getStocks ().size ()) {
+                    if ((0 <= i && 44 >= i) && num < StockDataList.getStocks ().size ()) {
         
-                        if (NikomaruEC.getStocks ().get (num).get (1).equals (uuid)) {
+                        if (StockDataList.getStocks ().get (num).get (1).equals (uuid)) {
             
                             e.getClickedInventory ().setItem (i,setItemData.getNoticeYoursItem ());
             
@@ -53,21 +51,21 @@ public class BuyClickEvent implements Listener {
                                 @Override
                                 public void run () {
                                     GetItemMeta getItemMeta = new GetItemMeta ();
-                                    e.getClickedInventory ().setItem (i,getItemMeta.setItemMeta (NikomaruEC.getStocks ().get (num)));
+                                    e.getClickedInventory ().setItem (i,getItemMeta.setItemMeta (StockDataList.getStocks ().get (num)));
                                 }
                             }.runTaskLater (NikomaruEC.getPlugin (),20 * 2);
             
                         }
                         else {
-                            if (Objects.requireNonNull (eco).getBalance (p.getPlayer ()) > (long) NikomaruEC.getStocks ().get (i).get (2)) {
+                            if (Objects.requireNonNull (eco).getBalance (p.getPlayer ()) > (long) StockDataList.getStocks ().get (i).get (2)) {
                                 if (p.getInventory ().firstEmpty () == - 1) {
-            
+                    
                                     e.getClickedInventory ().setItem (i,setItemData.getNoticeNoEmptyItem ());
                                     new BukkitRunnable () {
                                         @Override
                                         public void run () {
                                             GetItemMeta getItemMeta = new GetItemMeta ();
-                                            e.getClickedInventory ().setItem (i,getItemMeta.setItemMeta (NikomaruEC.getStocks ().get (num)));
+                                            e.getClickedInventory ().setItem (i,getItemMeta.setItemMeta (StockDataList.getStocks ().get (num)));
                                         }
                                     }.runTaskLater (NikomaruEC.getPlugin (),20 * 2);
                                 }else {
@@ -81,7 +79,7 @@ public class BuyClickEvent implements Listener {
                                     @Override
                                     public void run () {
                                         GetItemMeta getItemMeta = new GetItemMeta ();
-                                        e.getClickedInventory ().setItem (i,getItemMeta.setItemMeta (NikomaruEC.getStocks ().get (num)));
+                                        e.getClickedInventory ().setItem (i,getItemMeta.setItemMeta (StockDataList.getStocks ().get (num)));
                                     }
                                 }.runTaskLater (NikomaruEC.getPlugin (),20 * 2);
                             }
@@ -95,14 +93,14 @@ public class BuyClickEvent implements Listener {
                         //売れなかった在庫
                         ReturnedChestGUI returnedStock = new ReturnedChestGUI ();
                         p.openInventory (returnedStock.returned (p,1));
-                        getReturnPage ().put (p.getUniqueId (),1);
+                        StockDataList.putReturnPage (p.getUniqueId (),1);
     
                     } else if (i == 49) {
                         //自分の販売中の在庫
 
                         NowStockChestGUI nowStock = new NowStockChestGUI();
-                        p.openInventory(nowStock.nowPlayerStock(p, 1));
-                        getNowStockPage().put(p.getUniqueId(), 1);
+                        p.openInventory (nowStock.nowPlayerStock (p,1));
+                        StockDataList.putNowStockPage (p.getUniqueId (),1);
 
                     } else if (i == 50) {
 
@@ -134,19 +132,19 @@ public class BuyClickEvent implements Listener {
     }
     
     static void changePages (@NotNull InventoryClickEvent e,Player p,UUID playerUUID,int pages,int i,int maxPage) {
-        
+    
         int change = 0;
         if (pages > 1 && i == 45) {
             change = - 1;
-            
+        
         }
         else if (pages <= 1 && i == 47 && pages < maxPage) {
-            
-            change = 1;
-            
-        }
         
-        StockDataList.getNowBuyPage ().put (playerUUID,pages + change);
+            change = 1;
+        
+        }
+    
+        StockDataList.putNowBuyPage (playerUUID,pages + change);
         BuyChestGUI buy = new BuyChestGUI ();
         p.openInventory (buy.Buy (p,pages + change));
         e.setCancelled (true);

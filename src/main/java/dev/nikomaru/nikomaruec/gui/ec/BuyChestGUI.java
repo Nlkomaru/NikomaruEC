@@ -1,10 +1,6 @@
 package dev.nikomaru.nikomaruec.gui.ec;
 
-import dev.nikomaru.nikomaruec.NikomaruEC;
-import dev.nikomaru.nikomaruec.utils.ChangeItemData;
-import dev.nikomaru.nikomaruec.utils.GetItemMeta;
-import dev.nikomaru.nikomaruec.utils.MakeGUI;
-import dev.nikomaru.nikomaruec.utils.SetItemData;
+import dev.nikomaru.nikomaruec.utils.*;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -30,30 +26,30 @@ public class BuyChestGUI {
         boolean returnCheck = true;
         
         while (returnCheck) {
-            if (j >= NikomaruEC.getStocks ().size ()) {
+            if (j >= StockDataList.getStocks ().size ()) {
                 returnCheck = false;
             }
             else {
                 ZonedDateTime nowTime = ZonedDateTime.now ();
-                
-                if (nowTime.isAfter ((ZonedDateTime) NikomaruEC.getStocks ().get (j).get (4))) {
+        
+                if (nowTime.isAfter ((ZonedDateTime) StockDataList.getStocks ().get (j).get (4))) {
                     List<Object> returnStock = new ArrayList<> ();
-                    String encodeReturnStock = ChangeItemData.encode ((ItemStack) NikomaruEC.getStocks ().get ((pages - 1) * 45 + j).get (0));
-                    UUID uuid = (UUID) NikomaruEC.getStocks ().get ((pages - 1) * 45 + j).get (1);
-                    Long price = (Long) NikomaruEC.getStocks ().get ((pages - 1) * 45 + j).get (2);
-                    String description = NikomaruEC.getStocks ().get ((pages - 1) * 45 + j).get (3).toString ();
+                    String encodeReturnStock = ChangeItemData.encode ((ItemStack) StockDataList.getStocks ().get ((pages - 1) * 45 + j).get (0));
+                    UUID uuid = (UUID) StockDataList.getStocks ().get ((pages - 1) * 45 + j).get (1);
+                    Long price = (Long) StockDataList.getStocks ().get ((pages - 1) * 45 + j).get (2);
+                    String description = StockDataList.getStocks ().get ((pages - 1) * 45 + j).get (3).toString ();
                     ZonedDateTime time = ZonedDateTime.now ();
-                    
+            
                     returnStock.add (encodeReturnStock);
                     returnStock.add (uuid);
                     returnStock.add (price);
                     returnStock.add (description);
                     returnStock.add (time);
-                    
-                    NikomaruEC.getReturnStocks ().computeIfAbsent (uuid,k -> new ArrayList<> ());
-                    
-                    NikomaruEC.getReturnStocks ().get (uuid).add (returnStock);
-                    NikomaruEC.getStocks ().remove ((pages - 1) * 45 + j);
+            
+                    StockDataList.getReturnStocks ().computeIfAbsent (uuid,k -> new ArrayList<> ());
+            
+                    StockDataList.getReturnStocks ().get (uuid).add (returnStock);
+                    StockDataList.removeStocks ((pages - 1) * 45 + j);
                 }
                 else {
                     j++;
@@ -64,13 +60,13 @@ public class BuyChestGUI {
         
         int i = 0;
         int num = 45;
-        int stockSize = NikomaruEC.getStocks ().size ();
+        int stockSize = StockDataList.getStocks ().size ();
         List<Object> stock;
         
         while (i < num) {
             
             if ((pages - 1) * 45 + i < stockSize) {
-                stock = NikomaruEC.getStocks ().get ((pages - 1) * 45 + i);
+                stock = StockDataList.getStocks ().get ((pages - 1) * 45 + i);
                 
                 GetItemMeta getItemMeta = new GetItemMeta ();
                 

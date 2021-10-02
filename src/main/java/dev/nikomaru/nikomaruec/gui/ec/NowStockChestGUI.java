@@ -1,6 +1,5 @@
 package dev.nikomaru.nikomaruec.gui.ec;
 
-import dev.nikomaru.nikomaruec.NikomaruEC;
 import dev.nikomaru.nikomaruec.utils.GetItemMeta;
 import dev.nikomaru.nikomaruec.utils.MakeGUI;
 import dev.nikomaru.nikomaruec.utils.SetItemData;
@@ -8,12 +7,8 @@ import dev.nikomaru.nikomaruec.utils.StockDataList;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
-import org.jetbrains.annotations.NotNull;
 
-import java.util.HashMap;
 import java.util.List;
-
-import static dev.nikomaru.nikomaruec.utils.StockDataList.getPlayerNowStockNum;
 
 
 @SuppressWarnings({"ALL", "DuplicatedCode"})
@@ -29,25 +24,22 @@ public class NowStockChestGUI {
         int i = 0;
         int num = 45;
         int j = 0;
-        getPlayerNowStockNum().remove(p.getUniqueId());
-        HashMap<Integer, Integer> stockNum = new HashMap<>();
         while (i < num) {
-
-            int itemNum = (pages - 1) * 45 + i;
-
-            if (NikomaruEC.getStocks().size() > itemNum) {
-                List<Object> stock = NikomaruEC.getStocks().get(itemNum);
 	
+	        int itemNum = (pages - 1) * 45 + i;
 	
-	            if (stock.get (1).equals (p.getUniqueId ())) {
-		            GetItemMeta getItemMeta = new GetItemMeta ();
+	        if (StockDataList.getStocks ().size () > itemNum) {
+		        List<Object> stock = StockDataList.getStocks ().get (itemNum);
 		
 		
-		            gui.setItem (i,getItemMeta.setItemMeta (stock));
-		
-		
-		            StockDataList.getPlayerNowStockNum ().put (p.getUniqueId (),stockNum);
-		            j++;
+		        if (stock.get (1).equals (p.getUniqueId ())) {
+			        GetItemMeta getItemMeta = new GetItemMeta ();
+			
+			
+			        gui.setItem (i,getItemMeta.setItemMeta (stock));
+			
+			
+			        j++;
 	            }
             }
             else {
@@ -71,8 +63,4 @@ public class NowStockChestGUI {
 	
     }
 
-    @NotNull
-    private SetItemData getSetItemData() {
-        return setItemData;
-    }
 }

@@ -3,6 +3,7 @@ package dev.nikomaru.nikomaruec.commands;
 import dev.nikomaru.nikomaruec.NikomaruEC;
 import dev.nikomaru.nikomaruec.files.Config;
 import dev.nikomaru.nikomaruec.utils.ChangeItemData;
+import dev.nikomaru.nikomaruec.utils.StockDataList;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -58,7 +59,7 @@ public class EasySell implements CommandExecutor {
 				            p.sendMessage (ChatColor.GREEN + String.format ("%s円で、説明は「%s」で処理しました",easySellData.get (2).toString (),easySellData.get (3).toString ()));
 				            p.getInventory ().setItemInMainHand (new ItemStack (Material.AIR));
 				
-				            NikomaruEC.getStocks ().add (easySellData);
+				            StockDataList.addStocks (easySellData);
 			            }
 		            }
 		            else {

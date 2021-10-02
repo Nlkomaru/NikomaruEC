@@ -1,9 +1,9 @@
 package dev.nikomaru.nikomaruec.utils.conversation;
 
 import dev.nikomaru.nikomaruec.NikomaruEC;
-import dev.nikomaru.nikomaruec.events.SellClickEvent;
 import dev.nikomaru.nikomaruec.files.Config;
 import dev.nikomaru.nikomaruec.files.stocks.WriteStockData;
+import dev.nikomaru.nikomaruec.utils.StockDataList;
 import org.bukkit.ChatColor;
 import org.bukkit.conversations.ConversationContext;
 import org.bukkit.conversations.Prompt;
@@ -20,14 +20,14 @@ public class ConvPromptDescription extends StringPrompt {
     
         Player p = (Player) con.getForWhom ();
     
-        SellClickEvent.getData ().get (p.getUniqueId ()).add (description);
+        StockDataList.addData (p.getUniqueId (),description);
     
         ZonedDateTime nowTime = ZonedDateTime.now ();
         Config config = new Config (NikomaruEC.getPlugin ());
         ZonedDateTime limitTime = nowTime.plusDays (config.getAddDays ()).plusHours (config.getAddHours ());
-        SellClickEvent.getData ().get (p.getUniqueId ()).add (limitTime);
+        StockDataList.addData (p.getUniqueId (),limitTime);
     
-        NikomaruEC.getStocks ().add (SellClickEvent.getData ().get (p.getUniqueId ()));
+        StockDataList.getStocks ().add (StockDataList.getData ().get (p.getUniqueId ()));
     
         // {itemStack} {player uuid} {price} {description} {time}
         con.getForWhom ().sendRawMessage (

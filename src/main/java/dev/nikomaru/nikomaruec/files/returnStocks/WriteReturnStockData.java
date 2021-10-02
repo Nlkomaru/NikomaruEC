@@ -1,7 +1,7 @@
 package dev.nikomaru.nikomaruec.files.returnStocks;
 
-import dev.nikomaru.nikomaruec.NikomaruEC;
 import dev.nikomaru.nikomaruec.files.MakeFile;
+import dev.nikomaru.nikomaruec.utils.StockDataList;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -12,10 +12,10 @@ import java.util.UUID;
 
 public class WriteReturnStockData {
 	public static void saveData () {
-		String dir = "plugins\\NikomaruEC";
-		String path = "plugins\\NikomaruEC\\returnStock.dat";
+		String dir = "plugins\\NikomaruEC\\";
+		String path = dir + "returnStock\\returnStock.dat";
 		
-		HashMap<UUID,List<List<Object>>> returnStock = NikomaruEC.getReturnStocks ();
+		HashMap<UUID,List<List<Object>>> returnStock = StockDataList.getReturnStocks ();
 		
 		
 		if(!(returnStock.isEmpty ())){
@@ -26,7 +26,9 @@ public class WriteReturnStockData {
 				
 				objOutStream.writeObject (srs);
 				objOutStream.flush ();
+				objOutStream.reset ();
 				objOutStream.close ();
+				
 				
 			} catch (IOException e) {
 				e.printStackTrace ();

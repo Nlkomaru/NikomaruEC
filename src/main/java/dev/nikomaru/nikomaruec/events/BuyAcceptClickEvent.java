@@ -1,6 +1,5 @@
 package dev.nikomaru.nikomaruec.events;
 
-import dev.nikomaru.nikomaruec.NikomaruEC;
 import dev.nikomaru.nikomaruec.api.VaultAPI;
 import dev.nikomaru.nikomaruec.files.stocks.WriteStockData;
 import dev.nikomaru.nikomaruec.gui.ec.BuyChestGUI;
@@ -31,7 +30,7 @@ public class BuyAcceptClickEvent implements Listener {
             Player p = (Player) e.getWhoClicked ();
             int slot = e.getSlot ();
             int i = StockDataList.getSelectNum ().get (p.getUniqueId ());
-            List<Object> stock = NikomaruEC.getStocks ().get (i);
+            List<Object> stock = StockDataList.getStocks ().get (i);
             ItemStack item = (ItemStack) stock.get (0);
             UUID uuid = (UUID) stock.get (1);
             long price = (long) stock.get (2);
@@ -39,11 +38,10 @@ public class BuyAcceptClickEvent implements Listener {
                 p.getInventory ().addItem (item);
                 Objects.requireNonNull (eco).withdrawPlayer (p,price);
                 eco.depositPlayer (Bukkit.getOfflinePlayer (uuid),price);
-                NikomaruEC.getStocks ().remove (i);
+                StockDataList.removeStocks (i);
                 p.closeInventory ();
                 p.sendMessage (ChatColor.AQUA + (Long.valueOf (price).toString () + "円") + "で" + ChatColor.GREEN + (Bukkit.getOfflinePlayer (uuid).getName ()) + "の" + ChatColor.GOLD + (item.displayName ()) + "を購入しました");
-                WriteStockData writeStockData = new WriteStockData ();
-                writeStockData.saveData ();
+                WriteStockData.saveData ();
             }
             else if (slot == 8) {
                 p.closeInventory ();

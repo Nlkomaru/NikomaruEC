@@ -1,9 +1,9 @@
 package dev.nikomaru.nikomaruec.utils.conversation;
 
 import dev.nikomaru.nikomaruec.NikomaruEC;
-import dev.nikomaru.nikomaruec.events.SellClickEvent;
 import dev.nikomaru.nikomaruec.files.Config;
 import dev.nikomaru.nikomaruec.utils.ChangeItemData;
+import dev.nikomaru.nikomaruec.utils.StockDataList;
 import org.bukkit.ChatColor;
 import org.bukkit.conversations.*;
 import org.bukkit.entity.Player;
@@ -23,26 +23,26 @@ public class ConvPromptPrice extends StringPrompt {
             Config config = new Config (NikomaruEC.getPlugin ());
             long pr = Long.parseLong (price);
             if (config.getMinPrice () <= pr && pr <= config.getMaxPrice ()) {
-                
-                
+    
+    
                 Player p = (Player) con.getForWhom ();
-                
-                SellClickEvent.getData ().get (p.getUniqueId ()).add (pr);
+    
+                StockDataList.addData (p.getUniqueId (),pr);
                 ConversationFactory cf = new ConversationFactory (NikomaruEC.getPlugin ());
                 Conversation conv2 = cf.withFirstPrompt (new ConvPromptDescription ()).withLocalEcho (true)
                         .buildConversation ((p));
                 conv2.begin ();
-                
+    
                 new BukkitRunnable () {
-                    
+        
                     @Override
                     public void run () {
                         conv2.abandon ();
-                        if (SellClickEvent.getData ().get (p.getUniqueId ()).size () <= 3) {
+                        if (StockDataList.getData ().get (p.getUniqueId ()).size () <= 3) {
                             p.sendMessage (ChatColor.YELLOW + "入力がないため処理を中断しました 説明をなしで出品する場合はコマンドから出品してください");
                             p.getInventory ()
-                                    .addItem (ChangeItemData.decode (SellClickEvent.getData ().get (p.getUniqueId ()).get (0).toString ()));
-                            
+                                    .addItem (ChangeItemData.decode (StockDataList.getData ().get (p.getUniqueId ()).get (0).toString ()));
+                
                         }
                     }
                 }.runTaskLater (NikomaruEC.getPlugin (),20 * 12);
