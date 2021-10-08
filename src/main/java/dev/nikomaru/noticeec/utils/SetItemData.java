@@ -9,13 +9,12 @@ import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
 public class SetItemData {
 	
-	public @NotNull ItemStack getPrevItem () {
+	public ItemStack getPrevItem () {
 		//前のページに戻るためのガラス
 		ItemStack prev = new ItemStack (Material.RED_STAINED_GLASS_PANE);
 		ItemMeta prev_meta = prev.getItemMeta ();
@@ -24,7 +23,7 @@ public class SetItemData {
 		return prev;
 	}
 	
-	public @NotNull ItemStack getReloadItem () {
+	public ItemStack getReloadItem () {
 		//ページを更新するためのガラス
 		ItemStack reload = new ItemStack (Material.GREEN_STAINED_GLASS_PANE);
 		ItemMeta reload_meta = reload.getItemMeta ();
@@ -33,7 +32,7 @@ public class SetItemData {
 		return reload;
 	}
 	
-	public @NotNull ItemStack getNextItem () {
+	public ItemStack getNextItem () {
 		//次のページに進むためのガラス
 		ItemStack next = new ItemStack (Material.BLUE_STAINED_GLASS_PANE);
 		ItemMeta next_meta = next.getItemMeta ();
@@ -42,7 +41,7 @@ public class SetItemData {
 		return next;
 	}
 	
-	public @NotNull ItemStack getReturnedItem () {
+	public ItemStack getReturnedItem () {
 		//売れなかった在庫を見るためのチェスト
 		ItemStack leftovers = new ItemStack (Material.CHEST);
 		ItemMeta leftovers_meta = leftovers.getItemMeta ();
@@ -51,7 +50,7 @@ public class SetItemData {
 		return leftovers;
 	}
 	
-	public @NotNull ItemStack getStoreItem () {
+	public ItemStack getStoreItem () {
 		//出品中の在庫を見るためのチェスト
 		ItemStack store = new ItemStack (Material.ENDER_CHEST);
 		ItemMeta store_meta = store.getItemMeta ();
@@ -60,7 +59,7 @@ public class SetItemData {
 		return store;
 	}
 	
-	public @NotNull ItemStack getBuyHistoryItem () {
+	public ItemStack getBuyHistoryItem () {
 		//購入履歴表示用の本
 		ItemStack buyHistory = new ItemStack (Material.KNOWLEDGE_BOOK);
 		ItemMeta buyHistory_meta = buyHistory.getItemMeta ();
@@ -69,7 +68,7 @@ public class SetItemData {
 		return buyHistory;
 	}
 	
-	public @NotNull ItemStack getSellHistoryItem () {
+	public ItemStack getSellHistoryItem () {
 		//販売履歴表示用の本
 		ItemStack sellHistory = new ItemStack (Material.ENCHANTED_BOOK);
 		ItemMeta sellHistory_meta = sellHistory.getItemMeta ();
@@ -78,7 +77,7 @@ public class SetItemData {
 		return sellHistory;
 	}
 	
-	public @NotNull ItemStack getTerminalItem () {
+	public ItemStack getTerminalItem () {
 		//ターミナルに戻るためのネザースター
 		ItemStack terminal = new ItemStack (Material.NETHER_STAR);
 		ItemMeta terminal_meta = terminal.getItemMeta ();
@@ -87,7 +86,7 @@ public class SetItemData {
 		return terminal;
 	}
 	
-	public @NotNull ItemStack getNoticeYoursItem () {
+	public ItemStack getNoticeYoursItem () {
 		
 		ItemStack yours = new ItemStack (Material.BARRIER);
 		ItemMeta yours_meta = yours.getItemMeta ();
@@ -99,7 +98,7 @@ public class SetItemData {
 		return yours;
 	}
 	
-	public @NotNull ItemStack getNoticeNoEmptyItem () {
+	public ItemStack getNoticeNoEmptyItem () {
 		
 		ItemStack noEmpty = new ItemStack (Material.BARRIER);
 		ItemMeta noEmpty_meta = noEmpty.getItemMeta ();
@@ -111,7 +110,7 @@ public class SetItemData {
 		return noEmpty;
 	}
 	
-	public @NotNull ItemStack getNoticeNoMoneyItem () {
+	public ItemStack getNoticeNoMoneyItem () {
 		
 		ItemStack noMoney = new ItemStack (Material.BARRIER);
 		ItemMeta noMoney_meta = noMoney.getItemMeta ();
@@ -120,7 +119,7 @@ public class SetItemData {
 		return noMoney;
 	}
 	
-	public @NotNull ItemStack getCloseItem () {
+	public ItemStack getCloseItem () {
 		//ページを閉じることを知らせるバリアブロック
 		ItemStack close = new ItemStack (Material.BARRIER);
 		ItemMeta close_meta = close.getItemMeta ();
@@ -132,7 +131,7 @@ public class SetItemData {
 		return close;
 	}
 	
-	public @NotNull ItemStack getNoDataGlassItem () {
+	public ItemStack getNoDataGlassItem () {
 		//データがないことを知らせるガラス
 		ItemStack noDataGlass = new ItemStack (Material.GRAY_STAINED_GLASS_PANE);
 		ItemMeta noDataGlass_meta = noDataGlass.getItemMeta ();
@@ -144,7 +143,7 @@ public class SetItemData {
 		return noDataGlass;
 	}
 	
-	public @NotNull ItemStack getBuyItem () {
+	public ItemStack getBuyItem () {
 		//物品購入所のボタンのエメラルド
 		ItemStack buy = new ItemStack (Material.EMERALD);
 		ItemMeta buy_meta = buy.getItemMeta ();
@@ -157,7 +156,7 @@ public class SetItemData {
 		return buy;
 	}
 	
-	public @NotNull ItemStack getSellItem () {
+	public ItemStack getSellItem () {
 		//物品販売所所のボタンの金インゴット
 		ItemStack sell = new ItemStack (Material.GOLD_INGOT);
 		ItemMeta sell_meta = sell.getItemMeta ();
@@ -170,7 +169,7 @@ public class SetItemData {
 		return sell;
 	}
 	
-	public @NotNull ItemStack getSetItemGlassItem () {
+	public ItemStack getSetItemGlassItem () {
 		//アイテムをセットすることを伝えるガラス
 		ItemStack setItemGlass = new ItemStack (Material.GRAY_STAINED_GLASS_PANE);
 		ItemMeta setItem_meta = setItemGlass.getItemMeta ();
@@ -182,7 +181,7 @@ public class SetItemData {
 		return setItemGlass;
 	}
 	
-	public @NotNull ItemStack getBlankGlassItem () {
+	public ItemStack getBlankGlassItem () {
 		//アイテムをセットすることを伝えるガラス
 		ItemStack blankGlass = new ItemStack (Material.GRAY_STAINED_GLASS_PANE);
 		ItemMeta blank_meta = blankGlass.getItemMeta ();
@@ -191,7 +190,7 @@ public class SetItemData {
 		return blankGlass;
 	}
 	
-	public @NotNull ItemStack getAcceptItem () {
+	public ItemStack getAcceptItem () {
 		//決定用ボタンの羊毛
 		ItemStack accept = new ItemStack (Material.LIME_WOOL);
 		ItemMeta accept_meta = accept.getItemMeta ();
@@ -203,7 +202,7 @@ public class SetItemData {
 		return accept;
 	}
 	
-	public @NotNull ItemStack getDenyItem () {
+	public ItemStack getDenyItem () {
 		//拒否用ボタンの羊毛
 		ItemStack deny = new ItemStack (Material.RED_WOOL);
 		ItemMeta deny_meta = deny.getItemMeta ();
@@ -215,7 +214,7 @@ public class SetItemData {
 		return deny;
 	}
 	
-	public @NotNull ItemStack getSellerItem (@NotNull ItemStack Item,@NotNull String name,@NotNull String price,@NotNull String time,@NotNull String description) {
+	public ItemStack getSellerItem (ItemStack Item,String name,String price,String time,String description) {
 		ItemStack stock = Item.clone ();
 		ItemMeta merchandise_meta = stock.getItemMeta ();
 		ArrayList<Component> merchandise_lore = new ArrayList<> ();
@@ -237,7 +236,7 @@ public class SetItemData {
 		return stock;
 	}
 	
-	public @NotNull ItemStack getReturnedItem (@NotNull ItemStack Item,@NotNull String name,@NotNull String price,@NotNull String time,@NotNull String description) {
+	public ItemStack getReturnedItem (ItemStack Item,String name,String price,String time,String description) {
 		ItemStack stock = Item.clone ();
 		ItemMeta merchandise_meta = stock.getItemMeta ();
 		ArrayList<Component> merchandise_lore = new ArrayList<> ();

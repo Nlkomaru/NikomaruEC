@@ -13,13 +13,12 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType;
-import org.jetbrains.annotations.NotNull;
 
 public class TerminalClickEvent implements Listener {
 	
 	//いろいろなところにアクセスできるGUIのクリックを処理する予定
 	@EventHandler
-	public void clickEvent (@NotNull InventoryClickEvent e) {
+	public void clickEvent (InventoryClickEvent e) {
 		
 		Player p = (Player) e.getWhoClicked ();
 		MakeGUI makegui = new MakeGUI ();

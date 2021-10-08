@@ -18,7 +18,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 import java.util.UUID;
@@ -28,7 +27,7 @@ public class BuyClickEvent implements Listener {
 	
 	//購入用のアイテムがクリックされたら購入用GUIに飛ぶ処理をする予定
 	@EventHandler
-	public void clickEvent (@NotNull InventoryClickEvent e) {
+	public void clickEvent (InventoryClickEvent e) {
 		
 		Player p = (Player) e.getWhoClicked ();
 		MakeGUI makegui = new MakeGUI ();
@@ -142,7 +141,7 @@ public class BuyClickEvent implements Listener {
 		}
 	}
 	
-	static void changePages (@NotNull InventoryClickEvent e,Player p,UUID playerUUID,int pages,int i,int maxPage) {
+	static void changePages (InventoryClickEvent e,Player p,UUID playerUUID,int pages,int i,int maxPage) {
 		
 		int change = 0;
 		if (pages > 1 && i == 45) {

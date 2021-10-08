@@ -7,7 +7,6 @@ package dev.nikomaru.noticeec.utils;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.io.BukkitObjectInputStream;
 import org.bukkit.util.io.BukkitObjectOutputStream;
-import org.jetbrains.annotations.NotNull;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -43,7 +42,7 @@ public class ChangeItemData {
 			BukkitObjectInputStream bois = new BukkitObjectInputStream (bais);
 			
 			item = (ItemStack) bois.readObject ();
-		} catch (@NotNull IOException | ClassNotFoundException e) {
+		} catch (IOException | ClassNotFoundException e) {
 			e.printStackTrace ();
 		}
 		return item;

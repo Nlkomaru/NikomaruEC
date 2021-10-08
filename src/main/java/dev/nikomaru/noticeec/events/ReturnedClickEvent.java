@@ -16,7 +16,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.UUID;
 
@@ -92,7 +91,7 @@ public class ReturnedClickEvent implements Listener {
 		}
 	}
 	
-	static void changePages (@NotNull InventoryClickEvent e,Player p,UUID playerUUID,int pages,int i,int maxPage) {
+	static void changePages (InventoryClickEvent e,Player p,UUID playerUUID,int pages,int i,int maxPage) {
 		
 		int change = 0;
 		if (pages > 1 && i == 45) {

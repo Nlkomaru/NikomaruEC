@@ -6,14 +6,13 @@ package dev.nikomaru.noticeec.utils;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
-import org.jetbrains.annotations.NotNull;
 
 public class MakeGUI {
 	public Component getBuyChest () {
 		return getComponent ("物品購入所",100,255,130);
 	}
 	
-	private @NotNull Component getComponent (String name,int r,int g,int b) {
+	private Component getComponent (String name,int r,int g,int b) {
 		return Component.text (name,TextColor.color (r,g,b));
 	}
 	

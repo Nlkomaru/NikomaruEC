@@ -18,7 +18,6 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
@@ -27,7 +26,7 @@ public class SellClickEvent implements Listener {
 	
 	//販売用のアイテムがクリックされたら販売用GUIに飛ぶ処理をする予定
 	@EventHandler
-	public void clickEvent (@NotNull InventoryClickEvent e) {
+	public void clickEvent (InventoryClickEvent e) {
 		
 		Player pl = (Player) e.getWhoClicked ();
 		MakeGUI makegui = new MakeGUI ();

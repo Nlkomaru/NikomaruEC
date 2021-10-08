@@ -31,10 +31,7 @@ public class EasySell implements CommandExecutor {
 	final Pattern p1 = Pattern.compile (nurture_num);
 	
 	@Override
-	public boolean onCommand (
-			@NotNull CommandSender sender,@NotNull Command command,@NotNull String label,
-			String @NotNull [] args
-	) {
+	public boolean onCommand (@NotNull CommandSender sender,@NotNull Command command,@NotNull String label,String[] args) {
 		
 		if (sender instanceof Player) {
 			Player p = (Player) sender;

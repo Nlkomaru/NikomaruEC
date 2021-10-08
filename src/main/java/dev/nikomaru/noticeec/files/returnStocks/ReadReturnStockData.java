@@ -4,8 +4,6 @@
 
 package dev.nikomaru.noticeec.files.returnStocks;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -15,7 +13,7 @@ import java.util.List;
 import java.util.UUID;
 
 public class ReadReturnStockData {
-	public static @NotNull HashMap<UUID,List<List<Object>>> readData () {
+	public static HashMap<UUID,List<List<Object>>> readData () {
 		String path = "plugins\\NoticeEC\\returnStock.dat";
 		
 		HashMap<UUID,List<List<Object>>> restoreStocks = new HashMap<> ();
@@ -30,7 +28,7 @@ public class ReadReturnStockData {
 				objInStream.close ();
 				restoreStocks = srs.getStocks ();
 				
-			} catch (@NotNull IOException | ClassNotFoundException e) {
+			} catch (IOException | ClassNotFoundException e) {
 				e.printStackTrace ();
 			}
 			

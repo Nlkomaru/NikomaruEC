@@ -4,8 +4,6 @@
 
 package dev.nikomaru.noticeec.files.stocks;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -18,7 +16,7 @@ import java.util.UUID;
 
 public class ReadStockData {
 	//アイテムのデータを取得する処理をする予定
-	public static @NotNull List<List<Object>> readData () {
+	public static List<List<Object>> readData () {
 		
 		// {itemStack} {player uuid} {price} {description} {time}
 		
@@ -36,7 +34,7 @@ public class ReadStockData {
 				
 				objInStream.close ();
 				storeStocks = ss.getStocks ();
-			} catch (@NotNull IOException | ClassNotFoundException e) {
+			} catch (IOException | ClassNotFoundException e) {
 				e.printStackTrace ();
 			}
 			// {itemStack} {player uuid} {price} {description} {time}
