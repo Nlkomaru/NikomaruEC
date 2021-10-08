@@ -19,16 +19,18 @@ public class SellCloseEvent implements Listener {
 	public void InventoryCloseEvent (InventoryCloseEvent e) {
 		Player p = (Player) e.getPlayer ();
 		MakeGUI makegui = new MakeGUI ();
-		if (e.getView ().title ().equals (makegui.getSellChest ())) {
-			e.getInventory ();
-			InventoryType inv = e.getInventory ().getType ();
-			if (inv == InventoryType.CHEST) {
-				
-				if (e.getInventory ().getItem (3) != null) {
-					
-					p.getInventory ().addItem (Objects.requireNonNull (e.getInventory ().getItem (3)));
-				}
-			}
+		if (! e.getView ().title ().equals (makegui.getSellChest ())) {
+			return;
+		}
+		e.getInventory ();
+		InventoryType inv = e.getInventory ().getType ();
+		
+		if (inv != InventoryType.CHEST) {
+			return;
+		}
+		
+		if (e.getInventory ().getItem (3) != null) {
+			p.getInventory ().addItem (Objects.requireNonNull (e.getInventory ().getItem (3)));
 		}
 	}
 }

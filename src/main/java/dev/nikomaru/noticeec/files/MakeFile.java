@@ -26,8 +26,7 @@ public class MakeFile {
 			try {
 				if (file.createNewFile ()) {
 					System.out.println ("ファイルの作成に成功しました。");
-				}
-				else {
+				} else {
 					System.out.println ("ファイルの作成に失敗しました。");
 				}
 			} catch (IOException e) {

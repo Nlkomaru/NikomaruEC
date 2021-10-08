@@ -45,8 +45,7 @@ public class NowStockChestGUI {
 					
 					j++;
 				}
-			}
-			else {
+			} else {
 				gui.setItem (i,setItemData.getNoDataGlassItem ());
 				
 			}

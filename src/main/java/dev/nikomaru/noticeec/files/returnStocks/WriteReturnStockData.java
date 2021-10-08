@@ -19,24 +19,24 @@ public class WriteReturnStockData {
 		String dir = "plugins\\NoticeEC";
 		String path = dir + "\\returnStock\\returnStock.dat";
 		
+		
+		if (StockDataList.getReturnStocks ().isEmpty ()) {
+			return;
+		}
+		MakeFile.makeFile (dir,path);
 		HashMap<UUID,List<List<Object>>> returnStock = StockDataList.getReturnStocks ();
-		
-		
-		if (! (returnStock.isEmpty ())) {
-			MakeFile.makeFile (dir,path);
-			try {
-				ObjectOutputStream objOutStream = new ObjectOutputStream (new FileOutputStream (path));
-				SerializableReturnStock srs = new SerializableReturnStock (returnStock);
-				
-				objOutStream.writeObject (srs);
-				objOutStream.flush ();
-				objOutStream.reset ();
-				objOutStream.close ();
-				
-				
-			} catch (IOException e) {
-				e.printStackTrace ();
-			}
+		try {
+			ObjectOutputStream objOutStream = new ObjectOutputStream (new FileOutputStream (path));
+			SerializableReturnStock srs = new SerializableReturnStock (returnStock);
+			
+			objOutStream.writeObject (srs);
+			objOutStream.flush ();
+			objOutStream.reset ();
+			objOutStream.close ();
+			
+			
+		} catch (IOException e) {
+			e.printStackTrace ();
 		}
 	}
 }

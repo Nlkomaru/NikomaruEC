@@ -27,36 +27,37 @@ public class ReadStockData {
 		List<List<Object>> restoreStocks = new ArrayList<> ();
 		
 		File file = new File (path);
-		if (file.exists ()) {
-			try {
-				ObjectInputStream objInStream = new ObjectInputStream (new FileInputStream (path));
-				SerializableStock ss = (SerializableStock) objInStream.readObject ();
-				
-				objInStream.close ();
-				storeStocks = ss.getStocks ();
-			} catch (IOException | ClassNotFoundException e) {
-				e.printStackTrace ();
-			}
-			// {itemStack} {player uuid} {price} {description} {time}
+		if (! file.exists ()) {
+			return restoreStocks;
+		}
+		try {
+			ObjectInputStream objInStream = new ObjectInputStream (new FileInputStream (path));
+			SerializableStock ss = (SerializableStock) objInStream.readObject ();
 			
-			for (List<Object> objects : storeStocks) {
-				List<Object> stock = new ArrayList<> ();
-				
-				String item = (String) objects.get (0);
-				UUID uuid = (UUID) objects.get (1);
-				Long price = (Long) objects.get (2);
-				String description = (String) objects.get (3);
-				ZonedDateTime time = (ZonedDateTime) objects.get (4);
-				
-				
-				stock.add (item);
-				stock.add (uuid);
-				stock.add (price);
-				stock.add (description);
-				stock.add (time);
-				
-				restoreStocks.add (stock);
-			}
+			objInStream.close ();
+			storeStocks = ss.getStocks ();
+		} catch (IOException | ClassNotFoundException e) {
+			e.printStackTrace ();
+		}
+		// {itemStack} {player uuid} {price} {description} {time}
+		
+		for (List<Object> objects : storeStocks) {
+			List<Object> stock = new ArrayList<> ();
+			
+			String item = (String) objects.get (0);
+			UUID uuid = (UUID) objects.get (1);
+			Long price = (Long) objects.get (2);
+			String description = (String) objects.get (3);
+			ZonedDateTime time = (ZonedDateTime) objects.get (4);
+			
+			
+			stock.add (item);
+			stock.add (uuid);
+			stock.add (price);
+			stock.add (description);
+			stock.add (time);
+			
+			restoreStocks.add (stock);
 		}
 		
 		return restoreStocks;

@@ -22,30 +22,30 @@ public class TerminalClickEvent implements Listener {
 		
 		Player p = (Player) e.getWhoClicked ();
 		MakeGUI makegui = new MakeGUI ();
-		if (e.getView ().title ().equals ((makegui.getTerminalChest ()))) {
-			if (e.getClickedInventory () != null) {
-				InventoryType inv = e.getClickedInventory ().getType ();
-				if (inv == InventoryType.CHEST) {
-					
-					if (e.getSlot () == 0) {
-						BuyChestGUI buy = new BuyChestGUI ();
-						p.openInventory (buy.Buy (p,1));
-						StockDataList.getNowBuyPage ().put (p.getUniqueId (),1);
-					}
-					else if (e.getSlot () == 1) {
-						SellChestGUI sell = new SellChestGUI ();
-						p.openInventory (sell.Sell (p));
-						e.getClickedInventory ().close ();
-					}
-					else if (e.getSlot () == 8) {
-						p.closeInventory ();
-						e.getClickedInventory ().close ();
-					}
-					e.setCancelled (true);
-				}
-				
-			}
-			
+		if (! (e.getView ().title ().equals (makegui.getTerminalChest ()) && e.getClickedInventory () != null)) {
+			return;
 		}
+		InventoryType inv = e.getClickedInventory ().getType ();
+		if (inv != InventoryType.CHEST) {
+			return;
+		}
+		if (e.getSlot () == 0) {
+			BuyChestGUI buy = new BuyChestGUI ();
+			p.openInventory (buy.Buy (p,1));
+			StockDataList.getNowBuyPage ().put (p.getUniqueId (),1);
+		} else if (e.getSlot () == 1) {
+			SellChestGUI sell = new SellChestGUI ();
+			p.openInventory (sell.Sell (p));
+			e.getClickedInventory ().close ();
+		} else if (e.getSlot () == 8) {
+			p.closeInventory ();
+			e.getClickedInventory ().close ();
+		}
+		e.setCancelled (true);
+		
+		
 	}
+	
 }
+
+

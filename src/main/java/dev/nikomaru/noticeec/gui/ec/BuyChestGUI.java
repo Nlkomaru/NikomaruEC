@@ -32,13 +32,13 @@ public class BuyChestGUI {
 		while (returnCheck) {
 			if (j >= StockDataList.getStocks ().size ()) {
 				returnCheck = false;
-			}
-			else {
+			} else {
 				ZonedDateTime nowTime = ZonedDateTime.now ();
 				
 				if (nowTime.isAfter ((ZonedDateTime) StockDataList.getStocks ().get (j).get (4))) {
 					List<Object> returnStock = new ArrayList<> ();
-					String encodeReturnStock = ChangeItemData.encode ((ItemStack) StockDataList.getStocks ().get ((pages - 1) * 45 + j).get (0));
+					String encodeReturnStock = ChangeItemData.encode ((ItemStack) StockDataList.getStocks ()
+							.get ((pages - 1) * 45 + j).get (0));
 					UUID uuid = (UUID) StockDataList.getStocks ().get ((pages - 1) * 45 + j).get (1);
 					Long price = (Long) StockDataList.getStocks ().get ((pages - 1) * 45 + j).get (2);
 					String description = StockDataList.getStocks ().get ((pages - 1) * 45 + j).get (3).toString ();
@@ -54,8 +54,7 @@ public class BuyChestGUI {
 					
 					StockDataList.getReturnStocks ().get (uuid).add (returnStock);
 					StockDataList.removeStocks ((pages - 1) * 45 + j);
-				}
-				else {
+				} else {
 					j++;
 				}
 			}
@@ -75,8 +74,7 @@ public class BuyChestGUI {
 				GetItemMeta getItemMeta = new GetItemMeta ();
 				
 				gui.setItem (i,getItemMeta.setItemMeta (stock));
-			}
-			else {
+			} else {
 				gui.setItem (i,setItemData.getNoDataGlassItem ());
 			}
 			i++;

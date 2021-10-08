@@ -15,10 +15,8 @@ public class TerminalGUI implements CommandExecutor {
 	
 	//いろいろな所にアクセスできるGUIを表示するコマンドの予定
 	@Override
-	public boolean onCommand (
-			@NotNull CommandSender sender,@NotNull Command command,@NotNull String label,
-			String[] args
-	) {
+	public boolean onCommand (@NotNull CommandSender sender,@NotNull Command command,@NotNull String label,
+			String[] args) {
 		
 		if (sender instanceof Player) {
 			Player p = (Player) sender;

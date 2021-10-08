@@ -31,52 +31,53 @@ public class EasySell implements CommandExecutor {
 	final Pattern p1 = Pattern.compile (nurture_num);
 	
 	@Override
-	public boolean onCommand (@NotNull CommandSender sender,@NotNull Command command,@NotNull String label,String[] args) {
+	public boolean onCommand (@NotNull CommandSender sender,@NotNull Command command,@NotNull String label,
+			String[] args) {
 		
-		if (sender instanceof Player) {
-			Player p = (Player) sender;
-			easySellData = new ArrayList<> ();
-			if (p.getInventory ().getItemInMainHand ().getType () != Material.AIR) {
-				if (args.length == 1 || args.length == 2) {
-					if (p1.matcher (args[0]).matches ()) {
-						// {itemStack} {player uuid} {price} {description} {time}
-						long price = Long.parseLong (args[0]);
-						Config config = new Config (NoticeEC.getPlugin ());
-						if (config.getMinPrice () <= price && price <= config.getMaxPrice ()) {
-							
-							easySellData.add (ChangeItemData.encode (p.getInventory ().getItemInMainHand ()));
-							easySellData.add (p.getUniqueId ());
-							easySellData.add (price);
-							
-							if (args.length == 1) {
-								easySellData.add ("説明はありません");
-								
-							}
-							else {
-								easySellData.add (args[1]);
-							}
-							
-							ZonedDateTime nowTime = ZonedDateTime.now ();
-							ZonedDateTime limitTime = nowTime.plusDays (config.getAddDays ()).plusHours (config.getAddHours ());
-							easySellData.add (limitTime);
-							p.sendMessage (ChatColor.GREEN + String.format ("%s円で、説明は「%s」で処理しました",easySellData.get (2).toString (),easySellData.get (3).toString ()));
-							p.getInventory ().setItemInMainHand (new ItemStack (Material.AIR));
-							
-							StockDataList.addStocks (easySellData);
-						}
-					}
-					else {
-						p.sendMessage (ChatColor.YELLOW + "金額は自然数を入力してください");
-					}
-				}
-				else {
-					p.sendMessage (ChatColor.YELLOW + "コマンドの長さが不適切です");
-				}
-			}
-			else {
-				p.sendMessage (ChatColor.YELLOW + "アイテムをメインハンドに持ってください");
+		if (! (sender instanceof Player)) {
+			return false;
+		}
+		Player p = (Player) sender;
+		easySellData = new ArrayList<> ();
+		
+		if (p.getInventory ().getItemInMainHand ().getType () == Material.AIR) {
+			p.sendMessage (ChatColor.YELLOW + "アイテムをメインハンドに持ってください");
+			return false;
+		}
+		
+		if (! (args.length == 1 || args.length == 2)) {
+			p.sendMessage (ChatColor.YELLOW + "コマンドの長さが不適切です");
+			return false;
+		}
+		
+		if (! p1.matcher (args[0]).matches ()) {
+			p.sendMessage (ChatColor.YELLOW + "金額は自然数を入力してください");
+			return false;
+		}
+		
+		// {itemStack} {player uuid} {price} {description} {time}
+		long price = Long.parseLong (args[0]);
+		Config config = new Config (NoticeEC.getPlugin ());
+		if (config.getMinPrice () <= price && price <= config.getMaxPrice ()) {
+			
+			easySellData.add (ChangeItemData.encode (p.getInventory ().getItemInMainHand ()));
+			easySellData.add (p.getUniqueId ());
+			easySellData.add (price);
+			
+			if (args.length == 1) {
+				easySellData.add ("説明はありません");
+			} else {
+				easySellData.add (args[1]);
 			}
 			
+			ZonedDateTime nowTime = ZonedDateTime.now ();
+			ZonedDateTime limitTime = nowTime.plusDays (config.getAddDays ()).plusHours (config.getAddHours ());
+			easySellData.add (limitTime);
+			p.sendMessage (ChatColor.GREEN + String.format ("%s円で、説明は「%s」で処理しました",easySellData.get (2)
+					.toString (),easySellData.get (3).toString ()));
+			p.getInventory ().setItemInMainHand (new ItemStack (Material.AIR));
+			
+			StockDataList.addStocks (easySellData);
 		}
 		
 		return true;

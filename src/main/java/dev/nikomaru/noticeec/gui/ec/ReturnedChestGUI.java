@@ -38,8 +38,7 @@ public class ReturnedChestGUI {
 				displayReturned.add (returned.get (4));
 				gui.setItem (i,getItemMeta.setReturnedItemMeta (displayReturned));
 				
-			}
-			else {
+			} else {
 				gui.setItem (i,setItemData.getNoDataGlassItem ());
 				
 			}
