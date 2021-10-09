@@ -77,26 +77,26 @@ public class StockDataList {
 	
 	public static void removeStocks (int i) {
 		stocks.remove (i);
-	}
-	
-	public static HashMap<UUID,List<List<Object>>> getReturnStocks () {
-		return returnStocks;
-	}
-	
-	public static void setReturnStocks (HashMap<UUID,List<List<Object>>> data) {
-		returnStocks = data;
-	}
-	
-	public static void addReturnStocks (UUID uuid,List<List<Object>> list) {
-		returnStocks.put (uuid,list);
-	}
-	
-	public static void removeReturnStocks (UUID uuid,int i) {
-		returnStocks.get (uuid).remove (i);
-	}
-	
-	public static void setNewReturnStocks (UUID uuid) {
-		returnStocks.computeIfAbsent (uuid,k -> new ArrayList<> ());
-	}
+    }
+
+    public static HashMap<UUID, List<List<Object>>> getReturnStocks() {
+        return returnStocks;
+    }
+
+    public static void setReturnStocks(HashMap<UUID, List<List<Object>>> data) {
+        returnStocks = data;
+    }
+
+    public static void addReturnStocks(UUID uuid, List<Object> list) {
+        returnStocks.get(uuid).add(list);
+    }
+
+    public static void removeReturnStocks(UUID uuid, int i) {
+        returnStocks.get(uuid).remove(i);
+    }
+
+    public static void setNewReturnStocks(UUID uuid) {
+        returnStocks.computeIfAbsent(uuid, k -> new ArrayList<>());
+    }
 	
 }

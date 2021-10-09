@@ -52,8 +52,8 @@ public class BuyChestGUI {
 					
 					StockDataList.getReturnStocks ().computeIfAbsent (uuid,k -> new ArrayList<> ());
 					
-					StockDataList.getReturnStocks ().get (uuid).add (returnStock);
-					StockDataList.removeStocks ((pages - 1) * 45 + j);
+					StockDataList.addReturnStocks(uuid, returnStock);
+                    StockDataList.removeStocks((pages - 1) * 45 + j);
 				} else {
 					j++;
 				}
