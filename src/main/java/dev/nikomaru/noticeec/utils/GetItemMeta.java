@@ -20,8 +20,8 @@ public class GetItemMeta {
         SetItemData setItemData = new SetItemData ();
 
         DateTimeFormatter format = DateTimeFormatter.ofPattern ("yyyy/MM/dd HH:mm");
-        String limitTime = format.format ((ZonedDateTime) stock.get (4));
 
+        String limitTime = format.format ((ZonedDateTime) stock.get (4));
         ItemStack item = ChangeItemData.decode (stock.get (0).toString ());
         OfflinePlayer Seller = Bukkit.getOfflinePlayer ((UUID) stock.get (1));
         String name = Seller.getName ();
