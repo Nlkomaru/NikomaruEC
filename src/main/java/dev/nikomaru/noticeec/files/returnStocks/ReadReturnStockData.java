@@ -8,15 +8,15 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.UUID;
 
 public class ReadReturnStockData {
-    public static HashMap<UUID,List<List<Object>>> readData () {
+    public static HashMap<UUID,ArrayList<ArrayList<Object>>> readData () {
         String path = "plugins\\NoticeEC\\returnStock.dat";
 
-        HashMap<UUID,List<List<Object>>> restoreStocks = new HashMap<> ();
+        HashMap<UUID,ArrayList<ArrayList<Object>>> restoreStocks = new HashMap<> ();
         File file = new File (path);
 
         if (!file.exists ()) {
@@ -29,7 +29,6 @@ public class ReadReturnStockData {
 
             objInStream.close ();
             restoreStocks = srs.getStocks ();
-
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace ();
         }
@@ -37,5 +36,4 @@ public class ReadReturnStockData {
 
         return restoreStocks;
     }
-
 }

@@ -10,8 +10,8 @@ import dev.nikomaru.noticeec.utils.StockDataList;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.UUID;
 
 public class WriteReturnStockData {
@@ -24,7 +24,7 @@ public class WriteReturnStockData {
             return;
         }
         MakeFile.makeFile (dir,path);
-        HashMap<UUID,List<List<Object>>> returnStock = StockDataList.getReturnStocks ();
+        HashMap<UUID,ArrayList<ArrayList<Object>>> returnStock = StockDataList.getReturnStocks ();
         try {
             ObjectOutputStream objOutStream = new ObjectOutputStream (new FileOutputStream (path));
             SerializableReturnStock srs = new SerializableReturnStock (returnStock);
@@ -33,8 +33,6 @@ public class WriteReturnStockData {
             objOutStream.flush ();
             objOutStream.reset ();
             objOutStream.close ();
-
-
         } catch (IOException e) {
             e.printStackTrace ();
         }

@@ -19,14 +19,12 @@ import org.jetbrains.annotations.NotNull;
 
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.regex.Pattern;
 
 public class EasySell implements CommandExecutor {
     //コマンドから簡単に出品できる処理をするコマンド予定
     //フォーマット /nes [金額] [説明]
-
-    static List<Object> easySellData;
+    static ArrayList<Object> easySellData;
     final String nurture_num = "^[0-9]{1,18}$";
     final Pattern p1 = Pattern.compile (nurture_num);
 
@@ -80,6 +78,5 @@ public class EasySell implements CommandExecutor {
         }
 
         return true;
-
     }
 }

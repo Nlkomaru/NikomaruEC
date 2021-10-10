@@ -14,7 +14,6 @@ import org.bukkit.event.inventory.InventoryType;
 import java.util.Objects;
 
 public class SellCloseEvent implements Listener {
-
     @EventHandler
     public void InventoryCloseEvent (InventoryCloseEvent e) {
         Player p = (Player) e.getPlayer ();

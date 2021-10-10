@@ -4,20 +4,20 @@
 
 package dev.nikomaru.noticeec.files.stocks;
 
+import java.io.Serial;
 import java.io.Serializable;
-import java.util.List;
+import java.util.ArrayList;
 
 public class SerializableStock implements Serializable {
+    @Serial
     private static final long serialVersionUID = -8549839403246768345L;
+    ArrayList<ArrayList<Object>> stock;
 
-    List<List<Object>> stock;
-
-    public SerializableStock (List<List<Object>> stock) {
+    public SerializableStock (ArrayList<ArrayList<Object>> stock) {
         this.stock = stock;
     }
 
-    public List<List<Object>> getStocks () {
+    public ArrayList<ArrayList<Object>> getStocks () {
         return stock;
     }
-
 }

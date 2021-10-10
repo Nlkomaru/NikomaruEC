@@ -20,8 +20,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public class SellClickEvent implements Listener {
-
-
     //販売用のアイテムがクリックされたら販売用GUIに飛ぶ処理をする予定
     @EventHandler
     public void clickEvent (InventoryClickEvent e) {
@@ -45,7 +43,6 @@ public class SellClickEvent implements Listener {
 
         if (s == 8) {
             pl.closeInventory ();
-
         } else if (s == 7) {
             if (e.getClickedInventory ().getItem (3) == null) {
                 return;
@@ -64,7 +61,6 @@ public class SellClickEvent implements Listener {
             conv1.begin ();
 
             new BukkitRunnable () {
-
                 @Override
                 public void run () {
                     conv1.abandon ();

@@ -12,7 +12,6 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 public class TerminalGUI implements CommandExecutor {
-
     //いろいろな所にアクセスできるGUIを表示するコマンドの予定
     @Override
     public boolean onCommand (@NotNull CommandSender sender,@NotNull Command command,@NotNull String label,String[] args) {
@@ -23,11 +22,8 @@ public class TerminalGUI implements CommandExecutor {
 
             TerminalChestGUI terminal = new TerminalChestGUI ();
             p.openInventory (terminal.Terminal (p));
-
         }
 
         return true;
-
     }
-
 }

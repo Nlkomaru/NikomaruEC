@@ -19,9 +19,22 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.UUID;
 
-
 public class ReturnedClickEvent implements Listener {
+    static void changePages (InventoryClickEvent e,Player p,UUID playerUUID,int pages,int i,int maxPage) {
 
+        int change = 0;
+        if (pages > 1 && i == 45) {
+            change = -1;
+        } else if (pages <= 1 && i == 47 && pages < maxPage) {
+
+            change = 1;
+        }
+
+        StockDataList.putReturnPage (playerUUID,pages + change);
+        ReturnedChestGUI returned = new ReturnedChestGUI ();
+        p.openInventory (returned.returned (p,pages + change));
+        e.setCancelled (true);
+    }
 
     @EventHandler
     public void clickEvent (InventoryClickEvent e) {
@@ -51,14 +64,12 @@ public class ReturnedClickEvent implements Listener {
                 BuyChestGUI buyChestGUI = new BuyChestGUI ();
                 p.openInventory (buyChestGUI.Buy (p,1));
                 StockDataList.putNowBuyPage (uuid,1);
-
             }
             case 49 -> {
                 //自分の販売中の在庫
                 NowStockChestGUI nowStock = new NowStockChestGUI ();
                 p.openInventory (nowStock.nowPlayerStock (p,1));
                 StockDataList.putNowStockPage (p.getUniqueId (),1);
-
             }
             case 50 -> {
                 //購入履歴
@@ -101,23 +112,4 @@ public class ReturnedClickEvent implements Listener {
         }
         e.setCancelled (true);
     }
-
-    static void changePages (InventoryClickEvent e,Player p,UUID playerUUID,int pages,int i,int maxPage) {
-
-        int change = 0;
-        if (pages > 1 && i == 45) {
-            change = -1;
-
-        } else if (pages <= 1 && i == 47 && pages < maxPage) {
-
-            change = 1;
-
-        }
-
-        StockDataList.putReturnPage (playerUUID,pages + change);
-        ReturnedChestGUI returned = new ReturnedChestGUI ();
-        p.openInventory (returned.returned (p,pages + change));
-        e.setCancelled (true);
-    }
-
 }

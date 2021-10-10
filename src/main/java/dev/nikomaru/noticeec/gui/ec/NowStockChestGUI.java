@@ -12,12 +12,10 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 
-import java.util.List;
-
+import java.util.ArrayList;
 
 @SuppressWarnings( {"ALL","DuplicatedCode"})
 public class NowStockChestGUI {
-
     // 未来へのヒント indexOf()を使用すること
     final SetItemData setItemData = new SetItemData ();
 
@@ -33,7 +31,7 @@ public class NowStockChestGUI {
             int itemNum = (pages - 1) * 45 + i;
 
             if (StockDataList.getStocks ().size () > itemNum) {
-                List<Object> stock = StockDataList.getStocks ().get (itemNum);
+                ArrayList<Object> stock = StockDataList.getStocks ().get (itemNum);
 
 
                 if (stock.get (1).equals (p.getUniqueId ())) {
@@ -47,7 +45,6 @@ public class NowStockChestGUI {
                 }
             } else {
                 gui.setItem (i,setItemData.getNoDataGlassItem ());
-
             }
             i++;
         }
@@ -63,7 +60,5 @@ public class NowStockChestGUI {
 
 
         return gui;
-
     }
-
 }

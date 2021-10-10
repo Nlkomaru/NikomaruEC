@@ -22,9 +22,22 @@ import org.bukkit.scheduler.BukkitRunnable;
 import java.util.Objects;
 import java.util.UUID;
 
-
 public class BuyClickEvent implements Listener {
+    static void changePages (InventoryClickEvent e,Player p,UUID playerUUID,int pages,int i,int maxPage) {
 
+        int change = 0;
+        if (pages > 1 && i == 45) {
+            change = -1;
+        } else if (pages <= 1 && i == 47 && pages < maxPage) {
+
+            change = 1;
+        }
+
+        StockDataList.putNowBuyPage (playerUUID,pages + change);
+        BuyChestGUI buy = new BuyChestGUI ();
+        p.openInventory (buy.Buy (p,pages + change));
+        e.setCancelled (true);
+    }
 
     //購入用のアイテムがクリックされたら購入用GUIに飛ぶ処理をする予定
     @EventHandler
@@ -131,24 +144,6 @@ public class BuyClickEvent implements Listener {
                 }
             }
         }
-        e.setCancelled (true);
-    }
-
-    static void changePages (InventoryClickEvent e,Player p,UUID playerUUID,int pages,int i,int maxPage) {
-
-        int change = 0;
-        if (pages > 1 && i == 45) {
-            change = -1;
-
-        } else if (pages <= 1 && i == 47 && pages < maxPage) {
-
-            change = 1;
-
-        }
-
-        StockDataList.putNowBuyPage (playerUUID,pages + change);
-        BuyChestGUI buy = new BuyChestGUI ();
-        p.openInventory (buy.Buy (p,pages + change));
         e.setCancelled (true);
     }
 }

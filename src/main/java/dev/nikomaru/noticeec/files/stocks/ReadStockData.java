@@ -10,21 +10,19 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
-
 
 public class ReadStockData {
     //アイテムのデータを取得する処理をする予定
-    public static List<List<Object>> readData () {
+    public static ArrayList<ArrayList<Object>> readData () {
 
         // {itemStack} {player uuid} {price} {description} {time}
 
 
         String path = "plugins\\NoticeEC\\stock.dat";
 
-        List<List<Object>> storeStocks = new ArrayList<> ();
-        List<List<Object>> restoreStocks = new ArrayList<> ();
+        ArrayList<ArrayList<Object>> storeStocks = new ArrayList<> ();
+        ArrayList<ArrayList<Object>> restoreStocks = new ArrayList<> ();
 
         File file = new File (path);
         if (!file.exists ()) {
@@ -41,8 +39,8 @@ public class ReadStockData {
         }
         // {itemStack} {player uuid} {price} {description} {time}
 
-        for (List<Object> objects : storeStocks) {
-            List<Object> stock = new ArrayList<> ();
+        for (ArrayList<Object> objects : storeStocks) {
+            ArrayList<Object> stock = new ArrayList<> ();
 
             String item = objects.get (0).toString ();
             UUID uuid = (UUID) objects.get (1);

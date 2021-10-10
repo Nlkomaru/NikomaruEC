@@ -26,7 +26,6 @@ public class ChangeItemData {
 
             byte[] serializedObject = baos.toByteArray ();
             encodeObject = Base64.getEncoder ().encodeToString (serializedObject);
-
         } catch (IOException e) {
             e.printStackTrace ();
         }

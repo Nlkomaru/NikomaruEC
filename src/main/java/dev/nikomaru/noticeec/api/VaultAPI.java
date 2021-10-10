@@ -11,7 +11,6 @@ import org.jetbrains.annotations.Nullable;
 import static org.bukkit.Bukkit.getServer;
 
 public class VaultAPI {
-
     private static @Nullable Economy econ = null;
 
     public static boolean setupEconomy () {
@@ -24,7 +23,6 @@ public class VaultAPI {
         }
         econ = rsp.getProvider ();
         return true;
-
     }
 
     public static @Nullable Economy getEconomy () {

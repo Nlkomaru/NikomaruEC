@@ -35,6 +35,4 @@ public class MakeGUI {
     public Component getReturnedChest () {
         return getComponent ("返却された在庫",139,0,139);
     }
-
-
 }

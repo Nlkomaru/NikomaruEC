@@ -6,18 +6,16 @@ package dev.nikomaru.noticeec.utils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.UUID;
 
 public class StockDataList {
-
     private static HashMap<UUID,Integer> nowBuyPage = new HashMap<> ();
     private static HashMap<UUID,Integer> nowStockPage = new HashMap<> ();
     private static HashMap<UUID,Integer> selectNum = new HashMap<> ();
     private static HashMap<UUID,Integer> returnPage = new HashMap<> ();
-    private static HashMap<UUID,List<Object>> sellData = new HashMap<> ();
-    private static List<List<Object>> stocks = new ArrayList<> ();
-    private static HashMap<UUID,List<List<Object>>> returnStocks = new HashMap<> ();
+    private static HashMap<UUID,ArrayList<Object>> sellData = new HashMap<> ();
+    private static ArrayList<ArrayList<Object>> stocks = new ArrayList<> ();
+    private static HashMap<UUID,ArrayList<ArrayList<Object>>> returnStocks = new HashMap<> ();
 
     public static HashMap<UUID,Integer> getNowBuyPage () {
         return nowBuyPage;
@@ -51,7 +49,7 @@ public class StockDataList {
         returnPage.put (uuid,page);
     }
 
-    public static HashMap<UUID,List<Object>> getData () {
+    public static HashMap<UUID,ArrayList<Object>> getData () {
         return sellData;
     }
 
@@ -63,15 +61,15 @@ public class StockDataList {
         sellData.put (uuid,new ArrayList<> ());
     }
 
-    public static List<List<Object>> getStocks () {
+    public static ArrayList<ArrayList<Object>> getStocks () {
         return stocks;
     }
 
-    public static void setStocks (List<List<Object>> data) {
+    public static void setStocks (ArrayList<ArrayList<Object>> data) {
         stocks = data;
     }
 
-    public static void addStocks (List<Object> list) {
+    public static void addStocks (ArrayList<Object> list) {
         stocks.add (list);
     }
 
@@ -79,15 +77,15 @@ public class StockDataList {
         stocks.remove (i);
     }
 
-    public static HashMap<UUID,List<List<Object>>> getReturnStocks () {
+    public static HashMap<UUID,ArrayList<ArrayList<Object>>> getReturnStocks () {
         return returnStocks;
     }
 
-    public static void setReturnStocks (HashMap<UUID,List<List<Object>>> data) {
+    public static void setReturnStocks (HashMap<UUID,ArrayList<ArrayList<Object>>> data) {
         returnStocks = data;
     }
 
-    public static void addReturnStocks (UUID uuid,List<Object> list) {
+    public static void addReturnStocks (UUID uuid,ArrayList<Object> list) {
         returnStocks.get (uuid).add (list);
     }
 
@@ -98,5 +96,4 @@ public class StockDataList {
     public static void setNewReturnStocks (UUID uuid) {
         returnStocks.computeIfAbsent (uuid,k -> new ArrayList<> ());
     }
-
 }

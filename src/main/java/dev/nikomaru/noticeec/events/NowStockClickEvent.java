@@ -18,9 +18,22 @@ import org.bukkit.event.inventory.InventoryType;
 
 import java.util.UUID;
 
-
 public class NowStockClickEvent implements Listener {
+    static void changePages (InventoryClickEvent e,Player p,UUID playerUUID,int pages,int i,int maxPage) {
 
+        int change = 0;
+        if (pages > 1 && i == 45) {
+            change = -1;
+        } else if (pages <= 1 && i == 47 && pages < maxPage) {
+
+            change = 1;
+        }
+
+        StockDataList.putNowBuyPage (playerUUID,pages + change);
+        NowStockChestGUI nowStock = new NowStockChestGUI ();
+        p.openInventory (nowStock.nowPlayerStock (p,pages + change));
+        e.setCancelled (true);
+    }
 
     //TODO 出品の取り消し
     //TODO 値段の変更
@@ -81,26 +94,7 @@ public class NowStockClickEvent implements Listener {
             }
             default -> {
             }
-
         }
-        e.setCancelled (true);
-    }
-
-    static void changePages (InventoryClickEvent e,Player p,UUID playerUUID,int pages,int i,int maxPage) {
-
-        int change = 0;
-        if (pages > 1 && i == 45) {
-            change = -1;
-
-        } else if (pages <= 1 && i == 47 && pages < maxPage) {
-
-            change = 1;
-
-        }
-
-        StockDataList.putNowBuyPage (playerUUID,pages + change);
-        NowStockChestGUI nowStock = new NowStockChestGUI ();
-        p.openInventory (nowStock.nowPlayerStock (p,pages + change));
         e.setCancelled (true);
     }
 }

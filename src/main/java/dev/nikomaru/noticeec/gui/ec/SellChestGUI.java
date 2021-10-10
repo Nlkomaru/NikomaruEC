@@ -11,7 +11,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 
 public class SellChestGUI {
-
     //販売用のGUIを作成する処理をする予定
     public Inventory Sell (Player p) {
 
@@ -31,5 +30,4 @@ public class SellChestGUI {
 
         return gui;
     }
-
 }

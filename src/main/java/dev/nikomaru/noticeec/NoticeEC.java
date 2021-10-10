@@ -18,14 +18,11 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.util.Objects;
 
 public final class NoticeEC extends JavaPlugin {
-
-
     private static NoticeEC plugin;
 
     public static NoticeEC getPlugin () {
         return plugin;
     }
-
 
     @Override
     public void onEnable () {
@@ -48,7 +45,6 @@ public final class NoticeEC extends JavaPlugin {
 
         StockDataList.setStocks (ReadStockData.readData ());
         StockDataList.setReturnStocks (ReadReturnStockData.readData ());
-
     }
 
     @Override

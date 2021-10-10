@@ -11,7 +11,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 
 public class TerminalChestGUI {
-
     //アクセス用のGUIを作成する処理をする予定
     public Inventory Terminal (Player p) {
 

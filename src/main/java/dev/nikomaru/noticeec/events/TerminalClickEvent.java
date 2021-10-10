@@ -15,7 +15,6 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType;
 
 public class TerminalClickEvent implements Listener {
-
     //いろいろなところにアクセスできるGUIのクリックを処理する予定
     @EventHandler
     public void clickEvent (InventoryClickEvent e) {
@@ -47,9 +46,7 @@ public class TerminalClickEvent implements Listener {
             }
         }
         e.setCancelled (true);
-
     }
-
 }
 
 

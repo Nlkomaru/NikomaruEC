@@ -12,12 +12,10 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 public class WriteStockData {
     //アイテムのデータを保存する処理をする予定
-
 
     public static void saveData () {
 
@@ -33,12 +31,12 @@ public class WriteStockData {
         }
 
         MakeFile.makeFile (dir,path);
-        List<List<Object>> rawStocks = StockDataList.getStocks ();
-        List<List<Object>> stoneStock = new ArrayList<> ();
-        for (List<Object> objects : rawStocks) {
+        ArrayList<ArrayList<Object>> rawStocks = StockDataList.getStocks ();
+        ArrayList<ArrayList<Object>> stoneStock = new ArrayList<> ();
+        for (ArrayList<Object> objects : rawStocks) {
 
 
-            List<Object> serializationData = new ArrayList<> ();
+            ArrayList<Object> serializationData = new ArrayList<> ();
             String item = objects.get (0).toString ();        // {itemStack}
             UUID uuid = (UUID) objects.get (1);        //{player uuid}
             long price = (long) objects.get (2);        //{price}
@@ -63,12 +61,8 @@ public class WriteStockData {
             objOutStream.flush ();
             objOutStream.reset ();
             objOutStream.close ();
-
-
         } catch (IOException e) {
             e.printStackTrace ();
         }
-
     }
-
 }

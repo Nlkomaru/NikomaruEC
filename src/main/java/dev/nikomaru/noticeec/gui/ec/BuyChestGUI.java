@@ -12,13 +12,10 @@ import org.bukkit.inventory.ItemStack;
 
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 public class BuyChestGUI {
-
     //購入用のGUIを作成する処理をする予定
-
     final SetItemData setItemData = new SetItemData ();
 
     public Inventory Buy (Player p,int pages) {
@@ -36,7 +33,7 @@ public class BuyChestGUI {
                 ZonedDateTime nowTime = ZonedDateTime.now ();
 
                 if (nowTime.isAfter ((ZonedDateTime) StockDataList.getStocks ().get (j).get (4))) {
-                    List<Object> returnStock = new ArrayList<> ();
+                    ArrayList<Object> returnStock = new ArrayList<> ();
                     String encodeReturnStock = ChangeItemData.encode (
                             (ItemStack) StockDataList.getStocks ().get ((pages - 1) * 45 + j).get (0));
                     UUID uuid = (UUID) StockDataList.getStocks ().get ((pages - 1) * 45 + j).get (1);
@@ -64,7 +61,7 @@ public class BuyChestGUI {
         int i = 0;
         int num = 45;
         int stockSize = StockDataList.getStocks ().size ();
-        List<Object> stock;
+        ArrayList<Object> stock;
 
         while (i < num) {
 
@@ -78,7 +75,6 @@ public class BuyChestGUI {
                 gui.setItem (i,setItemData.getNoDataGlassItem ());
             }
             i++;
-
         }
 
         gui.setItem (45,setItemData.getPrevItem ());

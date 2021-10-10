@@ -4,20 +4,22 @@
 
 package dev.nikomaru.noticeec.files.returnStocks;
 
+import java.io.Serial;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.UUID;
 
 public class SerializableReturnStock implements Serializable {
+    @Serial
     private static final long serialVersionUID = -3288388669213934496L;
-    HashMap<UUID,List<List<Object>>> returnStock;
+    HashMap<UUID,ArrayList<ArrayList<Object>>> returnStock;
 
-    public SerializableReturnStock (HashMap<UUID,List<List<Object>>> returnStock) {
+    public SerializableReturnStock (HashMap<UUID,ArrayList<ArrayList<Object>>> returnStock) {
         this.returnStock = returnStock;
     }
 
-    public HashMap<UUID,List<List<Object>>> getStocks () {
+    public HashMap<UUID,ArrayList<ArrayList<Object>>> getStocks () {
         return returnStock;
     }
 }

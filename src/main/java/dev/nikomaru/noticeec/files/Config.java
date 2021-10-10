@@ -9,7 +9,6 @@ import org.bukkit.plugin.Plugin;
 
 public class Config {
     //コンフィグから値を取得する処理をする予定
-
     private final Plugin plugin;
     private FileConfiguration config = null;
     private int addDays;
@@ -21,7 +20,6 @@ public class Config {
         this.plugin = plugin;
         load ();
     }
-
 
     public void load () {
         // 設定ファイルを保存
@@ -47,8 +45,6 @@ public class Config {
         addHours = config.getInt ("SetLimit.HoursLater");
         maxPrice = config.getLong ("Price.Max");
         minPrice = config.getLong ("Price.Min");
-
-
     }
 
     public int getAddDays () {

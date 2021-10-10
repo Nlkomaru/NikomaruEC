@@ -19,7 +19,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.List;
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -42,11 +42,10 @@ public class BuyAcceptClickEvent implements Listener {
         Player p = (Player) e.getWhoClicked ();
         int slot = e.getSlot ();
         int i = StockDataList.getSelectNum ().get (p.getUniqueId ());
-        List<Object> stock = StockDataList.getStocks ().get (i);
+        ArrayList<Object> stock = StockDataList.getStocks ().get (i);
         ItemStack item = (ItemStack) stock.get (0);
         UUID uuid = (UUID) stock.get (1);
         long price = (long) stock.get (2);
-
 
         if (slot == 7) {
             p.getInventory ().addItem (item);
@@ -58,7 +57,6 @@ public class BuyAcceptClickEvent implements Listener {
                     .toString () + "円") + "で" + ChatColor.GREEN + (Bukkit.getOfflinePlayer (uuid)
                     .getName ()) + "の" + ChatColor.GOLD + (item.displayName ()) + "を購入しました");
             WriteStockData.saveData ();
-
         } else if (slot == 8) {
             p.closeInventory ();
             BuyChestGUI buy = new BuyChestGUI ();

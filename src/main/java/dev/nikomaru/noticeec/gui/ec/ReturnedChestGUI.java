@@ -10,10 +10,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ReturnedChestGUI {
-    //TODO 返却されたアイテムをHashMapからListに変更
+    //TODO 返却されたアイテムをHashMapからListに変更 方法:HashMapにロードしたのを入れてそのあとにList化
     final SetItemData setItemData = new SetItemData ();
 
     public Inventory returned (Player p,int pages) {
@@ -28,19 +27,19 @@ public class ReturnedChestGUI {
             if ((pages - 1) * 45 + i < stockSize) {
                 GetItemMeta getItemMeta = new GetItemMeta ();
 
-                List<List<Object>> stock = StockDataList.getReturnStocks ().get (p.getUniqueId ());
-                List<Object> returned = stock.get ((pages - 1) * 45 + i);
-                List<Object> displayReturned = new ArrayList<> ();
+                ArrayList<ArrayList<Object>> stock = StockDataList.getReturnStocks ().get (p.getUniqueId ());
+                ArrayList<Object> returned = stock.get ((pages - 1) * 45 + i);
+                ArrayList<Object> displayReturned = new ArrayList<> ();
+
                 displayReturned.add (ChangeItemData.decode (returned.get (0).toString ()));
                 displayReturned.add (returned.get (1));
                 displayReturned.add (returned.get (2));
                 displayReturned.add (returned.get (3));
                 displayReturned.add (returned.get (4));
-                gui.setItem (i,getItemMeta.setReturnedItemMeta (displayReturned));
 
+                gui.setItem (i,getItemMeta.setItemMeta (displayReturned));
             } else {
                 gui.setItem (i,setItemData.getNoDataGlassItem ());
-
             }
             i++;
         }

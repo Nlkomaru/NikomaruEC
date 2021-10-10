@@ -12,7 +12,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class BuyAcceptChestGUI {
     public Inventory BuyAccept (Player p,int i) {
@@ -24,7 +24,7 @@ public class BuyAcceptChestGUI {
         SetItemData setItemData = new SetItemData ();
         GetItemMeta getItemMeta = new GetItemMeta ();
 
-        List<Object> stock = StockDataList.getStocks ().get (i);
+        ArrayList<Object> stock = StockDataList.getStocks ().get (i);
 
 
         gui.setItem (0,setItemData.getBlankGlassItem ());

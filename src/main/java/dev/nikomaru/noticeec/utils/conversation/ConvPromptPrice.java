@@ -17,7 +17,6 @@ import org.jetbrains.annotations.NotNull;
 import java.util.regex.Pattern;
 
 public class ConvPromptPrice extends StringPrompt {
-
     final String nurture_num = "^[0-9]{1,18}$";
     final Pattern p1 = Pattern.compile (nurture_num);
 
@@ -46,7 +45,6 @@ public class ConvPromptPrice extends StringPrompt {
         conv2.begin ();
 
         new BukkitRunnable () {
-
             @Override
             public void run () {
                 conv2.abandon ();
@@ -68,5 +66,4 @@ public class ConvPromptPrice extends StringPrompt {
 
         return ChatColor.AQUA + "金額を入力してください>>>";
     }
-
 }
