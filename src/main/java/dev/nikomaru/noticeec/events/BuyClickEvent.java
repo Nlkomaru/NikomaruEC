@@ -24,131 +24,132 @@ import java.util.UUID;
 
 
 public class BuyClickEvent implements Listener {
-	
-	//購入用のアイテムがクリックされたら購入用GUIに飛ぶ処理をする予定
-	@EventHandler
-	public void clickEvent (InventoryClickEvent e) {
-		
-		Player p = (Player) e.getWhoClicked ();
-		MakeGUI makegui = new MakeGUI ();
-		if (! (e.getView ().title ().equals (makegui.getBuyChest ()) && e.getClickedInventory () != null)) {
-			return;
-		}
-		InventoryType inv = Objects.requireNonNull (e.getClickedInventory ()).getType ();
-		if (inv != InventoryType.CHEST) {
-			return;
-		}
-		
-		UUID uuid = p.getUniqueId ();
-		int pages = StockDataList.getNowBuyPage ().get (uuid);
-		int i = e.getSlot ();
-		int num = i + (pages - 1) * 45;
-		int stockNum = StockDataList.getStocks ().size ();
-		int maxPage = (int) Math.ceil ((double) stockNum / 45);
-		SetItemData setItemData = new SetItemData ();
-		Economy eco = VaultAPI.getEconomy ();
-		//1.戻る 2.ページ数表示(更新)  3.進む  4.売れなかった  5.販売中の在庫  6.購入履歴  7.販売履歴  8.ターミナルに戻る  9.閉じる
-		if ((0 <= i && 44 >= i) && num < StockDataList.getStocks ().size ()) {
-			if (StockDataList.getStocks ().get (num).get (1).equals (uuid)) {
-				e.getClickedInventory ().setItem (i,setItemData.getNoticeYoursItem ());
-				new BukkitRunnable () {
-					@Override
-					public void run () {
-						GetItemMeta getItemMeta = new GetItemMeta ();
-						e.getClickedInventory ().setItem (i,getItemMeta.setItemMeta (StockDataList.getStocks ()
-								                                                             .get (num)));
-					}
-				}.runTaskLater (NoticeEC.getPlugin (),20 * 2);
-			} else {
-				if (! (Objects.requireNonNull (eco).getBalance (p.getPlayer ()) > (long) StockDataList.getStocks ()
-						.get (i).get (2))) {
-					e.getClickedInventory ().setItem (i,setItemData.getNoticeNoMoneyItem ());
-					new BukkitRunnable () {
-						@Override
-						public void run () {
-							GetItemMeta getItemMeta = new GetItemMeta ();
-							e.getClickedInventory ().setItem (i,getItemMeta.setItemMeta (StockDataList.getStocks ()
-									                                                             .get (num)));
-						}
-					}.runTaskLater (NoticeEC.getPlugin (),20 * 2);
-					return;
-				}
-				if (p.getInventory ().firstEmpty () != - 1) {
-					BuyAcceptChestGUI buyAcceptChestGUI = new BuyAcceptChestGUI ();
-					p.openInventory (buyAcceptChestGUI.BuyAccept (p,num));
-					return;
-				}
-				e.getClickedInventory ().setItem (i,setItemData.getNoticeNoEmptyItem ());
-				new BukkitRunnable () {
-					@Override
-					public void run () {
-						GetItemMeta getItemMeta = new GetItemMeta ();
-						e.getClickedInventory ().setItem (i,getItemMeta.setItemMeta (StockDataList.getStocks ()
-								                                                             .get (num)));
-					}
-				}.runTaskLater (NoticeEC.getPlugin (),20 * 2);
-				return;
-			}
-		} else if (i >= 45 && i <= 47) {
-			
-			changePages (e,p,uuid,pages,i,maxPage);
-			
-		} else if (i == 48) {
-			
-			//売れなかった在庫
-			ReturnedChestGUI returnedStock = new ReturnedChestGUI ();
-			p.openInventory (returnedStock.returned (p,1));
-			StockDataList.putReturnPage (p.getUniqueId (),1);
-			
-		} else if (i == 49) {
-			//自分の販売中の在庫
-			
-			NowStockChestGUI nowStock = new NowStockChestGUI ();
-			p.openInventory (nowStock.nowPlayerStock (p,1));
-			StockDataList.putNowStockPage (p.getUniqueId (),1);
-			
-		} else if (i == 50) {
-			
-			//購入履歴
-			
-		} else if (i == 51) {
-			
-			//販売履歴
-			
-		} else if (i == 52) {
-			
-			//ターミナルを開く
-			
-			TerminalChestGUI terminal = new TerminalChestGUI ();
-			p.openInventory (terminal.Terminal (p));
-			
-		} else if (i == 53) {
-			
-			//閉じる
-			p.closeInventory ();
-			
-		}
-		
-		e.setCancelled (true);
-	}
-	
-	
-	static void changePages (InventoryClickEvent e,Player p,UUID playerUUID,int pages,int i,int maxPage) {
-		
-		int change = 0;
-		if (pages > 1 && i == 45) {
-			change = - 1;
-			
-		} else if (pages <= 1 && i == 47 && pages < maxPage) {
-			
-			change = 1;
-			
-		}
-		
-		StockDataList.putNowBuyPage (playerUUID,pages + change);
-		BuyChestGUI buy = new BuyChestGUI ();
-		p.openInventory (buy.Buy (p,pages + change));
-		e.setCancelled (true);
-	}
-	
+
+    static void changePages (InventoryClickEvent e,Player p,UUID playerUUID,int pages,int i,int maxPage) {
+
+        int change = 0;
+        if (pages > 1 && i == 45) {
+            change = - 1;
+
+        } else if (pages <= 1 && i == 47 && pages < maxPage) {
+
+            change = 1;
+
+        }
+
+        StockDataList.putNowBuyPage (playerUUID,pages + change);
+        BuyChestGUI buy = new BuyChestGUI ();
+        p.openInventory (buy.Buy (p,pages + change));
+        e.setCancelled (true);
+    }
+
+    //購入用のアイテムがクリックされたら購入用GUIに飛ぶ処理をする予定
+    @EventHandler
+    public void clickEvent (InventoryClickEvent e) {
+
+        Player p = (Player) e.getWhoClicked ();
+        MakeGUI makegui = new MakeGUI ();
+        if (!(e.getView ().title ().equals (makegui.getBuyChest ()) && e.getClickedInventory () != null)) {
+            return;
+        }
+        InventoryType inv = Objects.requireNonNull (e.getClickedInventory ()).getType ();
+        if (inv != InventoryType.CHEST) {
+            return;
+        }
+
+        UUID uuid = p.getUniqueId ();
+        int pages = StockDataList.getNowBuyPage ().get (uuid);
+        int i = e.getSlot ();
+        int num = i + (pages - 1) * 45;
+        int stockNum = StockDataList.getStocks ().size ();
+        int maxPage = (int) Math.ceil ((double) stockNum / 45);
+        SetItemData setItemData = new SetItemData ();
+        Economy eco = VaultAPI.getEconomy ();
+        //1.戻る 2.ページ数表示(更新)  3.進む  4.売れなかった  5.販売中の在庫  6.購入履歴  7.販売履歴  8.ターミナルに戻る  9.閉じる
+
+        switch (i) {
+            case 45:
+            case 46:
+            case 47:
+                //ページの変更
+                changePages (e,p,uuid,pages,i,maxPage);
+                break;
+            case 48:
+                //売れなかった在庫
+                ReturnedChestGUI returnedStock = new ReturnedChestGUI ();
+                p.openInventory (returnedStock.returned (p,1));
+                StockDataList.putReturnPage (p.getUniqueId (),1);
+                break;
+            case 49:
+                //自分の販売中の在庫
+                NowStockChestGUI nowStock = new NowStockChestGUI ();
+                p.openInventory (nowStock.nowPlayerStock (p,1));
+                StockDataList.putNowStockPage (p.getUniqueId (),1);
+                break;
+            case 50:
+                //購入履歴
+                break;
+            case 51:
+                //販売履歴
+                break;
+            case 52:
+                //ターミナルを開く
+                TerminalChestGUI terminal = new TerminalChestGUI ();
+                p.openInventory (terminal.Terminal (p));
+                break;
+            case 53:
+                //閉じる
+                p.closeInventory ();
+                break;
+            default:
+                if (num >= StockDataList.getStocks ().size ()) {
+                    e.setCancelled (true);
+                    return;
+                }
+                if (!StockDataList.getStocks ().get (num).get (1).equals (uuid)) {
+                    if (!(Objects.requireNonNull (eco).getBalance (p.getPlayer ()) > (long) StockDataList.getStocks ()
+                            .get (i).get (2))) {
+                        e.getClickedInventory ().setItem (i,setItemData.getNoticeNoMoneyItem ());
+                        new BukkitRunnable () {
+                            @Override
+                            public void run () {
+                                GetItemMeta getItemMeta = new GetItemMeta ();
+                                e.getClickedInventory ()
+                                        .setItem (i,getItemMeta.setItemMeta (StockDataList.getStocks ().get (num)));
+                            }
+                        }.runTaskLater (NoticeEC.getPlugin (),20 * 2);
+                        return;
+                    }
+
+                    if (p.getInventory ().firstEmpty () != -1) {
+                        BuyAcceptChestGUI buyAcceptChestGUI = new BuyAcceptChestGUI ();
+                        p.openInventory (buyAcceptChestGUI.BuyAccept (p,num));
+                        return;
+                    }
+                    e.getClickedInventory ().setItem (i,setItemData.getNoticeNoEmptyItem ());
+
+                    new BukkitRunnable () {
+                        @Override
+                        public void run () {
+                            GetItemMeta getItemMeta = new GetItemMeta ();
+                            e.getClickedInventory ()
+                                    .setItem (i,getItemMeta.setItemMeta (StockDataList.getStocks ().get (num)));
+                        }
+                    }.runTaskLater (NoticeEC.getPlugin (),20 * 2);
+                    return;
+                }
+
+                e.getClickedInventory ().setItem (i,setItemData.getNoticeYoursItem ());
+                new BukkitRunnable () {
+                    @Override
+                    public void run () {
+                        GetItemMeta getItemMeta = new GetItemMeta ();
+                        e.getClickedInventory ()
+                                .setItem (i,getItemMeta.setItemMeta (StockDataList.getStocks ().get (num)));
+                    }
+                }.runTaskLater (NoticeEC.getPlugin (),20 * 2);
+                break;
+        }
+        e.setCancelled (true);
+    }
 }

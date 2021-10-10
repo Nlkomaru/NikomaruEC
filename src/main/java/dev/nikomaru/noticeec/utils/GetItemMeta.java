@@ -15,35 +15,35 @@ import java.util.Objects;
 import java.util.UUID;
 
 public class GetItemMeta {
-	public ItemStack setItemMeta (List<Object> stock) {
-		
-		SetItemData setItemData = new SetItemData ();
-		
-		DateTimeFormatter format = DateTimeFormatter.ofPattern ("yyyy/MM/dd HH:mm");
-		String limitTime = format.format ((ZonedDateTime) stock.get (4));
-		
-		ItemStack item = ChangeItemData.decode (stock.get (0).toString ());
-		OfflinePlayer Seller = Bukkit.getOfflinePlayer ((UUID) stock.get (1));
-		String name = Seller.getName ();
-		String price = Long.valueOf ((long) stock.get (2)).toString ();
-		String description = (String) stock.get (3);
-		
-		return setItemData.getSellerItem (item,Objects.requireNonNull (name),price,limitTime,description);
-	}
-	
-	public ItemStack setReturnedItemMeta (List<Object> stock) {
-		
-		SetItemData setItemData = new SetItemData ();
-		
-		DateTimeFormatter format = DateTimeFormatter.ofPattern ("yyyy/MM/dd HH:mm");
-		String limitTime = format.format ((ZonedDateTime) stock.get (4));
-		
-		ItemStack item = (ItemStack) stock.get (0);
-		OfflinePlayer Seller = Bukkit.getOfflinePlayer ((UUID) stock.get (1));
-		String name = Seller.getName ();
-		String price = Long.valueOf ((long) stock.get (2)).toString ();
-		String description = (String) stock.get (3);
-		
-		return setItemData.getReturnedItem (item,Objects.requireNonNull (name),price,limitTime,description);
-	}
+    public ItemStack setItemMeta (List<Object> stock) {
+
+        SetItemData setItemData = new SetItemData ();
+
+        DateTimeFormatter format = DateTimeFormatter.ofPattern ("yyyy/MM/dd HH:mm");
+        String limitTime = format.format ((ZonedDateTime) stock.get (4));
+
+        ItemStack item = ChangeItemData.decode (stock.get (0).toString ());
+        OfflinePlayer Seller = Bukkit.getOfflinePlayer ((UUID) stock.get (1));
+        String name = Seller.getName ();
+        String price = Long.valueOf ((long) stock.get (2)).toString ();
+        String description =  stock.get (3).toString ();
+
+        return setItemData.getSellerItem (item,Objects.requireNonNull (name),price,limitTime,description);
+    }
+
+    public ItemStack setReturnedItemMeta (List<Object> stock) {
+
+        SetItemData setItemData = new SetItemData ();
+
+        DateTimeFormatter format = DateTimeFormatter.ofPattern ("yyyy/MM/dd HH:mm");
+        String limitTime = format.format ((ZonedDateTime) stock.get (4));
+
+        ItemStack item = (ItemStack) stock.get (0);
+        OfflinePlayer Seller = Bukkit.getOfflinePlayer ((UUID) stock.get (1));
+        String name = Seller.getName ();
+        String price = Long.valueOf ((long) stock.get (2)).toString ();
+        String description = stock.get (3).toString ();
+
+        return setItemData.getReturnedItem (item,Objects.requireNonNull (name),price,limitTime,description);
+    }
 }

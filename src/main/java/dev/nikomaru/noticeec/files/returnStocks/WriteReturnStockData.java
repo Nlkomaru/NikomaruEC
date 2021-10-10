@@ -15,28 +15,28 @@ import java.util.List;
 import java.util.UUID;
 
 public class WriteReturnStockData {
-	public static void saveData () {
+    public static void saveData () {
         String dir = "plugins\\NoticeEC\\returnStock";
         String path = dir + "\\returnStock.dat";
 
 
-        if (StockDataList.getReturnStocks().isEmpty()) {
+        if (StockDataList.getReturnStocks ().isEmpty ()) {
             return;
         }
-        MakeFile.makeFile(dir, path);
-        HashMap<UUID, List<List<Object>>> returnStock = StockDataList.getReturnStocks();
+        MakeFile.makeFile (dir,path);
+        HashMap<UUID,List<List<Object>>> returnStock = StockDataList.getReturnStocks ();
         try {
-            ObjectOutputStream objOutStream = new ObjectOutputStream(new FileOutputStream(path));
-            SerializableReturnStock srs = new SerializableReturnStock(returnStock);
-			
-			objOutStream.writeObject (srs);
-			objOutStream.flush ();
-			objOutStream.reset ();
-			objOutStream.close ();
-			
-			
-		} catch (IOException e) {
-			e.printStackTrace ();
-		}
-	}
+            ObjectOutputStream objOutStream = new ObjectOutputStream (new FileOutputStream (path));
+            SerializableReturnStock srs = new SerializableReturnStock (returnStock);
+
+            objOutStream.writeObject (srs);
+            objOutStream.flush ();
+            objOutStream.reset ();
+            objOutStream.close ();
+
+
+        } catch (IOException e) {
+            e.printStackTrace ();
+        }
+    }
 }

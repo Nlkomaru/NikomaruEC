@@ -13,29 +13,29 @@ import java.util.List;
 import java.util.UUID;
 
 public class ReadReturnStockData {
-	public static HashMap<UUID,List<List<Object>>> readData () {
-		String path = "plugins\\NoticeEC\\returnStock.dat";
-		
-		HashMap<UUID,List<List<Object>>> restoreStocks = new HashMap<> ();
-		File file = new File (path);
-		
-		if (! file.exists ()) {
-			return restoreStocks;
-		}
-		try {
-			
-			ObjectInputStream objInStream = new ObjectInputStream (new FileInputStream (path));
-			SerializableReturnStock srs = (SerializableReturnStock) objInStream.readObject ();
-			
-			objInStream.close ();
-			restoreStocks = srs.getStocks ();
-			
-		} catch (IOException | ClassNotFoundException e) {
-			e.printStackTrace ();
-		}
-		
-		
-		return restoreStocks;
-	}
-	
+    public static HashMap<UUID,List<List<Object>>> readData () {
+        String path = "plugins\\NoticeEC\\returnStock.dat";
+
+        HashMap<UUID,List<List<Object>>> restoreStocks = new HashMap<> ();
+        File file = new File (path);
+
+        if (!file.exists ()) {
+            return restoreStocks;
+        }
+        try {
+
+            ObjectInputStream objInStream = new ObjectInputStream (new FileInputStream (path));
+            SerializableReturnStock srs = (SerializableReturnStock) objInStream.readObject ();
+
+            objInStream.close ();
+            restoreStocks = srs.getStocks ();
+
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace ();
+        }
+
+
+        return restoreStocks;
+    }
+
 }

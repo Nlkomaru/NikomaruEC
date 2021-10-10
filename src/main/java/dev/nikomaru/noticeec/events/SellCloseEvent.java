@@ -14,23 +14,23 @@ import org.bukkit.event.inventory.InventoryType;
 import java.util.Objects;
 
 public class SellCloseEvent implements Listener {
-	
-	@EventHandler
-	public void InventoryCloseEvent (InventoryCloseEvent e) {
-		Player p = (Player) e.getPlayer ();
-		MakeGUI makegui = new MakeGUI ();
-		if (! e.getView ().title ().equals (makegui.getSellChest ())) {
-			return;
-		}
-		e.getInventory ();
-		InventoryType inv = e.getInventory ().getType ();
-		
-		if (inv != InventoryType.CHEST) {
-			return;
-		}
-		
-		if (e.getInventory ().getItem (3) != null) {
-			p.getInventory ().addItem (Objects.requireNonNull (e.getInventory ().getItem (3)));
-		}
-	}
+
+    @EventHandler
+    public void InventoryCloseEvent (InventoryCloseEvent e) {
+        Player p = (Player) e.getPlayer ();
+        MakeGUI makegui = new MakeGUI ();
+        if (!e.getView ().title ().equals (makegui.getSellChest ())) {
+            return;
+        }
+        e.getInventory ();
+        InventoryType inv = e.getInventory ().getType ();
+
+        if (inv != InventoryType.CHEST) {
+            return;
+        }
+
+        if (e.getInventory ().getItem (3) != null) {
+            p.getInventory ().addItem (Objects.requireNonNull (e.getInventory ().getItem (3)));
+        }
+    }
 }
