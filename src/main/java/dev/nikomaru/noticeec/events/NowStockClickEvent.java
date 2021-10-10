@@ -4,18 +4,20 @@
 
 package dev.nikomaru.noticeec.events;
 
+import dev.nikomaru.noticeec.NoticeEC;
 import dev.nikomaru.noticeec.gui.ec.BuyChestGUI;
 import dev.nikomaru.noticeec.gui.ec.NowStockChestGUI;
 import dev.nikomaru.noticeec.gui.ec.ReturnedChestGUI;
 import dev.nikomaru.noticeec.gui.ec.TerminalChestGUI;
-import dev.nikomaru.noticeec.utils.MakeGUI;
-import dev.nikomaru.noticeec.utils.StockDataList;
+import dev.nikomaru.noticeec.utils.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType;
+import org.bukkit.scheduler.BukkitRunnable;
 
+import java.util.HashMap;
 import java.util.UUID;
 
 public class NowStockClickEvent implements Listener {
@@ -35,8 +37,6 @@ public class NowStockClickEvent implements Listener {
         e.setCancelled (true);
     }
 
-    //TODO 出品の取り消し
-    //TODO 値段の変更
     @EventHandler
     public void clickEvent (InventoryClickEvent e) {
 
@@ -55,7 +55,7 @@ public class NowStockClickEvent implements Listener {
         int pages = StockDataList.getNowStockPage ().get (uuid);
         int clickedSlot = e.getSlot ();
         int num = clickedSlot + (pages - 1) * 45;
-        int maxPage = StockDataList.getStocks ().size () / 45;
+        int maxPage = (int) Math.ceil ((double) StockDataList.getStocks ().size () / 45);
 
         //1.戻る 2.ページ数表示(更新)  3.進む  4.売れなかった  5.販売中の在庫  6.購入履歴  7.販売履歴  8.ターミナルに戻る  9.閉じる
 
@@ -93,6 +93,45 @@ public class NowStockClickEvent implements Listener {
                 p.closeInventory ();
             }
             default -> {
+                HashMap<Integer,Integer> itemIndex = new HashMap<> ();
+                int i = 0;
+                int j = 0;
+                while (i < num) {
+                    int itemNum = (pages - 1) * 45 + i;
+                    if (StockDataList.getStocks ().size () > itemNum) {
+                        if (StockDataList.getStocks ().get (i).get (1).equals (p.getUniqueId ())) {
+                            itemIndex.put (j,i);
+                            j++;
+                        }
+                    }
+                    i++;
+                }
+
+                if (num <= itemIndex.size ()) {
+                    return;
+                }
+
+                if (p.getInventory ().firstEmpty () == -1) {
+                    SetItemData setItemData = new SetItemData ();
+                    e.getClickedInventory ().setItem (clickedSlot,setItemData.getNoticeNoEmptyItem ());
+
+                    new BukkitRunnable () {
+                        @Override
+                        public void run () {
+                            GetItemMeta getItemMeta = new GetItemMeta ();
+                            e.getClickedInventory ().setItem (clickedSlot,
+                                    getItemMeta.setItemMeta (StockDataList.getStocks ().get (num)));
+                        }
+                    }.runTaskLater (NoticeEC.getPlugin (),20 * 2);
+                    return;
+                }
+                p.getInventory ().addItem (ChangeItemData.decode (
+                        StockDataList.getStocks ().get (itemIndex.get (num)).get (0).toString ()));
+                StockDataList.removeStocks (itemIndex.get (num));
+
+                NowStockChestGUI nowStockChestGUI = new NowStockChestGUI ();
+                p.openInventory (nowStockChestGUI.nowPlayerStock (p,Math.min (pages,maxPage)));
+                return;
             }
         }
         e.setCancelled (true);

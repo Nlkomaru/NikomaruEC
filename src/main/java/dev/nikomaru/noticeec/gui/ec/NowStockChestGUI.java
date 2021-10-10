@@ -14,9 +14,7 @@ import org.bukkit.inventory.Inventory;
 
 import java.util.ArrayList;
 
-@SuppressWarnings( {"ALL","DuplicatedCode"})
 public class NowStockChestGUI {
-    // 未来へのヒント indexOf()を使用すること
     final SetItemData setItemData = new SetItemData ();
 
     public Inventory nowPlayerStock (Player p,int pages) {
@@ -25,23 +23,15 @@ public class NowStockChestGUI {
         Inventory gui = Bukkit.createInventory (p,54,makegui.getNowStockChest ());
         int i = 0;
         int num = 45;
-        int j = 0;
         while (i < num) {
-
             int itemNum = (pages - 1) * 45 + i;
 
             if (StockDataList.getStocks ().size () > itemNum) {
                 ArrayList<Object> stock = StockDataList.getStocks ().get (itemNum);
 
-
                 if (stock.get (1).equals (p.getUniqueId ())) {
                     GetItemMeta getItemMeta = new GetItemMeta ();
-
-
                     gui.setItem (i,getItemMeta.setItemMeta (stock));
-
-
-                    j++;
                 }
             } else {
                 gui.setItem (i,setItemData.getNoDataGlassItem ());
@@ -57,7 +47,6 @@ public class NowStockChestGUI {
         gui.setItem (51,setItemData.getSellHistoryItem ());
         gui.setItem (52,setItemData.getTerminalItem ());
         gui.setItem (53,setItemData.getCloseItem ());
-
 
         return gui;
     }

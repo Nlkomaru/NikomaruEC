@@ -8,7 +8,6 @@ import dev.nikomaru.noticeec.api.VaultAPI;
 import dev.nikomaru.noticeec.commands.EasySell;
 import dev.nikomaru.noticeec.commands.TerminalGUI;
 import dev.nikomaru.noticeec.events.*;
-import dev.nikomaru.noticeec.files.returnStocks.ReadReturnStockData;
 import dev.nikomaru.noticeec.files.returnStocks.WriteReturnStockData;
 import dev.nikomaru.noticeec.files.stocks.ReadStockData;
 import dev.nikomaru.noticeec.files.stocks.WriteStockData;
@@ -44,7 +43,6 @@ public final class NoticeEC extends JavaPlugin {
         getServer ().getPluginManager ().registerEvents (new ReturnedClickEvent (),this);
 
         StockDataList.setStocks (ReadStockData.readData ());
-        StockDataList.setReturnStocks (ReadReturnStockData.readData ());
     }
 
     @Override

@@ -85,6 +85,10 @@ public class StockDataList {
         returnStocks = data;
     }
 
+    public static void setReturnPlayerStocks (UUID uuid,ArrayList<ArrayList<Object>> list) {
+        returnStocks.put (uuid,list);
+    }
+
     public static void addReturnStocks (UUID uuid,ArrayList<Object> list) {
         returnStocks.get (uuid).add (list);
     }

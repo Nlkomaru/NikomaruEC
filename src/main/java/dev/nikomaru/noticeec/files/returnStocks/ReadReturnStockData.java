@@ -9,14 +9,13 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.UUID;
 
 public class ReadReturnStockData {
-    public static HashMap<UUID,ArrayList<ArrayList<Object>>> readData () {
-        String path = "plugins\\NoticeEC\\returnStock.dat";
+    public static ArrayList<ArrayList<Object>> readData (UUID uuid) {
+        String path = "plugins\\NoticeEC\\returnedStocks\\" + uuid.toString () + "_returnStock.dat";
 
-        HashMap<UUID,ArrayList<ArrayList<Object>>> restoreStocks = new HashMap<> ();
+        ArrayList<ArrayList<Object>> restoreStocks = new ArrayList<> ();
         File file = new File (path);
 
         if (!file.exists ()) {

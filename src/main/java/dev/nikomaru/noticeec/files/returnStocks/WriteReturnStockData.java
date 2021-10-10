@@ -11,30 +11,38 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.List;
 import java.util.UUID;
 
 public class WriteReturnStockData {
     public static void saveData () {
-        String dir = "plugins\\NoticeEC\\returnStock";
-        String path = dir + "\\returnStock.dat";
-
 
         if (StockDataList.getReturnStocks ().isEmpty ()) {
             return;
         }
-        MakeFile.makeFile (dir,path);
-        HashMap<UUID,ArrayList<ArrayList<Object>>> returnStock = StockDataList.getReturnStocks ();
-        try {
-            ObjectOutputStream objOutStream = new ObjectOutputStream (new FileOutputStream (path));
-            SerializableReturnStock srs = new SerializableReturnStock (returnStock);
+        List<UUID> keyList = new ArrayList<> (StockDataList.getReturnStocks ().keySet ());
 
-            objOutStream.writeObject (srs);
-            objOutStream.flush ();
-            objOutStream.reset ();
-            objOutStream.close ();
-        } catch (IOException e) {
-            e.printStackTrace ();
+        while (!keyList.isEmpty ()) {
+
+            UUID uuid = keyList.get (0);
+            String dir = "plugins\\NoticeEC\\returnedStocks\\";
+            String path = dir + uuid.toString () + "_returnStock.dat";
+
+            ArrayList<ArrayList<Object>> returnStock = StockDataList.getReturnStocks ().get (uuid);
+
+            MakeFile.makeFile (dir,path);
+            try {
+                ObjectOutputStream objOutStream = new ObjectOutputStream (new FileOutputStream (path));
+                SerializableReturnStock srs = new SerializableReturnStock (returnStock);
+
+                objOutStream.writeObject (srs);
+                objOutStream.flush ();
+                objOutStream.reset ();
+                objOutStream.close ();
+            } catch (IOException e) {
+                e.printStackTrace ();
+            }
+            keyList.remove (0);
         }
     }
 }

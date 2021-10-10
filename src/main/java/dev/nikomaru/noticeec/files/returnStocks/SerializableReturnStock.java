@@ -7,19 +7,17 @@ package dev.nikomaru.noticeec.files.returnStocks;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.UUID;
 
 public class SerializableReturnStock implements Serializable {
     @Serial
-    private static final long serialVersionUID = -3288388669213934496L;
-    HashMap<UUID,ArrayList<ArrayList<Object>>> returnStock;
+    private static final long serialVersionUID = -783284843585153721L;
+    ArrayList<ArrayList<Object>> returnStock;
 
-    public SerializableReturnStock (HashMap<UUID,ArrayList<ArrayList<Object>>> returnStock) {
+    public SerializableReturnStock (ArrayList<ArrayList<Object>> returnStock) {
         this.returnStock = returnStock;
     }
 
-    public HashMap<UUID,ArrayList<ArrayList<Object>>> getStocks () {
+    public ArrayList<ArrayList<Object>> getStocks () {
         return returnStock;
     }
 }

@@ -4,6 +4,7 @@
 
 package dev.nikomaru.noticeec.gui.ec;
 
+import dev.nikomaru.noticeec.files.returnStocks.ReadReturnStockData;
 import dev.nikomaru.noticeec.utils.*;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -12,7 +13,6 @@ import org.bukkit.inventory.Inventory;
 import java.util.ArrayList;
 
 public class ReturnedChestGUI {
-    //TODO 返却されたアイテムをHashMapからListに変更 方法:HashMapにロードしたのを入れてそのあとにList化
     final SetItemData setItemData = new SetItemData ();
 
     public Inventory returned (Player p,int pages) {
@@ -20,7 +20,9 @@ public class ReturnedChestGUI {
         Inventory gui = Bukkit.createInventory (p,54,makegui.getReturnedChest ());
         int i = 0;
         int num = 45;
-        StockDataList.setNewReturnStocks (p.getUniqueId ());
+        StockDataList.setReturnPlayerStocks (p.getUniqueId (),ReadReturnStockData.readData (p.getUniqueId ()));
+
+
         int stockSize = StockDataList.getReturnStocks ().get (p.getUniqueId ()).size ();
         while (i < num) {
 

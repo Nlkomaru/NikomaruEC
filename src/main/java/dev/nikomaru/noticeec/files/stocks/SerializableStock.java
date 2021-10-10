@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class SerializableStock implements Serializable {
     @Serial
-    private static final long serialVersionUID = -8549839403246768345L;
+    private static final long serialVersionUID = -8229529767271082725L;
     ArrayList<ArrayList<Object>> stock;
 
     public SerializableStock (ArrayList<ArrayList<Object>> stock) {
