@@ -47,6 +47,7 @@ public class BuyAcceptClickEvent implements Listener {
         UUID uuid = (UUID) stock.get (1);
         long price = (long) stock.get (2);
 
+
         if (slot == 7) {
             p.getInventory ().addItem (item);
             Objects.requireNonNull (eco).withdrawPlayer (p,price);
@@ -62,7 +63,6 @@ public class BuyAcceptClickEvent implements Listener {
             p.closeInventory ();
             BuyChestGUI buy = new BuyChestGUI ();
             p.openInventory (buy.Buy (p,StockDataList.getNowBuyPage ().get (p.getUniqueId ())));
-
         }
         e.setCancelled (true);
     }

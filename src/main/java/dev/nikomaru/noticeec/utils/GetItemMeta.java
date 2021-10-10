@@ -26,7 +26,7 @@ public class GetItemMeta {
         OfflinePlayer Seller = Bukkit.getOfflinePlayer ((UUID) stock.get (1));
         String name = Seller.getName ();
         String price = Long.valueOf ((long) stock.get (2)).toString ();
-        String description =  stock.get (3).toString ();
+        String description = stock.get (3).toString ();
 
         return setItemData.getSellerItem (item,Objects.requireNonNull (name),price,limitTime,description);
     }

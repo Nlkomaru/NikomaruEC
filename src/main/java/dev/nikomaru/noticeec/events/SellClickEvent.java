@@ -19,8 +19,6 @@ import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import java.util.Objects;
-
 public class SellClickEvent implements Listener {
 
 
@@ -35,7 +33,6 @@ public class SellClickEvent implements Listener {
         }
 
         InventoryType inv = e.getClickedInventory ().getType ();
-
         if (inv != InventoryType.CHEST) {
             return;
         }
@@ -45,16 +42,17 @@ public class SellClickEvent implements Listener {
             return;
         }
 
+
         if (s == 8) {
             pl.closeInventory ();
 
         } else if (s == 7) {
-            ItemStack item;
-            item = Objects.requireNonNull (e.getClickedInventory ()).getItem (3);
-            e.getClickedInventory ().clear (3);
-            if (item == null) {
+            if (e.getClickedInventory ().getItem (3) == null) {
                 return;
             }
+
+            ItemStack item = e.getClickedInventory ().getItem (3);
+            e.getClickedInventory ().clear (3);
             pl.closeInventory ();
             StockDataList.putNewData (pl.getUniqueId ());
             StockDataList.addData (pl.getUniqueId (),ChangeItemData.encode (item));

@@ -29,20 +29,24 @@ public class TerminalClickEvent implements Listener {
         if (inv != InventoryType.CHEST) {
             return;
         }
-        if (e.getSlot () == 0) {
-            BuyChestGUI buy = new BuyChestGUI ();
-            p.openInventory (buy.Buy (p,1));
-            StockDataList.getNowBuyPage ().put (p.getUniqueId (),1);
-        } else if (e.getSlot () == 1) {
-            SellChestGUI sell = new SellChestGUI ();
-            p.openInventory (sell.Sell (p));
-            e.getClickedInventory ().close ();
-        } else if (e.getSlot () == 8) {
-            p.closeInventory ();
-            e.getClickedInventory ().close ();
+
+        switch (e.getSlot ()) {
+            case 0 -> {
+                BuyChestGUI buy = new BuyChestGUI ();
+                p.openInventory (buy.Buy (p,1));
+                StockDataList.getNowBuyPage ().put (p.getUniqueId (),1);
+            }
+            case 1 -> {
+                SellChestGUI sell = new SellChestGUI ();
+                p.openInventory (sell.Sell (p));
+                e.getClickedInventory ().close ();
+            }
+            case 8 -> {
+                p.closeInventory ();
+                e.getClickedInventory ().close ();
+            }
         }
         e.setCancelled (true);
-
 
     }
 

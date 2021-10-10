@@ -22,6 +22,86 @@ import java.util.UUID;
 
 public class ReturnedClickEvent implements Listener {
 
+
+    @EventHandler
+    public void clickEvent (InventoryClickEvent e) {
+        MakeGUI makegui = new MakeGUI ();
+        if (!(e.getView ().title ().equals (makegui.getReturnedChest ()) && e.getClickedInventory () != null)) {
+            return;
+        }
+        InventoryType inv = e.getClickedInventory ().getType ();
+        if (inv != InventoryType.CHEST) {
+            return;
+        }
+        Player p = (Player) e.getWhoClicked ();
+        UUID uuid = p.getUniqueId ();
+
+        int clickedSlot = e.getSlot ();
+        int pages = StockDataList.getReturnPage ().get (uuid);
+        int returnedNum = StockDataList.getReturnStocks ().get (uuid).size ();
+        int maxPage = (int) Math.ceil ((double) returnedNum / 45);
+        int num = clickedSlot + (pages - 1) * 45;
+
+        switch (clickedSlot) {
+            case 45,46,47 -> {
+                changePages (e,p,uuid,pages,clickedSlot,maxPage);
+            }
+            case 48 -> {
+                //販売場
+                BuyChestGUI buyChestGUI = new BuyChestGUI ();
+                p.openInventory (buyChestGUI.Buy (p,1));
+                StockDataList.putNowBuyPage (uuid,1);
+
+            }
+            case 49 -> {
+                //自分の販売中の在庫
+                NowStockChestGUI nowStock = new NowStockChestGUI ();
+                p.openInventory (nowStock.nowPlayerStock (p,1));
+                StockDataList.putNowStockPage (p.getUniqueId (),1);
+
+            }
+            case 50 -> {
+                //購入履歴
+            }
+            case 51 -> {
+                //販売履歴
+            }
+            case 52 -> {
+                //ターミナルを開く
+                TerminalChestGUI terminal = new TerminalChestGUI ();
+                p.openInventory (terminal.Terminal (p));
+            }
+            case 53 -> {
+                //閉じる
+                p.closeInventory ();
+            }
+            default -> {
+                if (num >= returnedNum) {
+                    return;
+                }
+                if (p.getInventory ().firstEmpty () != -1) {
+                    p.getInventory ().addItem (ChangeItemData.decode (
+                            StockDataList.getReturnStocks ().get (uuid).get (num).get (0).toString ()));
+                    StockDataList.removeReturnStocks (uuid,num);
+                    ReturnedChestGUI returnedChestGUI = new ReturnedChestGUI ();
+                    p.openInventory (returnedChestGUI.returned (p,pages));
+                    return;
+                }
+                SetItemData setItemData = new SetItemData ();
+                e.getClickedInventory ().setItem (clickedSlot,setItemData.getNoticeNoEmptyItem ());
+                new BukkitRunnable () {
+                    @Override
+                    public void run () {
+                        GetItemMeta getItemMeta = new GetItemMeta ();
+                        e.getClickedInventory ().setItem (clickedSlot,
+                                getItemMeta.setItemMeta (StockDataList.getReturnStocks ().get (uuid).get (num)));
+                    }
+                }.runTaskLater (NoticeEC.getPlugin (),20 * 2);
+            }
+        }
+        e.setCancelled (true);
+    }
+
     static void changePages (InventoryClickEvent e,Player p,UUID playerUUID,int pages,int i,int maxPage) {
 
         int change = 0;
@@ -40,67 +120,4 @@ public class ReturnedClickEvent implements Listener {
         e.setCancelled (true);
     }
 
-    @EventHandler
-    public void clickEvent (InventoryClickEvent e) {
-        MakeGUI makegui = new MakeGUI ();
-        if (!(e.getView ().title ().equals (makegui.getReturnedChest ()) && e.getClickedInventory () != null)) {
-            return;
-        }
-        InventoryType inv = e.getClickedInventory ().getType ();
-        if (inv != InventoryType.CHEST) {
-            return;
-        }
-        Player p = (Player) e.getWhoClicked ();
-        UUID uuid = p.getUniqueId ();
-        int clickedSlot = e.getSlot ();
-        int pages = StockDataList.getReturnPage ().get (uuid);
-        int returnedNum = StockDataList.getReturnStocks ().get (uuid).size ();
-        int maxPage = (int) Math.ceil ((double) returnedNum / 45);
-        int num = clickedSlot + (pages - 1) * 45;
-        if ((0 <= clickedSlot && clickedSlot <= 44) && num < returnedNum) {
-            if (p.getInventory ().firstEmpty () != -1) {
-                p.getInventory ().addItem (ChangeItemData.decode (
-                        StockDataList.getReturnStocks ().get (uuid).get (num).get (0).toString ()));
-                StockDataList.removeReturnStocks (uuid,num);
-                ReturnedChestGUI returnedChestGUI = new ReturnedChestGUI ();
-                p.openInventory (returnedChestGUI.returned (p,pages));
-                return;
-            }
-            SetItemData setItemData = new SetItemData ();
-            e.getClickedInventory ().setItem (clickedSlot,setItemData.getNoticeNoEmptyItem ());
-            new BukkitRunnable () {
-                @Override
-                public void run () {
-                    GetItemMeta getItemMeta = new GetItemMeta ();
-                    e.getClickedInventory ().setItem (clickedSlot,
-                            getItemMeta.setItemMeta (StockDataList.getReturnStocks ().get (uuid).get (num)));
-                }
-            }.runTaskLater (NoticeEC.getPlugin (),20 * 2);
-            return;
-        } else if (clickedSlot >= 45 && clickedSlot <= 47) {
-            changePages (e,p,uuid,pages,clickedSlot,maxPage);
-        } else if (clickedSlot == 48) {
-            //販売場
-            BuyChestGUI buyChestGUI = new BuyChestGUI ();
-            p.openInventory (buyChestGUI.Buy (p,1));
-            StockDataList.putNowBuyPage (uuid,1);
-        } else if (clickedSlot == 49) {
-            //自分の販売中の在庫
-            NowStockChestGUI nowStock = new NowStockChestGUI ();
-            p.openInventory (nowStock.nowPlayerStock (p,1));
-            StockDataList.putNowStockPage (p.getUniqueId (),1);
-        } else if (clickedSlot == 50) {
-            //購入履歴
-        } else if (clickedSlot == 51) {
-            //販売履歴
-        } else if (clickedSlot == 52) {
-            //ターミナルを開く
-            TerminalChestGUI terminal = new TerminalChestGUI ();
-            p.openInventory (terminal.Terminal (p));
-        } else if (clickedSlot == 53) {
-            //閉じる
-            p.closeInventory ();
-        }
-        e.setCancelled (true);
-    }
 }

@@ -47,7 +47,7 @@ public class ReadStockData {
             String item = objects.get (0).toString ();
             UUID uuid = (UUID) objects.get (1);
             Long price = (Long) objects.get (2);
-            String description =objects.get (3).toString ();
+            String description = objects.get (3).toString ();
             ZonedDateTime time = (ZonedDateTime) objects.get (4);
 
 

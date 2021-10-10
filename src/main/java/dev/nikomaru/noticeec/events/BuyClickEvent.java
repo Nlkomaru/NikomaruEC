@@ -25,23 +25,6 @@ import java.util.UUID;
 
 public class BuyClickEvent implements Listener {
 
-    static void changePages (InventoryClickEvent e,Player p,UUID playerUUID,int pages,int i,int maxPage) {
-
-        int change = 0;
-        if (pages > 1 && i == 45) {
-            change = - 1;
-
-        } else if (pages <= 1 && i == 47 && pages < maxPage) {
-
-            change = 1;
-
-        }
-
-        StockDataList.putNowBuyPage (playerUUID,pages + change);
-        BuyChestGUI buy = new BuyChestGUI ();
-        p.openInventory (buy.Buy (p,pages + change));
-        e.setCancelled (true);
-    }
 
     //購入用のアイテムがクリックされたら購入用GUIに飛ぶ処理をする予定
     @EventHandler
@@ -59,63 +42,71 @@ public class BuyClickEvent implements Listener {
 
         UUID uuid = p.getUniqueId ();
         int pages = StockDataList.getNowBuyPage ().get (uuid);
-        int i = e.getSlot ();
-        int num = i + (pages - 1) * 45;
+        int clickedSlot = e.getSlot ();
+        int num = clickedSlot + (pages - 1) * 45;
         int stockNum = StockDataList.getStocks ().size ();
         int maxPage = (int) Math.ceil ((double) stockNum / 45);
         SetItemData setItemData = new SetItemData ();
         Economy eco = VaultAPI.getEconomy ();
         //1.戻る 2.ページ数表示(更新)  3.進む  4.売れなかった  5.販売中の在庫  6.購入履歴  7.販売履歴  8.ターミナルに戻る  9.閉じる
 
-        switch (i) {
-            case 45:
-            case 46:
-            case 47:
+        switch (clickedSlot) {
+            case 45,46,47 -> {
                 //ページの変更
-                changePages (e,p,uuid,pages,i,maxPage);
-                break;
-            case 48:
+                changePages (e,p,uuid,pages,clickedSlot,maxPage);
+            }
+            case 48 -> {
                 //売れなかった在庫
                 ReturnedChestGUI returnedStock = new ReturnedChestGUI ();
                 p.openInventory (returnedStock.returned (p,1));
                 StockDataList.putReturnPage (p.getUniqueId (),1);
-                break;
-            case 49:
+            }
+            case 49 -> {
                 //自分の販売中の在庫
                 NowStockChestGUI nowStock = new NowStockChestGUI ();
                 p.openInventory (nowStock.nowPlayerStock (p,1));
                 StockDataList.putNowStockPage (p.getUniqueId (),1);
-                break;
-            case 50:
+            }
+            case 50 -> {
                 //購入履歴
-                break;
-            case 51:
+            }
+            case 51 -> {
                 //販売履歴
-                break;
-            case 52:
+            }
+            case 52 -> {
                 //ターミナルを開く
                 TerminalChestGUI terminal = new TerminalChestGUI ();
                 p.openInventory (terminal.Terminal (p));
-                break;
-            case 53:
+            }
+            case 53 -> {
                 //閉じる
                 p.closeInventory ();
-                break;
-            default:
+            }
+            default -> {
                 if (num >= StockDataList.getStocks ().size ()) {
                     e.setCancelled (true);
                     return;
                 }
-                if (!StockDataList.getStocks ().get (num).get (1).equals (uuid)) {
+                if (StockDataList.getStocks ().get (num).get (1).equals (uuid)) {
+                    e.getClickedInventory ().setItem (clickedSlot,setItemData.getNoticeYoursItem ());
+                    new BukkitRunnable () {
+                        @Override
+                        public void run () {
+                            GetItemMeta getItemMeta = new GetItemMeta ();
+                            e.getClickedInventory ().setItem (clickedSlot,
+                                    getItemMeta.setItemMeta (StockDataList.getStocks ().get (num)));
+                        }
+                    }.runTaskLater (NoticeEC.getPlugin (),20 * 2);
+                } else {
                     if (!(Objects.requireNonNull (eco).getBalance (p.getPlayer ()) > (long) StockDataList.getStocks ()
-                            .get (i).get (2))) {
-                        e.getClickedInventory ().setItem (i,setItemData.getNoticeNoMoneyItem ());
+                            .get (clickedSlot).get (2))) {
+                        e.getClickedInventory ().setItem (clickedSlot,setItemData.getNoticeNoMoneyItem ());
                         new BukkitRunnable () {
                             @Override
                             public void run () {
                                 GetItemMeta getItemMeta = new GetItemMeta ();
-                                e.getClickedInventory ()
-                                        .setItem (i,getItemMeta.setItemMeta (StockDataList.getStocks ().get (num)));
+                                e.getClickedInventory ().setItem (clickedSlot,
+                                        getItemMeta.setItemMeta (StockDataList.getStocks ().get (num)));
                             }
                         }.runTaskLater (NoticeEC.getPlugin (),20 * 2);
                         return;
@@ -126,30 +117,38 @@ public class BuyClickEvent implements Listener {
                         p.openInventory (buyAcceptChestGUI.BuyAccept (p,num));
                         return;
                     }
-                    e.getClickedInventory ().setItem (i,setItemData.getNoticeNoEmptyItem ());
+                    e.getClickedInventory ().setItem (clickedSlot,setItemData.getNoticeNoEmptyItem ());
 
                     new BukkitRunnable () {
                         @Override
                         public void run () {
                             GetItemMeta getItemMeta = new GetItemMeta ();
-                            e.getClickedInventory ()
-                                    .setItem (i,getItemMeta.setItemMeta (StockDataList.getStocks ().get (num)));
+                            e.getClickedInventory ().setItem (clickedSlot,
+                                    getItemMeta.setItemMeta (StockDataList.getStocks ().get (num)));
                         }
                     }.runTaskLater (NoticeEC.getPlugin (),20 * 2);
                     return;
                 }
-
-                e.getClickedInventory ().setItem (i,setItemData.getNoticeYoursItem ());
-                new BukkitRunnable () {
-                    @Override
-                    public void run () {
-                        GetItemMeta getItemMeta = new GetItemMeta ();
-                        e.getClickedInventory ()
-                                .setItem (i,getItemMeta.setItemMeta (StockDataList.getStocks ().get (num)));
-                    }
-                }.runTaskLater (NoticeEC.getPlugin (),20 * 2);
-                break;
+            }
         }
+        e.setCancelled (true);
+    }
+
+    static void changePages (InventoryClickEvent e,Player p,UUID playerUUID,int pages,int i,int maxPage) {
+
+        int change = 0;
+        if (pages > 1 && i == 45) {
+            change = -1;
+
+        } else if (pages <= 1 && i == 47 && pages < maxPage) {
+
+            change = 1;
+
+        }
+
+        StockDataList.putNowBuyPage (playerUUID,pages + change);
+        BuyChestGUI buy = new BuyChestGUI ();
+        p.openInventory (buy.Buy (p,pages + change));
         e.setCancelled (true);
     }
 }
