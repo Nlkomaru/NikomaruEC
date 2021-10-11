@@ -79,24 +79,28 @@ public class NowStockClickEvent implements Listener {
             }
             case 50 -> {
                 //購入履歴
+                e.setCancelled (true);
             }
             case 51 -> {
                 //販売履歴
+                e.setCancelled (true);
             }
             case 52 -> {
                 //ターミナルを開く
                 TerminalChestGUI terminal = new TerminalChestGUI ();
                 p.openInventory (terminal.Terminal (p));
+                e.setCancelled (true);
             }
             case 53 -> {
                 //閉じる
                 p.closeInventory ();
+                e.setCancelled (true);
             }
             default -> {
                 HashMap<Integer,Integer> itemIndex = new HashMap<> ();
                 int i = 0;
                 int j = 0;
-                while (i < num) {
+                while (i < 45) {
                     int itemNum = (pages - 1) * 45 + i;
                     if (StockDataList.getStocks ().size () > itemNum) {
                         if (StockDataList.getStocks ().get (i).get (1).equals (p.getUniqueId ())) {
@@ -106,8 +110,8 @@ public class NowStockClickEvent implements Listener {
                     }
                     i++;
                 }
-
-                if (num <= itemIndex.size ()) {
+                if (num >= itemIndex.size ()) {
+                    e.setCancelled (true);
                     return;
                 }
 
@@ -123,14 +127,17 @@ public class NowStockClickEvent implements Listener {
                                     getItemMeta.setItemMeta (StockDataList.getStocks ().get (num)));
                         }
                     }.runTaskLater (NoticeEC.getPlugin (),20 * 2);
+                    e.setCancelled (true);
                     return;
                 }
+
                 p.getInventory ().addItem (ChangeItemData.decode (
                         StockDataList.getStocks ().get (itemIndex.get (num)).get (0).toString ()));
                 StockDataList.removeStocks (itemIndex.get (num));
 
                 NowStockChestGUI nowStockChestGUI = new NowStockChestGUI ();
                 p.openInventory (nowStockChestGUI.nowPlayerStock (p,Math.min (pages,maxPage)));
+                e.setCancelled (true);
                 return;
             }
         }

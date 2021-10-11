@@ -51,43 +51,55 @@ public class ReturnedClickEvent implements Listener {
 
         int clickedSlot = e.getSlot ();
         int pages = StockDataList.getReturnPage ().get (uuid);
-        int returnedNum = StockDataList.getReturnStocks ().get (uuid).size ();
+        int returnedNum = 0;
+        if (StockDataList.getReturnStocks ().get (uuid) != null) {
+            returnedNum = StockDataList.getReturnStocks ().get (uuid).size ();
+        }
+
         int maxPage = (int) Math.ceil ((double) returnedNum / 45);
         int num = clickedSlot + (pages - 1) * 45;
 
         switch (clickedSlot) {
             case 45,46,47 -> {
                 changePages (e,p,uuid,pages,clickedSlot,maxPage);
+                e.setCancelled (true);
             }
             case 48 -> {
                 //販売場
                 BuyChestGUI buyChestGUI = new BuyChestGUI ();
                 p.openInventory (buyChestGUI.Buy (p,1));
                 StockDataList.putNowBuyPage (uuid,1);
+                e.setCancelled (true);
             }
             case 49 -> {
                 //自分の販売中の在庫
                 NowStockChestGUI nowStock = new NowStockChestGUI ();
                 p.openInventory (nowStock.nowPlayerStock (p,1));
                 StockDataList.putNowStockPage (p.getUniqueId (),1);
+                e.setCancelled (true);
             }
             case 50 -> {
                 //購入履歴
+                e.setCancelled (true);
             }
             case 51 -> {
                 //販売履歴
+                e.setCancelled (true);
             }
             case 52 -> {
                 //ターミナルを開く
                 TerminalChestGUI terminal = new TerminalChestGUI ();
                 p.openInventory (terminal.Terminal (p));
+                e.setCancelled (true);
             }
             case 53 -> {
                 //閉じる
                 p.closeInventory ();
+                e.setCancelled (true);
             }
             default -> {
                 if (num >= returnedNum) {
+                    e.setCancelled (true);
                     return;
                 }
                 if (p.getInventory ().firstEmpty () != -1) {
@@ -96,6 +108,7 @@ public class ReturnedClickEvent implements Listener {
                     StockDataList.removeReturnStocks (uuid,num);
                     ReturnedChestGUI returnedChestGUI = new ReturnedChestGUI ();
                     p.openInventory (returnedChestGUI.returned (p,pages));
+                    e.setCancelled (true);
                     return;
                 }
                 SetItemData setItemData = new SetItemData ();
@@ -108,6 +121,7 @@ public class ReturnedClickEvent implements Listener {
                                 getItemMeta.setItemMeta (StockDataList.getReturnStocks ().get (uuid).get (num)));
                     }
                 }.runTaskLater (NoticeEC.getPlugin (),20 * 2);
+                e.setCancelled (true);
             }
         }
         e.setCancelled (true);

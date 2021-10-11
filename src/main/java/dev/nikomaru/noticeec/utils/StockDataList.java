@@ -81,23 +81,16 @@ public class StockDataList {
         return returnStocks;
     }
 
-    public static void setReturnStocks (HashMap<UUID,ArrayList<ArrayList<Object>>> data) {
-        returnStocks = data;
-    }
-
     public static void setReturnPlayerStocks (UUID uuid,ArrayList<ArrayList<Object>> list) {
         returnStocks.put (uuid,list);
     }
 
     public static void addReturnStocks (UUID uuid,ArrayList<Object> list) {
+        returnStocks.computeIfAbsent (uuid,k -> new ArrayList<> ());
         returnStocks.get (uuid).add (list);
     }
 
     public static void removeReturnStocks (UUID uuid,int i) {
         returnStocks.get (uuid).remove (i);
-    }
-
-    public static void setNewReturnStocks (UUID uuid) {
-        returnStocks.computeIfAbsent (uuid,k -> new ArrayList<> ());
     }
 }

@@ -19,7 +19,6 @@ public class TerminalGUI implements CommandExecutor {
         if (sender instanceof Player) {
             Player p = (Player) sender;
 
-
             TerminalChestGUI terminal = new TerminalChestGUI ();
             p.openInventory (terminal.Terminal (p));
         }

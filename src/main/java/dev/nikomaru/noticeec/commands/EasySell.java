@@ -55,28 +55,26 @@ public class EasySell implements CommandExecutor {
         // {itemStack} {player uuid} {price} {description} {time}
         long price = Long.parseLong (args[0]);
         Config config = new Config (NoticeEC.getPlugin ());
-        if (config.getMinPrice () <= price && price <= config.getMaxPrice ()) {
 
-            easySellData.add (ChangeItemData.encode (p.getInventory ().getItemInMainHand ()));
-            easySellData.add (p.getUniqueId ());
-            easySellData.add (price);
-
-            if (args.length == 1) {
-                easySellData.add ("説明はありません");
-            } else {
-                easySellData.add (args[1]);
-            }
-
-            ZonedDateTime nowTime = ZonedDateTime.now ();
-            ZonedDateTime limitTime = nowTime.plusDays (config.getAddDays ()).plusHours (config.getAddHours ());
-            easySellData.add (limitTime);
-            p.sendMessage (ChatColor.GREEN + String.format ("%s円で、説明は「%s」で処理しました",easySellData.get (2).toString (),
-                    easySellData.get (3).toString ()));
-            p.getInventory ().setItemInMainHand (new ItemStack (Material.AIR));
-
-            StockDataList.addStocks (easySellData);
+        if (config.getMinPrice () > price || price > config.getMaxPrice ()) {
+            p.sendMessage (ChatColor.YELLOW + "指定された金額はサーバーにより指定された金額より大きすぎます");
+            return false;
         }
 
+        easySellData.add (ChangeItemData.encode (p.getInventory ().getItemInMainHand ()));
+        easySellData.add (p.getUniqueId ());
+        easySellData.add (price);
+        easySellData.add (args.length == 1 ? "説明はありません" : args[1]);
+
+        ZonedDateTime nowTime = ZonedDateTime.now ();
+        //        ZonedDateTime limitTime = nowTime.plusDays (config.getAddDays ()).plusHours (config.getAddHours ());
+        ZonedDateTime limitTime = nowTime.plusMinutes (1);
+        easySellData.add (limitTime);
+        p.sendMessage (ChatColor.GREEN + String.format ("%s円で、説明は「%s」で処理しました",easySellData.get (2).toString (),
+                easySellData.get (3).toString ()));
+        p.getInventory ().setItemInMainHand (new ItemStack (Material.AIR));
+
+        StockDataList.addStocks (easySellData);
         return true;
     }
 }

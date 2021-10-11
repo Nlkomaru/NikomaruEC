@@ -26,7 +26,6 @@ public class BuyAcceptChestGUI {
 
         ArrayList<Object> stock = StockDataList.getStocks ().get (i);
 
-
         gui.setItem (0,setItemData.getBlankGlassItem ());
         gui.setItem (1,setItemData.getBlankGlassItem ());
         gui.setItem (2,setItemData.getBlankGlassItem ());
@@ -36,7 +35,6 @@ public class BuyAcceptChestGUI {
         gui.setItem (6,setItemData.getBlankGlassItem ());
         gui.setItem (7,setItemData.getAcceptItem ());
         gui.setItem (8,setItemData.getDenyItem ());
-
 
         return gui;
     }

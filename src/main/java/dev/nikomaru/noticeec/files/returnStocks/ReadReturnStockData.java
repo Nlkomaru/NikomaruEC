@@ -19,7 +19,7 @@ public class ReadReturnStockData {
         File file = new File (path);
 
         if (!file.exists ()) {
-            return restoreStocks;
+            return null;
         }
         try {
 
@@ -31,7 +31,6 @@ public class ReadReturnStockData {
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace ();
         }
-
 
         return restoreStocks;
     }

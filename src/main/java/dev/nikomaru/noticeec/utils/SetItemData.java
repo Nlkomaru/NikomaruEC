@@ -103,7 +103,7 @@ public class SetItemData {
         ItemMeta noEmpty_meta = noEmpty.getItemMeta ();
         noEmpty_meta.displayName (Component.text ("インベントリに空きスロットがありません",TextColor.color (232,57,41)));
         ArrayList<Component> noEmpty_lore = new ArrayList<> ();
-        noEmpty_lore.add (Component.text ("購入する場合はインベントリを開けてください",TextColor.color (128,128,128)));
+        noEmpty_lore.add (Component.text ("インベントリを開けてください",TextColor.color (128,128,128)));
         noEmpty_meta.lore (noEmpty_lore);
         noEmpty.setItemMeta (noEmpty_meta);
         return noEmpty;
@@ -151,7 +151,6 @@ public class SetItemData {
         buy_lore.add (Component.text ("物品購入所へ移動",TextColor.color (128,128,128)));
         buy_meta.lore (buy_lore);
         buy.setItemMeta (buy_meta);
-
         return buy;
     }
 
@@ -164,7 +163,6 @@ public class SetItemData {
         sell_lore.add (Component.text ("物品販売所へ移動",TextColor.color (128,128,128)));
         sell_meta.lore (sell_lore);
         sell.setItemMeta (sell_meta);
-
         return sell;
     }
 

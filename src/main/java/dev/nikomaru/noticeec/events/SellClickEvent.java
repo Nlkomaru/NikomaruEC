@@ -40,7 +40,6 @@ public class SellClickEvent implements Listener {
             return;
         }
 
-
         if (s == 8) {
             pl.closeInventory ();
         } else if (s == 7) {

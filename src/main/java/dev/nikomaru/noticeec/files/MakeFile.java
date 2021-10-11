@@ -22,16 +22,15 @@ public class MakeFile {
         }
 
         File file = new File (path);
-        if (!file.exists ()) {
-            try {
-                if (file.createNewFile ()) {
-                    System.out.println ("ファイルの作成に成功しました。");
-                } else {
-                    System.out.println ("ファイルの作成に失敗しました。");
-                }
-            } catch (IOException e) {
-                e.printStackTrace ();
-            }
+        if (file.exists ()) {
+            return;
+        }
+        try {
+            String str;
+            str = file.createNewFile () ? "ファイルの作成に成功しました。" : "ファイルの作成に失敗しました。";
+            System.out.println (str);
+        } catch (IOException e) {
+            e.printStackTrace ();
         }
     }
 }

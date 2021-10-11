@@ -29,16 +29,16 @@ public class Config {
         }
         config = plugin.getConfig ();
 
-        if (config.isInt ("SetLimit.DaysLater")) {
+        if (!config.isInt ("SetLimit.DaysLater")) {
             config.set ("SetLimit.DaysLater","7");
         }
-        if (config.isInt ("SetLimit.HoursLater")) {
+        if (!config.isInt ("SetLimit.HoursLater")) {
             config.set ("SetLimit.HoursLater","0");
         }
-        if (config.isInt ("Price.Max")) {
+        if (!config.isInt ("Price.Max")) {
             config.set ("Price.Max","1000000");
         }
-        if (config.isInt ("Price.Min")) {
+        if (!config.isInt ("Price.Min")) {
             config.set ("Price.Min","0");
         }
         addDays = config.getInt ("SetLimit.DaysLater");

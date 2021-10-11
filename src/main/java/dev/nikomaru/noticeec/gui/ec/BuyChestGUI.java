@@ -4,11 +4,14 @@
 
 package dev.nikomaru.noticeec.gui.ec;
 
-import dev.nikomaru.noticeec.utils.*;
+import dev.nikomaru.noticeec.files.returnStocks.ReadReturnStockData;
+import dev.nikomaru.noticeec.utils.GetItemMeta;
+import dev.nikomaru.noticeec.utils.MakeGUI;
+import dev.nikomaru.noticeec.utils.SetItemData;
+import dev.nikomaru.noticeec.utils.StockDataList;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
 
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
@@ -24,39 +27,34 @@ public class BuyChestGUI {
         Inventory gui = Bukkit.createInventory (p,54,makegui.getBuyChest ());
         int j = 0;
 
-        boolean returnCheck = true;
+        while (j < StockDataList.getStocks ().size ()) {
+            ZonedDateTime nowTime = ZonedDateTime.now ();
+            if (nowTime.isAfter ((ZonedDateTime) StockDataList.getStocks ().get (j).get (4))) {
+                ArrayList<Object> returnStock = new ArrayList<> ();
 
-        while (returnCheck) {
-            if (j >= StockDataList.getStocks ().size ()) {
-                returnCheck = false;
-            } else {
-                ZonedDateTime nowTime = ZonedDateTime.now ();
+                String ReturnStock = StockDataList.getStocks ().get ((pages - 1) * 45 + j).get (0).toString ();
+                UUID uuid = (UUID) StockDataList.getStocks ().get ((pages - 1) * 45 + j).get (1);
+                Long price = (Long) StockDataList.getStocks ().get ((pages - 1) * 45 + j).get (2);
+                String description = StockDataList.getStocks ().get ((pages - 1) * 45 + j).get (3).toString ();
+                ZonedDateTime time = ZonedDateTime.now ();
 
-                if (nowTime.isAfter ((ZonedDateTime) StockDataList.getStocks ().get (j).get (4))) {
-                    ArrayList<Object> returnStock = new ArrayList<> ();
-                    String encodeReturnStock = ChangeItemData.encode (
-                            (ItemStack) StockDataList.getStocks ().get ((pages - 1) * 45 + j).get (0));
-                    UUID uuid = (UUID) StockDataList.getStocks ().get ((pages - 1) * 45 + j).get (1);
-                    Long price = (Long) StockDataList.getStocks ().get ((pages - 1) * 45 + j).get (2);
-                    String description = StockDataList.getStocks ().get ((pages - 1) * 45 + j).get (3).toString ();
-                    ZonedDateTime time = ZonedDateTime.now ();
+                returnStock.add (ReturnStock);
+                returnStock.add (uuid);
+                returnStock.add (price);
+                returnStock.add (description);
+                returnStock.add (time);
 
-                    returnStock.add (encodeReturnStock);
-                    returnStock.add (uuid);
-                    returnStock.add (price);
-                    returnStock.add (description);
-                    returnStock.add (time);
-
-                    StockDataList.getReturnStocks ().computeIfAbsent (uuid,k -> new ArrayList<> ());
-
-                    StockDataList.addReturnStocks (uuid,returnStock);
-                    StockDataList.removeStocks ((pages - 1) * 45 + j);
-                } else {
-                    j++;
+                if (!StockDataList.getReturnStocks ().containsKey (p.getUniqueId ())) {
+                    StockDataList.setReturnPlayerStocks (p.getUniqueId (),
+                            ReadReturnStockData.readData (p.getUniqueId ()));
                 }
+
+                StockDataList.addReturnStocks (uuid,returnStock);
+                StockDataList.removeStocks ((pages - 1) * 45 + j);
+            } else {
+                j++;
             }
         }
-
 
         int i = 0;
         int num = 45;

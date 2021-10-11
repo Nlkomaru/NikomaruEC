@@ -56,7 +56,8 @@ public class BuyAcceptClickEvent implements Listener {
             p.sendMessage (ChatColor.AQUA + (Long.valueOf (price)
                     .toString () + "円") + "で" + ChatColor.GREEN + (Bukkit.getOfflinePlayer (uuid)
                     .getName ()) + "の" + ChatColor.GOLD + (item.displayName ()) + "を購入しました");
-            WriteStockData.saveData ();
+            WriteStockData writeStockData = new WriteStockData ();
+            writeStockData.saveData ();
         } else if (slot == 8) {
             p.closeInventory ();
             BuyChestGUI buy = new BuyChestGUI ();

@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.UUID;
 
 public class WriteReturnStockData {
-    public static void saveData () {
+    public void saveData () {
 
         if (StockDataList.getReturnStocks ().isEmpty ()) {
             return;

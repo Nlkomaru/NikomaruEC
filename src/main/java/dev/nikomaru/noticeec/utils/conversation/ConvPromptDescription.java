@@ -37,7 +37,8 @@ public class ConvPromptDescription extends StringPrompt {
                 ChatColor.GREEN + "説明は、「" + ChatColor.WHITE + description + ChatColor.GREEN + "」で処理しました");
         con.getForWhom ().sendRawMessage (ChatColor.DARK_GREEN + "出品が完了しました");
 
-        WriteStockData.saveData ();
+        WriteStockData writeStockData = new WriteStockData ();
+        writeStockData.saveData ();
         return null;
     }
 

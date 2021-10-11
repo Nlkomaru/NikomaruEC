@@ -5,7 +5,10 @@
 package dev.nikomaru.noticeec.gui.ec;
 
 import dev.nikomaru.noticeec.files.returnStocks.ReadReturnStockData;
-import dev.nikomaru.noticeec.utils.*;
+import dev.nikomaru.noticeec.utils.GetItemMeta;
+import dev.nikomaru.noticeec.utils.MakeGUI;
+import dev.nikomaru.noticeec.utils.SetItemData;
+import dev.nikomaru.noticeec.utils.StockDataList;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -20,10 +23,14 @@ public class ReturnedChestGUI {
         Inventory gui = Bukkit.createInventory (p,54,makegui.getReturnedChest ());
         int i = 0;
         int num = 45;
-        StockDataList.setReturnPlayerStocks (p.getUniqueId (),ReadReturnStockData.readData (p.getUniqueId ()));
 
-
-        int stockSize = StockDataList.getReturnStocks ().get (p.getUniqueId ()).size ();
+        if (!StockDataList.getReturnStocks ().containsKey (p.getUniqueId ())) {
+            StockDataList.setReturnPlayerStocks (p.getUniqueId (),ReadReturnStockData.readData (p.getUniqueId ()));
+        }
+        int stockSize = 0;
+        if (StockDataList.getReturnStocks ().get (p.getUniqueId ()) != null) {
+            stockSize = StockDataList.getReturnStocks ().get (p.getUniqueId ()).size ();
+        }
         while (i < num) {
 
             if ((pages - 1) * 45 + i < stockSize) {
@@ -33,13 +40,13 @@ public class ReturnedChestGUI {
                 ArrayList<Object> returned = stock.get ((pages - 1) * 45 + i);
                 ArrayList<Object> displayReturned = new ArrayList<> ();
 
-                displayReturned.add (ChangeItemData.decode (returned.get (0).toString ()));
+                displayReturned.add (returned.get (0).toString ());
                 displayReturned.add (returned.get (1));
                 displayReturned.add (returned.get (2));
                 displayReturned.add (returned.get (3));
                 displayReturned.add (returned.get (4));
 
-                gui.setItem (i,getItemMeta.setItemMeta (displayReturned));
+                gui.setItem (i,getItemMeta.setReturnItemMeta (displayReturned));
             } else {
                 gui.setItem (i,setItemData.getNoDataGlassItem ());
             }

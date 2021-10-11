@@ -4,3 +4,4 @@ SetLimit:
 Price :
   Max : 1000000
   Min : 0
+MaxHistory: 100

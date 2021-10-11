@@ -18,7 +18,6 @@ public class ReadStockData {
 
         // {itemStack} {player uuid} {price} {description} {time}
 
-
         String path = "plugins\\NoticeEC\\stock.dat";
 
         ArrayList<ArrayList<Object>> storeStocks = new ArrayList<> ();
@@ -47,7 +46,6 @@ public class ReadStockData {
             Long price = (Long) objects.get (2);
             String description = objects.get (3).toString ();
             ZonedDateTime time = (ZonedDateTime) objects.get (4);
-
 
             stock.add (item);
             stock.add (uuid);

@@ -48,8 +48,10 @@ public final class NoticeEC extends JavaPlugin {
     @Override
     public void onDisable () {
         // Plugin shutdown logic
-        WriteStockData.saveData ();
-        WriteReturnStockData.saveData ();
+        WriteStockData writeStockData = new WriteStockData ();
+        writeStockData.saveData ();
+        WriteReturnStockData writeReturnStockData = new WriteReturnStockData ();
+        writeReturnStockData.saveData ();
     }
 }
 

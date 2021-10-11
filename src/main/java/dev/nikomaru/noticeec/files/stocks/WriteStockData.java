@@ -17,14 +17,12 @@ import java.util.UUID;
 public class WriteStockData {
     //アイテムのデータを保存する処理をする予定
 
-    public static void saveData () {
-
+    public void saveData () {
 
         // {itemStack} {player uuid} {price} {description} {time}
 
         String dir = "plugins\\NoticeEC";
-        String path = "plugins\\NoticeEC\\stock.dat";
-
+        String path = dir + "\\stock.dat";
 
         if (StockDataList.getStocks ().isEmpty ()) {
             return;
@@ -35,14 +33,13 @@ public class WriteStockData {
         ArrayList<ArrayList<Object>> stoneStock = new ArrayList<> ();
         for (ArrayList<Object> objects : rawStocks) {
 
-
             ArrayList<Object> serializationData = new ArrayList<> ();
+
             String item = objects.get (0).toString ();        // {itemStack}
             UUID uuid = (UUID) objects.get (1);        //{player uuid}
             long price = (long) objects.get (2);        //{price}
             String description = objects.get (3).toString ();        //{description}
             ZonedDateTime time = (ZonedDateTime) objects.get (4);        //{time}
-
 
             serializationData.add (item);
             serializationData.add (uuid);
@@ -52,7 +49,6 @@ public class WriteStockData {
 
             stoneStock.add (serializationData);
         }
-
 
         try {
             ObjectOutputStream objOutStream = new ObjectOutputStream (new FileOutputStream (path));
