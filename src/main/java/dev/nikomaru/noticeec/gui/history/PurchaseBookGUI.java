@@ -4,6 +4,6 @@
 
 package dev.nikomaru.noticeec.gui.history;
 
-public class BuyBookGUI {
+public class PurchaseBookGUI {
     //TODO 買った履歴を表示  csv/opencsv
 }

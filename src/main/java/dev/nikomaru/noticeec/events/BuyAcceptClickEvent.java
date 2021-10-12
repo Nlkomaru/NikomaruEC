@@ -51,13 +51,17 @@ public class BuyAcceptClickEvent implements Listener {
             p.getInventory ().addItem (item);
             Objects.requireNonNull (eco).withdrawPlayer (p,price);
             eco.depositPlayer (Bukkit.getOfflinePlayer (uuid),price);
+            //TODO ここにCsvに記述するコード
+
             StockDataList.removeStocks (i);
             p.closeInventory ();
+            //TODO getLocalizedName()を使用してアイテム名を表示
             p.sendMessage (ChatColor.AQUA + (Long.valueOf (price)
                     .toString () + "円") + "で" + ChatColor.GREEN + (Bukkit.getOfflinePlayer (uuid)
                     .getName ()) + "の" + ChatColor.GOLD + (item.displayName ()) + "を購入しました");
             WriteStockData writeStockData = new WriteStockData ();
             writeStockData.saveData ();
+
         } else if (slot == 8) {
             p.closeInventory ();
             BuyChestGUI buy = new BuyChestGUI ();

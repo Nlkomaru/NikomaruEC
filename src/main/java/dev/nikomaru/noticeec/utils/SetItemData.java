@@ -58,22 +58,22 @@ public class SetItemData {
         return store;
     }
 
-    public ItemStack getBuyHistoryItem () {
+    public ItemStack getPurchaseHistoryItem () {
         //購入履歴表示用の本
-        ItemStack buyHistory = new ItemStack (Material.KNOWLEDGE_BOOK);
-        ItemMeta buyHistory_meta = buyHistory.getItemMeta ();
-        buyHistory_meta.displayName (Component.text ("購入履歴を見る",TextColor.color (0,226,0)));
-        buyHistory.setItemMeta (buyHistory_meta);
-        return buyHistory;
+        ItemStack purchaseHistory = new ItemStack (Material.KNOWLEDGE_BOOK);
+        ItemMeta purchaseHistory_meta = purchaseHistory.getItemMeta ();
+        purchaseHistory_meta.displayName (Component.text ("購入履歴を見る",TextColor.color (0,226,0)));
+        purchaseHistory.setItemMeta (purchaseHistory_meta);
+        return purchaseHistory;
     }
 
-    public ItemStack getSellHistoryItem () {
+    public ItemStack getSalesHistoryItem () {
         //販売履歴表示用の本
-        ItemStack sellHistory = new ItemStack (Material.ENCHANTED_BOOK);
-        ItemMeta sellHistory_meta = sellHistory.getItemMeta ();
-        sellHistory_meta.displayName (Component.text ("販売履歴を見る",TextColor.color (255,0,255)));
-        sellHistory.setItemMeta (sellHistory_meta);
-        return sellHistory;
+        ItemStack salesHistory = new ItemStack (Material.ENCHANTED_BOOK);
+        ItemMeta salesHistory_meta = salesHistory.getItemMeta ();
+        salesHistory_meta.displayName (Component.text ("販売履歴を見る",TextColor.color (255,0,255)));
+        salesHistory.setItemMeta (salesHistory_meta);
+        return salesHistory;
     }
 
     public ItemStack getTerminalItem () {

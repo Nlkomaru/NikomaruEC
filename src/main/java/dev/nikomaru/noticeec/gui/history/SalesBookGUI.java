@@ -4,6 +4,6 @@
 
 package dev.nikomaru.noticeec.gui.history;
 
-public class SellBookGUI {
+public class SalesBookGUI {
     //TODO 買われた履歴を表示
 }
