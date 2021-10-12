@@ -22,7 +22,7 @@ public class ConvPromptDescription extends StringPrompt {
     public Prompt acceptInput (ConversationContext con,String description) {
 
         Player p = (Player) con.getForWhom ();
-
+        description = description.replace (",",".");
         StockDataList.addData (p.getUniqueId (),description);
 
         ZonedDateTime nowTime = ZonedDateTime.now ();

@@ -64,7 +64,7 @@ public class EasySell implements CommandExecutor {
         easySellData.add (ChangeItemData.encode (p.getInventory ().getItemInMainHand ()));
         easySellData.add (p.getUniqueId ());
         easySellData.add (price);
-        easySellData.add (args.length == 1 ? "説明はありません" : args[1]);
+        easySellData.add (args.length == 1 ? "説明はありません" : args[1].replace ("\"","'"));
 
         ZonedDateTime nowTime = ZonedDateTime.now ();
         //        ZonedDateTime limitTime = nowTime.plusDays (config.getAddDays ()).plusHours (config.getAddHours ());
