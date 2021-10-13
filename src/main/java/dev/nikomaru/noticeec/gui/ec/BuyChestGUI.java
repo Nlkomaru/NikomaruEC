@@ -81,7 +81,7 @@ public class BuyChestGUI {
         gui.setItem (48,setItemData.getReturnedItem ());
         gui.setItem (49,setItemData.getStoreItem ());
         gui.setItem (50,setItemData.getPurchaseHistoryItem ());
-        gui.setItem (51,setItemData.getSellHistoryItem ());
+        gui.setItem (51,setItemData.getSalesHistoryItem ());
         gui.setItem (52,setItemData.getTerminalItem ());
         gui.setItem (53,setItemData.getCloseItem ());
 
