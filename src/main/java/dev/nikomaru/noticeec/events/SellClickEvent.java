@@ -65,7 +65,7 @@ public class SellClickEvent implements Listener {
                     conv1.abandon ();
                     if (StockDataList.getData ().get (pl.getUniqueId ()).size () <= 2) {
                         pl.sendMessage ("入力がないため処理を中断しました");
-                        pl.getInventory ().addItem (ChangeItemData.decode (
+                        pl.getWorld ().dropItem (pl.getLocation (),ChangeItemData.decode (
                                 StockDataList.getData ().get (pl.getUniqueId ()).get (0).toString ()));
                     }
                 }

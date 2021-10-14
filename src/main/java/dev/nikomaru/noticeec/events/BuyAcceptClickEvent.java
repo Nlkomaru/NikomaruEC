@@ -61,7 +61,6 @@ public class BuyAcceptClickEvent implements Listener {
                     .getName ()) + "の" + ChatColor.GOLD + (item.displayName ()) + "を購入しました");
             WriteStockData writeStockData = new WriteStockData ();
             writeStockData.saveData ();
-
         } else if (slot == 8) {
             p.closeInventory ();
             BuyChestGUI buy = new BuyChestGUI ();

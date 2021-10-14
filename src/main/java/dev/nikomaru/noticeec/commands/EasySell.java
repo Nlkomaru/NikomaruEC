@@ -6,6 +6,7 @@ package dev.nikomaru.noticeec.commands;
 
 import dev.nikomaru.noticeec.NoticeEC;
 import dev.nikomaru.noticeec.files.Config;
+import dev.nikomaru.noticeec.files.history.CSVToHistory;
 import dev.nikomaru.noticeec.utils.ChangeItemData;
 import dev.nikomaru.noticeec.utils.StockDataList;
 import org.bukkit.ChatColor;
@@ -17,6 +18,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.IOException;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
@@ -75,6 +77,17 @@ public class EasySell implements CommandExecutor {
         p.getInventory ().setItemInMainHand (new ItemStack (Material.AIR));
 
         StockDataList.addStocks (easySellData);
+
+        CSVToHistory csvToHistory = new CSVToHistory ();
+        try {
+            csvToHistory.writePurchaseHistory (p.getUniqueId (),
+                    ChangeItemData.decode (easySellData.get (0).toString ()),p.getUniqueId (),price);
+            csvToHistory.writeSalesHistory (p.getUniqueId (),ChangeItemData.decode (easySellData.get (0).toString ()),
+                    p.getUniqueId (),price);
+        } catch (IOException e) {
+            e.printStackTrace ();
+        }
+
         return true;
     }
 }

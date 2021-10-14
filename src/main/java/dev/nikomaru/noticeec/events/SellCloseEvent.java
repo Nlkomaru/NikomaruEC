@@ -29,7 +29,7 @@ public class SellCloseEvent implements Listener {
         }
 
         if (e.getInventory ().getItem (3) != null) {
-            p.getInventory ().addItem (Objects.requireNonNull (e.getInventory ().getItem (3)));
+            p.getWorld ().dropItem (p.getLocation (),Objects.requireNonNull (e.getInventory ().getItem (3)));
         }
     }
 }
