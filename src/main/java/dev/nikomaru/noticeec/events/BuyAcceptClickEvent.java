@@ -5,8 +5,10 @@
 package dev.nikomaru.noticeec.events;
 
 import dev.nikomaru.noticeec.api.VaultAPI;
+import dev.nikomaru.noticeec.files.history.CSVToHistory;
 import dev.nikomaru.noticeec.files.stocks.WriteStockData;
 import dev.nikomaru.noticeec.gui.ec.BuyChestGUI;
+import dev.nikomaru.noticeec.utils.ChangeItemData;
 import dev.nikomaru.noticeec.utils.MakeGUI;
 import dev.nikomaru.noticeec.utils.StockDataList;
 import net.milkbowl.vault.economy.Economy;
@@ -19,6 +21,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.ItemStack;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.UUID;
@@ -43,7 +46,7 @@ public class BuyAcceptClickEvent implements Listener {
         int slot = e.getSlot ();
         int i = StockDataList.getSelectNum ().get (p.getUniqueId ());
         ArrayList<Object> stock = StockDataList.getStocks ().get (i);
-        ItemStack item = (ItemStack) stock.get (0);
+        ItemStack item = ChangeItemData.decode (stock.get (0).toString ());
         UUID uuid = (UUID) stock.get (1);
         long price = (long) stock.get (2);
 
@@ -51,14 +54,21 @@ public class BuyAcceptClickEvent implements Listener {
             p.getInventory ().addItem (item);
             Objects.requireNonNull (eco).withdrawPlayer (p,price);
             eco.depositPlayer (Bukkit.getOfflinePlayer (uuid),price);
-            //TODO ここにCsvに記述するコード
+
+            //ここにcsvに記述するコード
+            CSVToHistory csvToHistory = new CSVToHistory ();
+            try {
+                csvToHistory.writePurchaseHistory (p.getUniqueId (),item,uuid,price);
+                csvToHistory.writeSalesHistory (uuid,item,p.getUniqueId (),price);
+            } catch (IOException ex) {
+                ex.printStackTrace ();
+            }
 
             StockDataList.removeStocks (i);
             p.closeInventory ();
-            //TODO getLocalizedName()を使用してアイテム名を表示
-            p.sendMessage (ChatColor.AQUA + (Long.valueOf (price)
-                    .toString () + "円") + "で" + ChatColor.GREEN + (Bukkit.getOfflinePlayer (uuid)
-                    .getName ()) + "の" + ChatColor.GOLD + (item.displayName ()) + "を購入しました");
+            p.sendMessage (ChatColor.AQUA + (item.getI18NDisplayName () + "を" + Long.valueOf (price)
+                    .toString () + "円で" + (Bukkit.getOfflinePlayer (uuid)
+                    .getName ()) + "の" + (item.displayName ()) + "を購入しました"));
             WriteStockData writeStockData = new WriteStockData ();
             writeStockData.saveData ();
         } else if (slot == 8) {

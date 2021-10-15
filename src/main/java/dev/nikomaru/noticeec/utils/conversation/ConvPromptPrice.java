@@ -50,8 +50,8 @@ public class ConvPromptPrice extends StringPrompt {
                 conv2.abandon ();
                 if (StockDataList.getData ().get (p.getUniqueId ()).size () <= 3) {
                     p.sendMessage (ChatColor.YELLOW + "入力がないため処理を中断しました 説明をなしで出品する場合はコマンドから出品してください");
-                    p.getWorld ().dropItem (p.getLocation (),
-                            ChangeItemData.decode (StockDataList.getData ().get (p.getUniqueId ()).get (0).toString ()));
+                    p.getWorld ().dropItem (p.getLocation (),ChangeItemData.decode (
+                            StockDataList.getData ().get (p.getUniqueId ()).get (0).toString ()));
                 }
             }
         }.runTaskLater (NoticeEC.getPlugin (),20 * 12);
