@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.UUID;
 
 public class StockDataList {
+    //クラス間で使用するリストやマップなどset,get,putなどを行うクラス
     private static HashMap<UUID,Integer> nowBuyPage = new HashMap<> ();
     private static HashMap<UUID,Integer> nowStockPage = new HashMap<> ();
     private static HashMap<UUID,Integer> selectNum = new HashMap<> ();

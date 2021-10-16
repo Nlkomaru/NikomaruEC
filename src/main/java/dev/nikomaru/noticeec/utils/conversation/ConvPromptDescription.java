@@ -18,23 +18,23 @@ import org.jetbrains.annotations.NotNull;
 import java.time.ZonedDateTime;
 
 public class ConvPromptDescription extends StringPrompt {
+    //説明を取得するクラス
     @Override
     public Prompt acceptInput (ConversationContext con,String description) {
 
-        Player p = (Player) con.getForWhom ();
+        Player player = (Player) con.getForWhom ();
         description = description.replace (",",".");
-        StockDataList.addData (p.getUniqueId (),description);
+        StockDataList.addData (player.getUniqueId (),description);
 
         ZonedDateTime nowTime = ZonedDateTime.now ();
         Config config = new Config (NoticeEC.getPlugin ());
         ZonedDateTime limitTime = nowTime.plusDays (config.getAddDays ()).plusHours (config.getAddHours ());
-        StockDataList.addData (p.getUniqueId (),limitTime);
+        StockDataList.addData (player.getUniqueId (),limitTime);
 
-        StockDataList.getStocks ().add (StockDataList.getData ().get (p.getUniqueId ()));
+        StockDataList.getStocks ().add (StockDataList.getData ().get (player.getUniqueId ()));
 
         // {itemStack} {player uuid} {price} {description} {time}
-        con.getForWhom ().sendRawMessage (
-                ChatColor.GREEN + "説明は、「" + ChatColor.WHITE + description + ChatColor.GREEN + "」で処理しました");
+        con.getForWhom ().sendRawMessage (ChatColor.GREEN + "説明は、「" + ChatColor.WHITE + description + ChatColor.GREEN + "」で処理しました");
         con.getForWhom ().sendRawMessage (ChatColor.DARK_GREEN + "出品が完了しました");
 
         WriteStockData writeStockData = new WriteStockData ();

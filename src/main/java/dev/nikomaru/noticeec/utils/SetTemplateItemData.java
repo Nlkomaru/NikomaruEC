@@ -12,7 +12,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
 
-public class SetItemData {
+public class SetTemplateItemData {
     public ItemStack getPrevItem () {
         //前のページに戻るためのガラス
         ItemStack prev = new ItemStack (Material.RED_STAINED_GLASS_PANE);

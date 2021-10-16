@@ -22,7 +22,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import java.util.UUID;
 
 public class ReturnedClickEvent implements Listener {
-    static void changePages (InventoryClickEvent e,Player p,UUID playerUUID,int pages,int i,int maxPage) {
+    static void changePages (InventoryClickEvent e,Player player,UUID playerUUID,int pages,int i,int maxPage) {
 
         int change = 0;
         if (pages > 1 && i == 45) {
@@ -34,13 +34,15 @@ public class ReturnedClickEvent implements Listener {
 
         StockDataList.putReturnPage (playerUUID,pages + change);
         ReturnedChestGUI returned = new ReturnedChestGUI ();
-        p.openInventory (returned.returned (p,pages + change));
+        player.openInventory (returned.returned (player,pages + change));
         e.setCancelled (true);
     }
 
     @EventHandler
     public void clickEvent (InventoryClickEvent e) {
         MakeGUI makegui = new MakeGUI ();
+
+        //タイトルがあっているか
         if (!(e.getView ().title ().equals (makegui.getReturnedChest ()) && e.getClickedInventory () != null)) {
             return;
         }
@@ -48,8 +50,8 @@ public class ReturnedClickEvent implements Listener {
         if (inv != InventoryType.CHEST) {
             return;
         }
-        Player p = (Player) e.getWhoClicked ();
-        UUID uuid = p.getUniqueId ();
+        Player player = (Player) e.getWhoClicked ();
+        UUID uuid = player.getUniqueId ();
 
         int clickedSlot = e.getSlot ();
         int pages = StockDataList.getReturnPage ().get (uuid);
@@ -63,62 +65,62 @@ public class ReturnedClickEvent implements Listener {
 
         switch (clickedSlot) {
             case 45,46,47 -> {
-                changePages (e,p,uuid,pages,clickedSlot,maxPage);
+                changePages (e,player,uuid,pages,clickedSlot,maxPage);
                 e.setCancelled (true);
             }
             case 48 -> {
                 //販売場
                 BuyChestGUI buyChestGUI = new BuyChestGUI ();
-                p.openInventory (buyChestGUI.Buy (p,1));
+                player.openInventory (buyChestGUI.Buy (player,1));
                 StockDataList.putNowBuyPage (uuid,1);
             }
             case 49 -> {
                 //自分の販売中の在庫
                 NowStockChestGUI nowStock = new NowStockChestGUI ();
-                p.openInventory (nowStock.nowPlayerStock (p,1));
-                StockDataList.putNowStockPage (p.getUniqueId (),1);
+                player.openInventory (nowStock.nowPlayerStock (player,1));
+                StockDataList.putNowStockPage (player.getUniqueId (),1);
             }
             case 50 -> {
                 //購入履歴
                 PurchaseBookGUI purchaseBookGUI = new PurchaseBookGUI ();
-                p.openBook (purchaseBookGUI.purchaseHistory (p));
+                player.openBook (purchaseBookGUI.purchaseHistory (player));
             }
             case 51 -> {
                 //販売履歴
                 SalesBookGUI salesBookGUI = new SalesBookGUI ();
-                p.openBook (salesBookGUI.salesHistory (p));
+                player.openBook (salesBookGUI.salesHistory (player));
             }
             case 52 -> {
                 //ターミナルを開く
                 TerminalChestGUI terminal = new TerminalChestGUI ();
-                p.openInventory (terminal.Terminal (p));
+                player.openInventory (terminal.Terminal (player));
             }
             case 53 -> {
                 //閉じる
-                p.closeInventory ();
+                player.closeInventory ();
             }
             default -> {
                 if (num >= returnedNum) {
                     e.setCancelled (true);
                     return;
                 }
-                if (p.getInventory ().firstEmpty () != -1) {
-                    p.getInventory ().addItem (ChangeItemData.decode (
+                if (player.getInventory ().firstEmpty () != -1) {
+                    player.getInventory ().addItem (ChangeItemData.decode (
                             StockDataList.getReturnStocks ().get (uuid).get (num).get (0).toString ()));
                     StockDataList.removeReturnStocks (uuid,num);
                     ReturnedChestGUI returnedChestGUI = new ReturnedChestGUI ();
-                    p.openInventory (returnedChestGUI.returned (p,pages));
+                    player.openInventory (returnedChestGUI.returned (player,pages));
                     e.setCancelled (true);
                     return;
                 }
-                SetItemData setItemData = new SetItemData ();
-                e.getClickedInventory ().setItem (clickedSlot,setItemData.getNoticeNoEmptyItem ());
+                SetTemplateItemData setTemplateItemData = new SetTemplateItemData ();
+                e.getClickedInventory ().setItem (clickedSlot,setTemplateItemData.getNoticeNoEmptyItem ());
                 new BukkitRunnable () {
                     @Override
                     public void run () {
-                        GetItemMeta getItemMeta = new GetItemMeta ();
+                        SetStockItemMeta setStockItemMeta = new SetStockItemMeta ();
                         e.getClickedInventory ().setItem (clickedSlot,
-                                getItemMeta.setItemMeta (StockDataList.getReturnStocks ().get (uuid).get (num)));
+                                setStockItemMeta.setItemMeta (StockDataList.getReturnStocks ().get (uuid).get (num)));
                     }
                 }.runTaskLater (NoticeEC.getPlugin (),20 * 2);
                 e.setCancelled (true);

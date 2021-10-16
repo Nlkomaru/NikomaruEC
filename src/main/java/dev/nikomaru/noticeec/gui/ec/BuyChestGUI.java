@@ -5,9 +5,9 @@
 package dev.nikomaru.noticeec.gui.ec;
 
 import dev.nikomaru.noticeec.files.returnStocks.ReadReturnStockData;
-import dev.nikomaru.noticeec.utils.GetItemMeta;
 import dev.nikomaru.noticeec.utils.MakeGUI;
-import dev.nikomaru.noticeec.utils.SetItemData;
+import dev.nikomaru.noticeec.utils.SetStockItemMeta;
+import dev.nikomaru.noticeec.utils.SetTemplateItemData;
 import dev.nikomaru.noticeec.utils.StockDataList;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -18,13 +18,13 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 public class BuyChestGUI {
-    //購入用のGUIを作成する処理をする予定
-    final SetItemData setItemData = new SetItemData ();
+    //購入用のgui
+    final SetTemplateItemData setTemplateItemData = new SetTemplateItemData ();
 
-    public Inventory Buy (Player p,int pages) {
+    public Inventory Buy (Player player,int pages) {
 
         MakeGUI makegui = new MakeGUI ();
-        Inventory gui = Bukkit.createInventory (p,54,makegui.getBuyChest ());
+        Inventory gui = Bukkit.createInventory (player,54,makegui.getBuyChest ());
         int j = 0;
 
         while (j < StockDataList.getStocks ().size ()) {
@@ -44,9 +44,9 @@ public class BuyChestGUI {
                 returnStock.add (description);
                 returnStock.add (time);
 
-                if (!StockDataList.getReturnStocks ().containsKey (p.getUniqueId ())) {
-                    StockDataList.setReturnPlayerStocks (p.getUniqueId (),
-                            ReadReturnStockData.readData (p.getUniqueId ()));
+                if (!StockDataList.getReturnStocks ().containsKey (player.getUniqueId ())) {
+                    StockDataList.setReturnPlayerStocks (player.getUniqueId (),
+                            ReadReturnStockData.readData (player.getUniqueId ()));
                 }
 
                 StockDataList.addReturnStocks (uuid,returnStock);
@@ -66,24 +66,24 @@ public class BuyChestGUI {
             if ((pages - 1) * 45 + i < stockSize) {
                 stock = StockDataList.getStocks ().get ((pages - 1) * 45 + i);
 
-                GetItemMeta getItemMeta = new GetItemMeta ();
+                SetStockItemMeta setStockItemMeta = new SetStockItemMeta ();
 
-                gui.setItem (i,getItemMeta.setItemMeta (stock));
+                gui.setItem (i,setStockItemMeta.setItemMeta (stock));
             } else {
-                gui.setItem (i,setItemData.getNoDataGlassItem ());
+                gui.setItem (i,setTemplateItemData.getNoDataGlassItem ());
             }
             i++;
         }
 
-        gui.setItem (45,setItemData.getPrevItem ());
-        gui.setItem (46,setItemData.getReloadItem ());
-        gui.setItem (47,setItemData.getNextItem ());
-        gui.setItem (48,setItemData.getReturnedItem ());
-        gui.setItem (49,setItemData.getStoreItem ());
-        gui.setItem (50,setItemData.getPurchaseHistoryItem ());
-        gui.setItem (51,setItemData.getSalesHistoryItem ());
-        gui.setItem (52,setItemData.getTerminalItem ());
-        gui.setItem (53,setItemData.getCloseItem ());
+        gui.setItem (45,setTemplateItemData.getPrevItem ());
+        gui.setItem (46,setTemplateItemData.getReloadItem ());
+        gui.setItem (47,setTemplateItemData.getNextItem ());
+        gui.setItem (48,setTemplateItemData.getReturnedItem ());
+        gui.setItem (49,setTemplateItemData.getStoreItem ());
+        gui.setItem (50,setTemplateItemData.getPurchaseHistoryItem ());
+        gui.setItem (51,setTemplateItemData.getSalesHistoryItem ());
+        gui.setItem (52,setTemplateItemData.getTerminalItem ());
+        gui.setItem (53,setTemplateItemData.getCloseItem ());
 
         return gui;
     }

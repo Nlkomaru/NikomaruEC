@@ -24,12 +24,14 @@ public class SellClickEvent implements Listener {
     @EventHandler
     public void clickEvent (InventoryClickEvent e) {
 
-        Player pl = (Player) e.getWhoClicked ();
+        Player player = (Player) e.getWhoClicked ();
         MakeGUI makegui = new MakeGUI ();
+
+        //タイトルがあっているか
         if (!(e.getView ().title ().equals (makegui.getSellChest ()) && e.getClickedInventory () != null)) {
             return;
         }
-
+        //インベントリタイプがチェストか
         InventoryType inv = e.getClickedInventory ().getType ();
         if (inv != InventoryType.CHEST) {
             return;
@@ -41,7 +43,7 @@ public class SellClickEvent implements Listener {
         }
 
         if (s == 8) {
-            pl.closeInventory ();
+            player.closeInventory ();
         } else if (s == 7) {
             if (e.getClickedInventory ().getItem (3) == null) {
                 return;
@@ -49,24 +51,24 @@ public class SellClickEvent implements Listener {
 
             ItemStack item = e.getClickedInventory ().getItem (3);
             e.getClickedInventory ().clear (3);
-            pl.closeInventory ();
-            StockDataList.putNewData (pl.getUniqueId ());
-            StockDataList.addData (pl.getUniqueId (),ChangeItemData.encode (item));
-            StockDataList.addData (pl.getUniqueId (),pl.getUniqueId ());
+            player.closeInventory ();
+            StockDataList.putNewData (player.getUniqueId ());
+            StockDataList.addData (player.getUniqueId (),ChangeItemData.encode (item));
+            StockDataList.addData (player.getUniqueId (),player.getUniqueId ());
 
             ConversationFactory cf = new ConversationFactory (NoticeEC.getPlugin ());
             Conversation conv1 = cf.withFirstPrompt (new ConvPromptPrice ()).withLocalEcho (true)
-                    .buildConversation ((pl));
+                    .buildConversation ((player));
             conv1.begin ();
 
             new BukkitRunnable () {
                 @Override
                 public void run () {
                     conv1.abandon ();
-                    if (StockDataList.getData ().get (pl.getUniqueId ()).size () <= 2) {
-                        pl.sendMessage ("入力がないため処理を中断しました");
-                        pl.getWorld ().dropItem (pl.getLocation (),ChangeItemData.decode (
-                                StockDataList.getData ().get (pl.getUniqueId ()).get (0).toString ()));
+                    if (StockDataList.getData ().get (player.getUniqueId ()).size () <= 2) {
+                        player.sendMessage ("入力がないため処理を中断しました");
+                        player.getWorld ().dropItem (player.getLocation (),ChangeItemData.decode (
+                                StockDataList.getData ().get (player.getUniqueId ()).get (0).toString ()));
                     }
                 }
             }.runTaskLater (NoticeEC.getPlugin (),20 * 7);

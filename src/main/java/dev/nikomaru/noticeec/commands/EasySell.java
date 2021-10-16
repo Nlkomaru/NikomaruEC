@@ -22,8 +22,7 @@ import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 public class EasySell implements CommandExecutor {
-    //コマンドから簡単に出品できる処理をするコマンド予定
-    //フォーマット /nes [金額] [説明]
+    //コマンドから簡単に出品できる処理をするコマンド
     static ArrayList<Object> easySellData;
     final String nurture_num = "^[0-9]{1,18}$";
     final Pattern p1 = Pattern.compile (nurture_num);
@@ -37,25 +36,29 @@ public class EasySell implements CommandExecutor {
         Player p = (Player) sender;
         easySellData = new ArrayList<> ();
 
+        //販売したいアイテムを手に持っているか
         if (p.getInventory ().getItemInMainHand ().getType () == Material.AIR) {
             p.sendMessage (ChatColor.YELLOW + "アイテムをメインハンドに持ってください");
             return false;
         }
 
+        //コマンドの後に金額と説明（省略可）がかかれているか
         if (!(args.length == 1 || args.length == 2)) {
             p.sendMessage (ChatColor.YELLOW + "コマンドの長さが不適切です");
             return false;
         }
 
+        //金額が自然数か
         if (!p1.matcher (args[0]).matches ()) {
             p.sendMessage (ChatColor.YELLOW + "金額は自然数を入力してください");
             return false;
         }
 
-        // {itemStack} {player uuid} {price} {description} {time}
+
         long price = Long.parseLong (args[0]);
         Config config = new Config (NoticeEC.getPlugin ());
 
+        //コンフィグによって設定された金額の間に存在するか
         if (config.getMinPrice () > price || price > config.getMaxPrice ()) {
             p.sendMessage (ChatColor.YELLOW + "指定された金額はサーバーにより指定された金額より大きすぎます");
             return false;
@@ -69,6 +72,7 @@ public class EasySell implements CommandExecutor {
         ZonedDateTime nowTime = ZonedDateTime.now ();
         ZonedDateTime limitTime = nowTime.plusDays (config.getAddDays ()).plusHours (config.getAddHours ());
         easySellData.add (limitTime);
+        //出品完了のメッセージ
         p.sendMessage (ChatColor.GREEN + String.format ("%s円で、説明は「%s」で処理しました",easySellData.get (2).toString (),
                 easySellData.get (3).toString ()));
         p.getInventory ().setItemInMainHand (new ItemStack (Material.AIR));

@@ -8,6 +8,7 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 
 public class MakeGUI {
+    //gui作成用のクラス
     public Component getBuyChest () {
         return getComponent ("物品購入所",100,255,130);
     }

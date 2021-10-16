@@ -12,7 +12,7 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 public class TerminalGUI implements CommandExecutor {
-    //いろいろな所にアクセスできるGUIを表示するコマンドの予定
+    //いろいろな所にアクセスできるGUIを表示するコマンド
     @Override
     public boolean onCommand (@NotNull CommandSender sender,@NotNull Command command,@NotNull String label,String[] args) {
 

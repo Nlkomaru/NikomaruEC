@@ -5,9 +5,9 @@
 package dev.nikomaru.noticeec.gui.ec;
 
 import dev.nikomaru.noticeec.files.returnStocks.ReadReturnStockData;
-import dev.nikomaru.noticeec.utils.GetItemMeta;
 import dev.nikomaru.noticeec.utils.MakeGUI;
-import dev.nikomaru.noticeec.utils.SetItemData;
+import dev.nikomaru.noticeec.utils.SetStockItemMeta;
+import dev.nikomaru.noticeec.utils.SetTemplateItemData;
 import dev.nikomaru.noticeec.utils.StockDataList;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -16,27 +16,29 @@ import org.bukkit.inventory.Inventory;
 import java.util.ArrayList;
 
 public class ReturnedChestGUI {
-    final SetItemData setItemData = new SetItemData ();
+    //期限が切れて返却されたアイテムのgui
+    final SetTemplateItemData setTemplateItemData = new SetTemplateItemData ();
 
-    public Inventory returned (Player p,int pages) {
+    public Inventory returned (Player player,int pages) {
         MakeGUI makegui = new MakeGUI ();
-        Inventory gui = Bukkit.createInventory (p,54,makegui.getReturnedChest ());
+        Inventory gui = Bukkit.createInventory (player,54,makegui.getReturnedChest ());
         int i = 0;
         int num = 45;
 
-        if (!StockDataList.getReturnStocks ().containsKey (p.getUniqueId ())) {
-            StockDataList.setReturnPlayerStocks (p.getUniqueId (),ReadReturnStockData.readData (p.getUniqueId ()));
+        if (!StockDataList.getReturnStocks ().containsKey (player.getUniqueId ())) {
+            StockDataList.setReturnPlayerStocks (player.getUniqueId (),
+                    ReadReturnStockData.readData (player.getUniqueId ()));
         }
         int stockSize = 0;
-        if (StockDataList.getReturnStocks ().get (p.getUniqueId ()) != null) {
-            stockSize = StockDataList.getReturnStocks ().get (p.getUniqueId ()).size ();
+        if (StockDataList.getReturnStocks ().get (player.getUniqueId ()) != null) {
+            stockSize = StockDataList.getReturnStocks ().get (player.getUniqueId ()).size ();
         }
         while (i < num) {
 
             if ((pages - 1) * 45 + i < stockSize) {
-                GetItemMeta getItemMeta = new GetItemMeta ();
+                SetStockItemMeta setStockItemMeta = new SetStockItemMeta ();
 
-                ArrayList<ArrayList<Object>> stock = StockDataList.getReturnStocks ().get (p.getUniqueId ());
+                ArrayList<ArrayList<Object>> stock = StockDataList.getReturnStocks ().get (player.getUniqueId ());
                 ArrayList<Object> returned = stock.get ((pages - 1) * 45 + i);
                 ArrayList<Object> displayReturned = new ArrayList<> ();
 
@@ -46,22 +48,22 @@ public class ReturnedChestGUI {
                 displayReturned.add (returned.get (3));
                 displayReturned.add (returned.get (4));
 
-                gui.setItem (i,getItemMeta.setReturnItemMeta (displayReturned));
+                gui.setItem (i,setStockItemMeta.setReturnItemMeta (displayReturned));
             } else {
-                gui.setItem (i,setItemData.getNoDataGlassItem ());
+                gui.setItem (i,setTemplateItemData.getNoDataGlassItem ());
             }
             i++;
         }
 
-        gui.setItem (45,setItemData.getPrevItem ());
-        gui.setItem (46,setItemData.getReloadItem ());
-        gui.setItem (47,setItemData.getNextItem ());
-        gui.setItem (48,setItemData.getBuyItem ());
-        gui.setItem (49,setItemData.getStoreItem ());
-        gui.setItem (50,setItemData.getPurchaseHistoryItem ());
-        gui.setItem (51,setItemData.getSalesHistoryItem ());
-        gui.setItem (52,setItemData.getTerminalItem ());
-        gui.setItem (53,setItemData.getCloseItem ());
+        gui.setItem (45,setTemplateItemData.getPrevItem ());
+        gui.setItem (46,setTemplateItemData.getReloadItem ());
+        gui.setItem (47,setTemplateItemData.getNextItem ());
+        gui.setItem (48,setTemplateItemData.getBuyItem ());
+        gui.setItem (49,setTemplateItemData.getStoreItem ());
+        gui.setItem (50,setTemplateItemData.getPurchaseHistoryItem ());
+        gui.setItem (51,setTemplateItemData.getSalesHistoryItem ());
+        gui.setItem (52,setTemplateItemData.getTerminalItem ());
+        gui.setItem (53,setTemplateItemData.getCloseItem ());
 
         return gui;
     }

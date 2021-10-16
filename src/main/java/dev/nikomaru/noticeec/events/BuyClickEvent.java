@@ -9,9 +9,9 @@ import dev.nikomaru.noticeec.api.VaultAPI;
 import dev.nikomaru.noticeec.gui.ec.*;
 import dev.nikomaru.noticeec.gui.history.PurchaseBookGUI;
 import dev.nikomaru.noticeec.gui.history.SalesBookGUI;
-import dev.nikomaru.noticeec.utils.GetItemMeta;
 import dev.nikomaru.noticeec.utils.MakeGUI;
-import dev.nikomaru.noticeec.utils.SetItemData;
+import dev.nikomaru.noticeec.utils.SetStockItemMeta;
+import dev.nikomaru.noticeec.utils.SetTemplateItemData;
 import dev.nikomaru.noticeec.utils.StockDataList;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.entity.Player;
@@ -25,8 +25,8 @@ import java.util.Objects;
 import java.util.UUID;
 
 public class BuyClickEvent implements Listener {
-    static void changePages (InventoryClickEvent e,Player p,UUID playerUUID,int pages,int i,int maxPage) {
-
+    static void changePages (InventoryClickEvent e,Player player,UUID playerUUID,int pages,int i,int maxPage) {
+        //ページの変更
         int change = 0;
         if (pages > 1 && i == 45) {
             change = -1;
@@ -37,7 +37,7 @@ public class BuyClickEvent implements Listener {
 
         StockDataList.putNowBuyPage (playerUUID,pages + change);
         BuyChestGUI buy = new BuyChestGUI ();
-        p.openInventory (buy.Buy (p,pages + change));
+        player.openInventory (buy.Buy (player,pages + change));
         e.setCancelled (true);
     }
 
@@ -45,105 +45,114 @@ public class BuyClickEvent implements Listener {
     @EventHandler
     public void clickEvent (InventoryClickEvent e) {
 
-        Player p = (Player) e.getWhoClicked ();
+
         MakeGUI makegui = new MakeGUI ();
+        //タイトルがあっているか
         if (!(e.getView ().title ().equals (makegui.getBuyChest ()) && e.getClickedInventory () != null)) {
             return;
         }
         InventoryType inv = Objects.requireNonNull (e.getClickedInventory ()).getType ();
+        //インベントリタイプがチェストか
         if (inv != InventoryType.CHEST) {
             return;
         }
 
-        UUID uuid = p.getUniqueId ();
+        Player player = (Player) e.getWhoClicked ();
+        UUID uuid = player.getUniqueId ();
         int pages = StockDataList.getNowBuyPage ().get (uuid);
         int clickedSlot = e.getSlot ();
         int num = clickedSlot + (pages - 1) * 45;
         int stockNum = StockDataList.getStocks ().size ();
         int maxPage = (int) Math.ceil ((double) stockNum / 45);
-        SetItemData setItemData = new SetItemData ();
+        SetTemplateItemData setTemplateItemData = new SetTemplateItemData ();
         Economy eco = VaultAPI.getEconomy ();
-        //1.戻る 2.ページ数表示(更新)  3.進む  4.売れなかった  5.販売中の在庫  6.購入履歴  7.販売履歴  8.ターミナルに戻る  9.閉じる
 
         switch (clickedSlot) {
             case 45,46,47 -> {
                 //ページの変更
-                changePages (e,p,uuid,pages,clickedSlot,maxPage);
+                changePages (e,player,uuid,pages,clickedSlot,maxPage);
             }
             case 48 -> {
                 //売れなかった在庫
                 ReturnedChestGUI returnedStock = new ReturnedChestGUI ();
-                p.openInventory (returnedStock.returned (p,1));
-                StockDataList.putReturnPage (p.getUniqueId (),1);
+                player.openInventory (returnedStock.returned (player,1));
+                StockDataList.putReturnPage (player.getUniqueId (),1);
             }
             case 49 -> {
                 //自分の販売中の在庫
                 NowStockChestGUI nowStock = new NowStockChestGUI ();
-                p.openInventory (nowStock.nowPlayerStock (p,1));
-                StockDataList.putNowStockPage (p.getUniqueId (),1);
+                player.openInventory (nowStock.nowPlayerStock (player,1));
+                StockDataList.putNowStockPage (player.getUniqueId (),1);
             }
             case 50 -> {
                 //購入履歴
                 PurchaseBookGUI purchaseBookGUI = new PurchaseBookGUI ();
-                p.openBook (purchaseBookGUI.purchaseHistory (p));
+                player.openBook (purchaseBookGUI.purchaseHistory (player));
             }
             case 51 -> {
                 //販売履歴
                 SalesBookGUI salesBookGUI = new SalesBookGUI ();
-                p.openBook (salesBookGUI.salesHistory (p));
+                player.openBook (salesBookGUI.salesHistory (player));
             }
             case 52 -> {
                 //ターミナルを開く
                 TerminalChestGUI terminal = new TerminalChestGUI ();
-                p.openInventory (terminal.Terminal (p));
+                player.openInventory (terminal.Terminal (player));
             }
             case 53 -> {
                 //閉じる
-                p.closeInventory ();
+                player.closeInventory ();
             }
             default -> {
+                //クリックされた場所にアイテムがあるか
                 if (num >= StockDataList.getStocks ().size ()) {
                     e.setCancelled (true);
                     return;
                 }
+                //出品者とクリックした人が同じ場合
                 if (StockDataList.getStocks ().get (num).get (1).equals (uuid)) {
-                    e.getClickedInventory ().setItem (clickedSlot,setItemData.getNoticeYoursItem ());
+                    //出品者は自分が購入したアイテムは購入できないことを伝える
+                    e.getClickedInventory ().setItem (clickedSlot,setTemplateItemData.getNoticeYoursItem ());
                     new BukkitRunnable () {
                         @Override
                         public void run () {
-                            GetItemMeta getItemMeta = new GetItemMeta ();
+                            SetStockItemMeta setStockItemMeta = new SetStockItemMeta ();
                             e.getClickedInventory ().setItem (clickedSlot,
-                                    getItemMeta.setItemMeta (StockDataList.getStocks ().get (num)));
+                                    setStockItemMeta.setItemMeta (StockDataList.getStocks ().get (num)));
                         }
                     }.runTaskLater (NoticeEC.getPlugin (),20 * 2);
                 } else {
-                    if (!(Objects.requireNonNull (eco).getBalance (p.getPlayer ()) > (long) StockDataList.getStocks ()
-                            .get (clickedSlot).get (2))) {
-                        e.getClickedInventory ().setItem (clickedSlot,setItemData.getNoticeNoMoneyItem ());
+                    //購入するために必要な金額を持っていなかったら
+                    if (!(Objects.requireNonNull (eco)
+                            .getBalance (player.getPlayer ()) > (long) StockDataList.getStocks ().get (clickedSlot)
+                            .get (2))) {
+                        e.getClickedInventory ().setItem (clickedSlot,setTemplateItemData.getNoticeNoMoneyItem ());
                         new BukkitRunnable () {
                             @Override
                             public void run () {
-                                GetItemMeta getItemMeta = new GetItemMeta ();
+                                SetStockItemMeta setStockItemMeta = new SetStockItemMeta ();
                                 e.getClickedInventory ().setItem (clickedSlot,
-                                        getItemMeta.setItemMeta (StockDataList.getStocks ().get (num)));
+                                        setStockItemMeta.setItemMeta (StockDataList.getStocks ().get (num)));
                             }
                         }.runTaskLater (NoticeEC.getPlugin (),20 * 2);
                         return;
                     }
 
-                    if (p.getInventory ().firstEmpty () != -1) {
+                    //インベントリに空きがあったら
+                    if (player.getInventory ().firstEmpty () != -1) {
                         BuyAcceptChestGUI buyAcceptChestGUI = new BuyAcceptChestGUI ();
-                        p.openInventory (buyAcceptChestGUI.BuyAccept (p,num));
+                        player.openInventory (buyAcceptChestGUI.BuyAccept (player,num));
                         return;
                     }
-                    e.getClickedInventory ().setItem (clickedSlot,setItemData.getNoticeNoEmptyItem ());
+                    //インベントリに空きがない時の処理
+                    e.getClickedInventory ().setItem (clickedSlot,setTemplateItemData.getNoticeNoEmptyItem ());
 
                     new BukkitRunnable () {
                         @Override
                         public void run () {
-                            GetItemMeta getItemMeta = new GetItemMeta ();
+                            SetStockItemMeta setStockItemMeta = new SetStockItemMeta ();
                             e.getClickedInventory ().setItem (clickedSlot,
-                                    getItemMeta.setItemMeta (StockDataList.getStocks ().get (num)));
+                                    setStockItemMeta.setItemMeta (StockDataList.getStocks ().get (num)));
                         }
                     }.runTaskLater (NoticeEC.getPlugin (),20 * 2);
                     return;

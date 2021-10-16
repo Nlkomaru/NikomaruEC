@@ -14,10 +14,11 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.UUID;
 
-public class GetItemMeta {
+public class SetStockItemMeta {
+    //アイテムのメタデータを設定するクラス
     public ItemStack setItemMeta (ArrayList<Object> stock) {
 
-        SetItemData setItemData = new SetItemData ();
+        SetTemplateItemData setTemplateItemData = new SetTemplateItemData ();
 
         DateTimeFormatter format = DateTimeFormatter.ofPattern ("yyyy/MM/dd HH:mm");
 
@@ -28,12 +29,12 @@ public class GetItemMeta {
         String price = Long.valueOf ((long) stock.get (2)).toString ();
         String description = stock.get (3).toString ();
 
-        return setItemData.getSellerItem (item,Objects.requireNonNull (name),price,limitTime,description);
+        return setTemplateItemData.getSellerItem (item,Objects.requireNonNull (name),price,limitTime,description);
     }
 
     public ItemStack setReturnItemMeta (ArrayList<Object> stock) {
 
-        SetItemData setItemData = new SetItemData ();
+        SetTemplateItemData setTemplateItemData = new SetTemplateItemData ();
 
         DateTimeFormatter format = DateTimeFormatter.ofPattern ("yyyy/MM/dd HH:mm");
 
@@ -44,6 +45,6 @@ public class GetItemMeta {
         String price = Long.valueOf ((long) stock.get (2)).toString ();
         String description = stock.get (3).toString ();
 
-        return setItemData.getReturnedItem (item,Objects.requireNonNull (name),price,limitTime,description);
+        return setTemplateItemData.getReturnedItem (item,Objects.requireNonNull (name),price,limitTime,description);
     }
 }

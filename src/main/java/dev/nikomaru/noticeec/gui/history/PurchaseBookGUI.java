@@ -25,11 +25,11 @@ import java.util.Objects;
 import java.util.UUID;
 
 public class PurchaseBookGUI {
-
-    public ItemStack purchaseHistory (Player p) {
+    //購入履歴を表示する本
+    public ItemStack purchaseHistory (Player player) {
         ItemStack book = new ItemStack (Material.WRITTEN_BOOK);
         BookMeta bookMeta = (BookMeta) book.getItemMeta ();
-        String path = "plugins\\NoticeEC\\PurchaseHistory\\" + p.getUniqueId () + "_PurchaseHistory.csv";
+        String path = "plugins\\NoticeEC\\PurchaseHistory\\" + player.getUniqueId () + "_PurchaseHistory.csv";
         File file = new File (path);
         bookMeta.setAuthor ("NoticeEC");
         bookMeta.setTitle ("your purchase history");

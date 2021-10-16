@@ -16,20 +16,22 @@ import java.util.Objects;
 public class SellCloseEvent implements Listener {
     @EventHandler
     public void InventoryCloseEvent (InventoryCloseEvent e) {
-        Player p = (Player) e.getPlayer ();
+        Player player = (Player) e.getPlayer ();
         MakeGUI makegui = new MakeGUI ();
+
+        //タイトルがあっているか
         if (!e.getView ().title ().equals (makegui.getSellChest ())) {
             return;
         }
         e.getInventory ();
         InventoryType inv = e.getInventory ().getType ();
-
+        //インベントリタイプがチェストか
         if (inv != InventoryType.CHEST) {
             return;
         }
-
+        //アイテムを入れたままインベントリを閉じたときの処理
         if (e.getInventory ().getItem (3) != null) {
-            p.getWorld ().dropItem (p.getLocation (),Objects.requireNonNull (e.getInventory ().getItem (3)));
+            player.getWorld ().dropItem (player.getLocation (),Objects.requireNonNull (e.getInventory ().getItem (3)));
         }
     }
 }

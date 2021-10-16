@@ -19,29 +19,35 @@ public class TerminalClickEvent implements Listener {
     @EventHandler
     public void clickEvent (InventoryClickEvent e) {
 
-        Player p = (Player) e.getWhoClicked ();
+        Player player = (Player) e.getWhoClicked ();
         MakeGUI makegui = new MakeGUI ();
+
+        //タイトルがあっているか
         if (!(e.getView ().title ().equals (makegui.getTerminalChest ()) && e.getClickedInventory () != null)) {
             return;
         }
         InventoryType inv = e.getClickedInventory ().getType ();
+        //インベントリタイプがチェストか
         if (inv != InventoryType.CHEST) {
             return;
         }
 
         switch (e.getSlot ()) {
             case 0 -> {
+                //物品購入所
                 BuyChestGUI buy = new BuyChestGUI ();
-                p.openInventory (buy.Buy (p,1));
-                StockDataList.getNowBuyPage ().put (p.getUniqueId (),1);
+                player.openInventory (buy.Buy (player,1));
+                StockDataList.getNowBuyPage ().put (player.getUniqueId (),1);
             }
             case 1 -> {
+                //物品販売所
                 SellChestGUI sell = new SellChestGUI ();
-                p.openInventory (sell.Sell (p));
+                player.openInventory (sell.Sell (player));
                 e.getClickedInventory ().close ();
             }
             case 8 -> {
-                p.closeInventory ();
+                //閉じる
+                player.closeInventory ();
                 e.getClickedInventory ().close ();
             }
         }

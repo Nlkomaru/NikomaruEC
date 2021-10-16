@@ -14,8 +14,9 @@ import java.io.IOException;
 import java.util.Base64;
 
 public class ChangeItemData {
+    //アイテムをエンコード、デコードするクラス
     public static String encode (ItemStack item) {
-
+        //エンコード
         String encodeObject = null;
         try {
 
@@ -34,6 +35,7 @@ public class ChangeItemData {
     }
 
     public static ItemStack decode (String encodeItem) {
+        //デコード
         ItemStack item = null;
         try {
             byte[] serializedObject = Base64.getDecoder ().decode (encodeItem);

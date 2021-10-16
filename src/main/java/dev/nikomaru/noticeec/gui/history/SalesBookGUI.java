@@ -25,10 +25,11 @@ import java.util.Objects;
 import java.util.UUID;
 
 public class SalesBookGUI {
-    public ItemStack salesHistory (Player p) {
+    //販売履歴を表示する本
+    public ItemStack salesHistory (Player player) {
         ItemStack book = new ItemStack (Material.WRITTEN_BOOK);
         BookMeta bookMeta = (BookMeta) book.getItemMeta ();
-        String path = "plugins\\NoticeEC\\SalesHistory\\" + p.getUniqueId () + "_SalesHistory.csv";
+        String path = "plugins\\NoticeEC\\SalesHistory\\" + player.getUniqueId () + "_SalesHistory.csv";
         File file = new File (path);
         bookMeta.setAuthor ("NoticeEC");
         bookMeta.setTitle ("your sales history");

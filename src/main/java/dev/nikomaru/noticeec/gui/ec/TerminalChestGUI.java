@@ -5,23 +5,23 @@
 package dev.nikomaru.noticeec.gui.ec;
 
 import dev.nikomaru.noticeec.utils.MakeGUI;
-import dev.nikomaru.noticeec.utils.SetItemData;
+import dev.nikomaru.noticeec.utils.SetTemplateItemData;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 
 public class TerminalChestGUI {
-    //アクセス用のGUIを作成する処理をする予定
-    public Inventory Terminal (Player p) {
+    //アクセス用のgui
+    public Inventory Terminal (Player player) {
 
         MakeGUI makegui = new MakeGUI ();
-        Inventory gui = Bukkit.createInventory (p,9,makegui.getTerminalChest ());
+        Inventory gui = Bukkit.createInventory (player,9,makegui.getTerminalChest ());
 
-        SetItemData setItemData = new SetItemData ();
+        SetTemplateItemData setTemplateItemData = new SetTemplateItemData ();
 
-        gui.setItem (0,setItemData.getSellItem ());
-        gui.setItem (1,setItemData.getBuyItem ());
-        gui.setItem (8,setItemData.getCloseItem ());
+        gui.setItem (0,setTemplateItemData.getSellItem ());
+        gui.setItem (1,setTemplateItemData.getBuyItem ());
+        gui.setItem (8,setTemplateItemData.getCloseItem ());
         return gui;
     }
 }
