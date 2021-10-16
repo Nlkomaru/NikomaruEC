@@ -67,8 +67,7 @@ public class BuyAcceptClickEvent implements Listener {
             StockDataList.removeStocks (i);
             p.closeInventory ();
             p.sendMessage (ChatColor.AQUA + (item.getI18NDisplayName () + "を" + Long.valueOf (price)
-                    .toString () + "円で" + (Bukkit.getOfflinePlayer (uuid)
-                    .getName ()) + "の" + (item.displayName ()) + "を購入しました"));
+                    .toString () + "円でを購入しました"));
             WriteStockData writeStockData = new WriteStockData ();
             writeStockData.saveData ();
         } else if (slot == 8) {

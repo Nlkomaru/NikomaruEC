@@ -25,7 +25,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 public class PurchaseBookGUI {
-    //TODO 買った履歴を表示
+
     public ItemStack purchaseHistory (Player p) {
         ItemStack book = new ItemStack (Material.WRITTEN_BOOK);
         BookMeta bookMeta = (BookMeta) book.getItemMeta ();
@@ -34,17 +34,19 @@ public class PurchaseBookGUI {
         bookMeta.setAuthor ("NoticeEC");
         bookMeta.setTitle ("your purchase history");
         long lines = 0;
-        try {
-            lines = Files.lines (Path.of (path)).count ();
-        } catch (IOException e) {
-            e.printStackTrace ();
-        }
 
         if (!file.exists ()) {
             bookMeta.addPages (Component.text ("あなたはまだ何も購入していません"));
             book.setItemMeta (bookMeta);
             return book;
         }
+
+        try {
+            lines = Files.lines (Path.of (path)).count ();
+        } catch (IOException e) {
+            e.printStackTrace ();
+        }
+
         if (lines <= 0) {
             bookMeta.addPages (Component.text ("あなたはまだ何も購入していません"));
             book.setItemMeta (bookMeta);

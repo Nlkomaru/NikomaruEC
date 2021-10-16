@@ -9,6 +9,8 @@ import dev.nikomaru.noticeec.gui.ec.BuyChestGUI;
 import dev.nikomaru.noticeec.gui.ec.NowStockChestGUI;
 import dev.nikomaru.noticeec.gui.ec.ReturnedChestGUI;
 import dev.nikomaru.noticeec.gui.ec.TerminalChestGUI;
+import dev.nikomaru.noticeec.gui.history.PurchaseBookGUI;
+import dev.nikomaru.noticeec.gui.history.SalesBookGUI;
 import dev.nikomaru.noticeec.utils.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -69,33 +71,31 @@ public class ReturnedClickEvent implements Listener {
                 BuyChestGUI buyChestGUI = new BuyChestGUI ();
                 p.openInventory (buyChestGUI.Buy (p,1));
                 StockDataList.putNowBuyPage (uuid,1);
-                e.setCancelled (true);
             }
             case 49 -> {
                 //自分の販売中の在庫
                 NowStockChestGUI nowStock = new NowStockChestGUI ();
                 p.openInventory (nowStock.nowPlayerStock (p,1));
                 StockDataList.putNowStockPage (p.getUniqueId (),1);
-                e.setCancelled (true);
             }
             case 50 -> {
                 //購入履歴
-                e.setCancelled (true);
+                PurchaseBookGUI purchaseBookGUI = new PurchaseBookGUI ();
+                p.openBook (purchaseBookGUI.purchaseHistory (p));
             }
             case 51 -> {
                 //販売履歴
-                e.setCancelled (true);
+                SalesBookGUI salesBookGUI = new SalesBookGUI ();
+                p.openBook (salesBookGUI.salesHistory (p));
             }
             case 52 -> {
                 //ターミナルを開く
                 TerminalChestGUI terminal = new TerminalChestGUI ();
                 p.openInventory (terminal.Terminal (p));
-                e.setCancelled (true);
             }
             case 53 -> {
                 //閉じる
                 p.closeInventory ();
-                e.setCancelled (true);
             }
             default -> {
                 if (num >= returnedNum) {
@@ -124,6 +124,5 @@ public class ReturnedClickEvent implements Listener {
                 e.setCancelled (true);
             }
         }
-        e.setCancelled (true);
     }
 }

@@ -9,6 +9,8 @@ import dev.nikomaru.noticeec.gui.ec.BuyChestGUI;
 import dev.nikomaru.noticeec.gui.ec.NowStockChestGUI;
 import dev.nikomaru.noticeec.gui.ec.ReturnedChestGUI;
 import dev.nikomaru.noticeec.gui.ec.TerminalChestGUI;
+import dev.nikomaru.noticeec.gui.history.PurchaseBookGUI;
+import dev.nikomaru.noticeec.gui.history.SalesBookGUI;
 import dev.nikomaru.noticeec.utils.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -68,33 +70,31 @@ public class NowStockClickEvent implements Listener {
                 ReturnedChestGUI returned = new ReturnedChestGUI ();
                 p.openInventory (returned.returned (p,1));
                 StockDataList.putReturnPage (p.getUniqueId (),1);
-                e.setCancelled (true);
             }
             case 49 -> {
                 //物品購入所
                 BuyChestGUI buy = new BuyChestGUI ();
                 p.openInventory (buy.Buy (p,1));
                 StockDataList.putNowBuyPage (p.getUniqueId (),1);
-                e.setCancelled (true);
             }
             case 50 -> {
                 //購入履歴
-                e.setCancelled (true);
+                PurchaseBookGUI purchaseBookGUI = new PurchaseBookGUI ();
+                p.openBook (purchaseBookGUI.purchaseHistory (p));
             }
             case 51 -> {
                 //販売履歴
-                e.setCancelled (true);
+                SalesBookGUI salesBookGUI = new SalesBookGUI ();
+                p.openBook (salesBookGUI.salesHistory (p));
             }
             case 52 -> {
                 //ターミナルを開く
                 TerminalChestGUI terminal = new TerminalChestGUI ();
                 p.openInventory (terminal.Terminal (p));
-                e.setCancelled (true);
             }
             case 53 -> {
                 //閉じる
                 p.closeInventory ();
-                e.setCancelled (true);
             }
             default -> {
                 HashMap<Integer,Integer> itemIndex = new HashMap<> ();
@@ -138,9 +138,7 @@ public class NowStockClickEvent implements Listener {
                 NowStockChestGUI nowStockChestGUI = new NowStockChestGUI ();
                 p.openInventory (nowStockChestGUI.nowPlayerStock (p,Math.min (pages,maxPage)));
                 e.setCancelled (true);
-                return;
             }
         }
-        e.setCancelled (true);
     }
 }

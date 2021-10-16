@@ -67,8 +67,7 @@ public class EasySell implements CommandExecutor {
         easySellData.add (args.length == 1 ? "説明はありません" : args[1].replace (",","."));
 
         ZonedDateTime nowTime = ZonedDateTime.now ();
-        //        ZonedDateTime limitTime = nowTime.plusDays (config.getAddDays ()).plusHours (config.getAddHours ());
-        ZonedDateTime limitTime = nowTime.plusMinutes (1);
+        ZonedDateTime limitTime = nowTime.plusDays (config.getAddDays ()).plusHours (config.getAddHours ());
         easySellData.add (limitTime);
         p.sendMessage (ChatColor.GREEN + String.format ("%s円で、説明は「%s」で処理しました",easySellData.get (2).toString (),
                 easySellData.get (3).toString ()));

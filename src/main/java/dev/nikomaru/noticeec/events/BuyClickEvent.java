@@ -8,6 +8,7 @@ import dev.nikomaru.noticeec.NoticeEC;
 import dev.nikomaru.noticeec.api.VaultAPI;
 import dev.nikomaru.noticeec.gui.ec.*;
 import dev.nikomaru.noticeec.gui.history.PurchaseBookGUI;
+import dev.nikomaru.noticeec.gui.history.SalesBookGUI;
 import dev.nikomaru.noticeec.utils.GetItemMeta;
 import dev.nikomaru.noticeec.utils.MakeGUI;
 import dev.nikomaru.noticeec.utils.SetItemData;
@@ -88,6 +89,8 @@ public class BuyClickEvent implements Listener {
             }
             case 51 -> {
                 //販売履歴
+                SalesBookGUI salesBookGUI = new SalesBookGUI ();
+                p.openBook (salesBookGUI.salesHistory (p));
             }
             case 52 -> {
                 //ターミナルを開く
