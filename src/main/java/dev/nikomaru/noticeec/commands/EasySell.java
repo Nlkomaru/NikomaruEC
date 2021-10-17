@@ -1,5 +1,11 @@
 /*
- * To the extent possible under law, Nikomaru has waived all copyright and related or neighboring rights to NoticeEC. This work is published from: 日本.
+ * NoticeEC
+ *
+ * Written in 2021 by nikomaru
+ *
+ * To the extent possible under law, the author(s) have dedicated all copyright and related and neighboring rights to this software to the public domain worldwide. This software is distributed without any warranty.
+ *
+ * You should have received a copy of the CC0 Public Domain Dedication along with this software. If not, see <http://creativecommons.org/publicdomain/zero/1.0/>.
  */
 
 package dev.nikomaru.noticeec.commands;
@@ -53,7 +59,6 @@ public class EasySell implements CommandExecutor {
             p.sendMessage (ChatColor.YELLOW + "金額は自然数を入力してください");
             return false;
         }
-
 
         long price = Long.parseLong (args[0]);
         Config config = new Config (NoticeEC.getPlugin ());

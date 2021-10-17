@@ -1,5 +1,11 @@
 /*
- * To the extent possible under law, Nikomaru has waived all copyright and related or neighboring rights to NoticeEC. This work is published from: 日本.
+ * NoticeEC
+ *
+ * Written in 2021 by nikomaru
+ *
+ * To the extent possible under law, the author(s) have dedicated all copyright and related and neighboring rights to this software to the public domain worldwide. This software is distributed without any warranty.
+ *
+ * You should have received a copy of the CC0 Public Domain Dedication along with this software. If not, see <http://creativecommons.org/publicdomain/zero/1.0/>.
  */
 
 package dev.nikomaru.noticeec.utils.conversation;
@@ -51,8 +57,13 @@ public class ConvPromptPrice extends StringPrompt {
                 conv2.abandon ();
                 if (StockDataList.getData ().get (player.getUniqueId ()).size () <= 3) {
                     player.sendMessage (ChatColor.YELLOW + "入力がないため処理を中断しました 説明をなしで出品する場合はコマンドから出品してください");
-                    player.getWorld ().dropItem (player.getLocation (),ChangeItemData.decode (
-                            StockDataList.getData ().get (player.getUniqueId ()).get (0).toString ()));
+                    if (player.getInventory ().firstEmpty () == -1) {
+                        player.getWorld ().dropItem (player.getLocation (),ChangeItemData.decode (
+                                StockDataList.getData ().get (player.getUniqueId ()).get (0).toString ()));
+                    } else {
+                        player.getInventory ().addItem (ChangeItemData.decode (
+                                StockDataList.getData ().get (player.getUniqueId ()).get (0).toString ()));
+                    }
                 }
             }
         }.runTaskLater (NoticeEC.getPlugin (),20 * 12);
