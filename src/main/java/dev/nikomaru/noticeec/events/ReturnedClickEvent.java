@@ -132,5 +132,6 @@ public class ReturnedClickEvent implements Listener {
                 e.setCancelled (true);
             }
         }
+        e.setCancelled (true);
     }
 }

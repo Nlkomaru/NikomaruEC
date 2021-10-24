@@ -76,31 +76,36 @@ public class NowStockClickEvent implements Listener {
                 ReturnedChestGUI returned = new ReturnedChestGUI ();
                 player.openInventory (returned.returned (player,1));
                 StockDataList.putReturnPage (player.getUniqueId (),1);
+                e.getClickedInventory ().close ();
             }
             case 49 -> {
                 //物品購入所
                 BuyChestGUI buy = new BuyChestGUI ();
                 player.openInventory (buy.Buy (player,1));
                 StockDataList.putNowBuyPage (player.getUniqueId (),1);
+                e.getClickedInventory ().close ();
             }
             case 50 -> {
                 //購入履歴
                 PurchaseBookGUI purchaseBookGUI = new PurchaseBookGUI ();
                 player.openBook (purchaseBookGUI.purchaseHistory (player));
+                e.getClickedInventory ().close ();
             }
             case 51 -> {
                 //販売履歴
                 SalesBookGUI salesBookGUI = new SalesBookGUI ();
                 player.openBook (salesBookGUI.salesHistory (player));
+                e.getClickedInventory ().close ();
             }
             case 52 -> {
                 //ターミナルを開く
                 TerminalChestGUI terminal = new TerminalChestGUI ();
                 player.openInventory (terminal.Terminal (player));
+                e.getClickedInventory ().close ();
             }
             case 53 -> {
                 //閉じる
-                player.closeInventory ();
+                e.getClickedInventory ().close ();
             }
             default -> {
                 HashMap<Integer,Integer> itemIndex = new HashMap<> ();
@@ -136,7 +141,6 @@ public class NowStockClickEvent implements Listener {
                     e.setCancelled (true);
                     return;
                 }
-
                 player.getInventory ().addItem (ChangeItemData.decode (
                         StockDataList.getStocks ().get (itemIndex.get (num)).get (0).toString ()));
                 StockDataList.removeStocks (itemIndex.get (num));
@@ -146,5 +150,6 @@ public class NowStockClickEvent implements Listener {
                 e.setCancelled (true);
             }
         }
+        e.setCancelled (true);
     }
 }

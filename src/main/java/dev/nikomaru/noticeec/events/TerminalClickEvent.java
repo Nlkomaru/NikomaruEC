@@ -44,6 +44,7 @@ public class TerminalClickEvent implements Listener {
                 BuyChestGUI buy = new BuyChestGUI ();
                 player.openInventory (buy.Buy (player,1));
                 StockDataList.getNowBuyPage ().put (player.getUniqueId (),1);
+                e.getClickedInventory ().close ();
             }
             case 1 -> {
                 //物品販売所

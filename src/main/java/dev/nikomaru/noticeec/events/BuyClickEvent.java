@@ -82,12 +82,14 @@ public class BuyClickEvent implements Listener {
                 ReturnedChestGUI returnedStock = new ReturnedChestGUI ();
                 player.openInventory (returnedStock.returned (player,1));
                 StockDataList.putReturnPage (player.getUniqueId (),1);
+                e.getClickedInventory ().close ();
             }
             case 49 -> {
                 //自分の販売中の在庫
                 NowStockChestGUI nowStock = new NowStockChestGUI ();
                 player.openInventory (nowStock.nowPlayerStock (player,1));
                 StockDataList.putNowStockPage (player.getUniqueId (),1);
+                e.getClickedInventory ().close ();
             }
             case 50 -> {
                 //購入履歴
@@ -103,10 +105,11 @@ public class BuyClickEvent implements Listener {
                 //ターミナルを開く
                 TerminalChestGUI terminal = new TerminalChestGUI ();
                 player.openInventory (terminal.Terminal (player));
+                e.getClickedInventory ().close ();
             }
             case 53 -> {
                 //閉じる
-                player.closeInventory ();
+                e.getClickedInventory ().close ();
             }
             default -> {
                 //クリックされた場所にアイテムがあるか

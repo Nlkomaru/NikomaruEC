@@ -15,12 +15,9 @@ import net.kyori.adventure.text.format.TextColor;
 
 public class MakeGUI {
     //gui作成用のクラス
+
     public Component getBuyChest () {
         return getComponent ("物品購入所",100,255,130);
-    }
-
-    private Component getComponent (String name,int r,int g,int b) {
-        return Component.text (name,TextColor.color (r,g,b));
     }
 
     public Component getSellChest () {
@@ -41,5 +38,9 @@ public class MakeGUI {
 
     public Component getReturnedChest () {
         return getComponent ("返却された在庫",139,0,139);
+    }
+
+    private Component getComponent (String name,int r,int g,int b) {
+        return Component.text (name,TextColor.color (r,g,b));
     }
 }

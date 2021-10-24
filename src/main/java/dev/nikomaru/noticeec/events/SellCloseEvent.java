@@ -29,7 +29,6 @@ public class SellCloseEvent implements Listener {
         if (!e.getView ().title ().equals (makegui.getSellChest ())) {
             return;
         }
-        e.getInventory ();
         InventoryType inv = e.getInventory ().getType ();
         //インベントリタイプがチェストか
         if (inv != InventoryType.CHEST) {
@@ -37,6 +36,7 @@ public class SellCloseEvent implements Listener {
         }
         //アイテムを入れたままインベントリを閉じたときの処理
         if (e.getInventory ().getItem (3) != null) {
+
             if (player.getInventory ().firstEmpty () == -1) {
                 player.getWorld ()
                         .dropItem (player.getLocation (),Objects.requireNonNull (e.getInventory ().getItem (3)));

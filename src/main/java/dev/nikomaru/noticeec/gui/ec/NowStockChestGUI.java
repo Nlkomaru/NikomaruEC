@@ -18,8 +18,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 
-import java.util.ArrayList;
-
 public class NowStockChestGUI {
     //現在出品中のアイテムを表示するgui
     final SetTemplateItemData setTemplateItemData = new SetTemplateItemData ();
@@ -34,11 +32,10 @@ public class NowStockChestGUI {
             int itemNum = (pages - 1) * 45 + i;
 
             if (StockDataList.getStocks ().size () > itemNum) {
-                ArrayList<Object> stock = StockDataList.getStocks ().get (itemNum);
 
-                if (stock.get (1).equals (player.getUniqueId ())) {
+                if (StockDataList.getStocks ().get (itemNum).get (1).equals (player.getUniqueId ())) {
                     SetStockItemMeta setStockItemMeta = new SetStockItemMeta ();
-                    gui.setItem (i,setStockItemMeta.setItemMeta (stock));
+                    gui.setItem (i,setStockItemMeta.setItemMeta (StockDataList.getStocks ().get (itemNum)));
                 }
             } else {
                 gui.setItem (i,setTemplateItemData.getNoDataGlassItem ());
